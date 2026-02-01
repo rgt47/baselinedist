@@ -1,0 +1,34 @@
+---
+title: "Consider baseline covariate distribution"
+author: "R.G. Thomas"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+fontsize: 11pt
+geometry: "left=3cm,right=5cm,top=2cm,bottom=2cm"
+output:
+  pdf_document:
+    toc: true
+    number_sections: true
+    highlight: monochrome
+    keep_tex: true
+    includes:
+      in_header: "~/shr/preamble.tex"
+---
+```{r include=F, echo=F}
+# clear env: objects and packages
+rm(list = ls())
+options(
+  knitr.kable.NA = "", dplyr.print_max = 1e9, knitr.table.format = "latex"
+)
+library(pacman)
+p_load(janitor, kableExtra, tidyverse, knitr,  readxl)
+
+opts_chunk$set(
+  warning = FALSE, message = FALSE, echo = FALSE, fig.width = 3.2,
+  fig.height = 3, results = "asis", dev = "pdf")
+source("~/shr/zz.tools.R")
+options(scipen = 1, digits = 2)
+```
+\bibliography{x17.bib}
+\bibliographystyle{plain}
+\nocite{*}
+
