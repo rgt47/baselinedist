@@ -78,7 +78,7 @@ trial result.
 
 Surveys of published trials confirm that these
 problematic practices remain widespread.
-@assmannSubgroup2000 examined 50 trial reports in four
+@assmannSubgroupAnalysis2000 examined 50 trial reports in four
 major journals, finding that most trials emphasized
 simple unadjusted results, that covariate adjustment
 usually made negligible difference, and that subgroup
@@ -112,7 +112,7 @@ proportional to $R^2_{Y|X}$, the proportion of outcome
 variance explained by the covariate. This result holds
 regardless of whether randomization produced balanced
 or imbalanced groups [@raabHowSelectCovariates2000].
-@sennChange2006 showed that ANCOVA is superior to the
+@sennChangeBaseline2006 showed that ANCOVA is superior to the
 analysis of change scores (the 'simple analysis of
 change scores,' or SACS) and that ANCOVA does not
 require baseline balance, even in expectation, to
@@ -120,7 +120,7 @@ provide unbiased treatment effect estimates. This
 resolves Lord's paradox in the clinical trial setting
 [@lesaffreNonparametric2003].
 
-@vickersAnalysing2001 provided a concise tutorial
+@vickersBaseline2001 provided a concise tutorial
 confirming that ANCOVA is the preferred analysis
 whenever a baseline measurement of the outcome
 exists, yielding estimates with smaller standard
@@ -191,7 +191,7 @@ be estimated efficiently by fitting a logistic
 regression model and then marginalizing (standardizing)
 over the covariate distribution. This approach avoids
 the well-known problem identified by
-@robinsonSurprising1991 that covariate adjustment in
+@robinsonCovariate1991 that covariate adjustment in
 logistic regression can reduce precision of the
 conditional odds ratio -- a problem that does not
 arise when the target is the marginal effect.
@@ -199,10 +199,10 @@ arise when the target is the marginal effect.
 ### Survival Outcomes
 
 Covariate adjustment in the survival analysis setting
-has its own theoretical development. @luLogrank2008
+has its own theoretical development. @luLogRank2008
 showed how auxiliary covariates can be incorporated
 into the log-rank test to improve efficiency.
-@yeLogrank2024 proposed a nonparametric
+@yeLogRank2024 proposed a nonparametric
 covariate-adjusted log-rank test with a simple
 closed form that achieves guaranteed efficiency
 gains over the unadjusted test and applies
@@ -216,13 +216,13 @@ assuming proportional hazards.
 
 ### ICH E9 (1998) and E9(R1) (2019)
 
-The ICH E9 guideline [@ichE91999] advises
+The ICH E9 guideline [@ichE9Statistical1999] advises
 investigators to 'identify covariates expected to
 have an important influence on the primary variable'
 and 'specify how to account for these in the
 analysis, in order to improve the precision of the
 treatment comparisons.' The E9(R1) addendum
-[@ichE9R12019] introduced the estimand framework,
+[@ichE9R1Estimands2019] introduced the estimand framework,
 which requires precise definition of the treatment
 effect of interest. This framework makes the
 distinction between conditional and marginal effects
@@ -231,7 +231,7 @@ particularly salient for covariate adjustment.
 ### EMA Guideline (2015)
 
 The European Medicines Agency guideline
-[@emaGuideline2015] provides concrete recommendations:
+[@emaBaselineCovariates2015] provides concrete recommendations:
 (i) the primary analysis should include only
 pre-specified covariates, (ii) no treatment-by-covariate
 interaction terms should appear in the primary model,
@@ -243,7 +243,7 @@ before randomization.
 ### FDA Guidance (2023)
 
 The FDA's final guidance on covariate adjustment
-[@fdaGuidance2023] represents the most comprehensive
+[@fdaCovariateAdjustment2023] represents the most comprehensive
 regulatory position to date. Key recommendations
 include:
 
@@ -261,7 +261,7 @@ include:
 The FDA guidance was informed directly by the
 semiparametric theory of @tsiatisCovariate2008 and
 the practical work of @benkeserCovid2021,
-@colantuoniLeveraging2015, and others.
+@colantuoniPrognostic2015, and others.
 
 ## The Conditional versus Marginal Distinction
 
@@ -275,11 +275,11 @@ no confounding or effect modification. This
 'noncollapsibility' has generated confusion about
 whether covariate adjustment 'changes the estimand.'
 
-@permuttEstimand2020 addressed this directly,
+@permuttCovariates2020 addressed this directly,
 arguing that if the target parameter is carefully
 defined, adjustments can be used with minimal
 assumptions and the benefit of increased efficiency
-is achieved at essentially no cost. @vanlancker2024
+is achieved at essentially no cost. @vanLanckerCovariate2024
 reviewed the landscape and advocated for the
 standardization approach, which leverages the
 covariate-outcome relationship for efficiency while
@@ -313,12 +313,12 @@ role in enabling efficient estimation.
 
 Multiple empirical studies have quantified the
 practical benefits of covariate adjustment.
-@hernandezDichotomous2004 showed via simulation
+@hernandezPower2004 showed via simulation
 that pre-specified adjustment for prognostic
 covariates in trials with binary outcomes can
 reduce required sample sizes by 3% to 46%, depending
 on the strength of the covariate-outcome association.
-@hernandezIMPACT2006 demonstrated a 25% reduction
+@hernandezImpact2006 demonstrated a 25% reduction
 in sample size requirements in traumatic brain
 injury (TBI) trials when adjusting for seven
 baseline predictors in the IMPACT dataset.
@@ -331,7 +331,7 @@ can be substantial in the presence of outcome
 heterogeneity, with adjustment providing a more
 accurate estimate of the treatment benefit.
 
-@colantuoniLeveraging2015 demonstrated efficiency
+@colantuoniPrognostic2015 demonstrated efficiency
 gains equivalent to a 22-30% reduction in sample size
 in simulations. @benkeserCovid2021 applied
 semiparametric methods to COVID-19 treatment trials,
@@ -356,7 +356,7 @@ be avoided as they produce misleading inference, and
 (iv) all decisions should be pre-specified in the
 protocol based on prior knowledge.
 
-@morrisPractical2022 offered a comprehensive practical
+@morrisPlanning2022 offered a comprehensive practical
 guide for planning covariate adjustment in individually
 randomized trials. They compared three approaches --
 direct adjustment, standardization, and inverse
@@ -379,7 +379,7 @@ linear models does not always transfer and that care
 is needed with the choice of estimand and variance
 estimation.
 
-@yeToward2023 provided a synthesis linking
+@yePractice2023 provided a synthesis linking
 covariate-adaptive randomization, stratification,
 and covariate-adjusted analysis, with practical
 recommendations for modern trial design and analysis.
@@ -716,11 +716,11 @@ in the primary analysis of an RCT.
    @sennSevenMyths2013].
 2. *Always* include stratification variables used in
    the randomization design as covariates in the
-   analysis [@kahanImproper2012; @emaGuideline2015;
-   @fdaGuidance2023].
+   analysis [@kahanImproper2012; @emaBaselineCovariates2015;
+   @fdaCovariateAdjustment2023].
 3. *Always* include the baseline measurement of the
    outcome variable, if available
-   [@vickersAnalysing2001; @sennChange2006;
+   [@vickersBaseline2001; @sennChangeBaseline2006;
    @yangEfficiency2001].
 
 **Which covariates to adjust for:**
@@ -739,7 +739,7 @@ in the primary analysis of an RCT.
    observed covariate-outcome associations).
    Data-driven selection produces biased inference
    [@raabHowSelectCovariates2000;
-   @assmannSubgroup2000].
+   @assmannSubgroupAnalysis2000].
 
 **How to adjust:**
 
@@ -747,34 +747,34 @@ in the primary analysis of an RCT.
    regression of $Y$ on $Z$ and $X$). Standard
    (OLS) or robust standard errors are both
    acceptable for balanced designs
-   [@linAgnostic2013; @fdaGuidance2023].
+   [@linAgnostic2013; @fdaCovariateAdjustment2023].
 8. For binary outcomes: fit a logistic regression
    model and compute the marginal effect
    (standardization / g-computation) to obtain a
    risk difference or relative risk
-   [@mooreCovariate2009; @vanlancker2024].
+   [@mooreCovariate2009; @vanLanckerCovariate2024].
    Alternatively, use a linear probability model or
    modified Poisson regression with robust standard
    errors.
 9. For time-to-event outcomes: use a covariate-adjusted
-   log-rank test [@yeLogrank2024] or estimate the
+   log-rank test [@yeLogRank2024] or estimate the
    restricted mean survival time with covariate
    adjustment [@diazSurvival2019;
-   @luLogrank2008].
+   @luLogRank2008].
 10. Use robust (sandwich) standard errors to guard
     against model misspecification
     [@rosenblumRegression2009;
-    @tsiatisCovariate2008; @fdaGuidance2023].
+    @tsiatisCovariate2008; @fdaCovariateAdjustment2023].
 11. Pre-specify all covariates and the analysis method
     in the statistical analysis plan. The primary
     analysis should contain no interaction terms
-    [@emaGuideline2015].
+    [@emaBaselineCovariates2015].
 
 ## Consistency with Regulatory Guidance
 
 These criteria are fully consistent with the EMA
-guideline [@emaGuideline2015] and the FDA final
-guidance [@fdaGuidance2023]. Both agencies endorse
+guideline [@emaBaselineCovariates2015] and the FDA final
+guidance [@fdaCovariateAdjustment2023]. Both agencies endorse
 pre-specified covariate adjustment as a tool for
 improving precision and recommend against data-driven
 covariate selection. The FDA guidance specifically
@@ -789,7 +789,7 @@ covariate and no missing data. Real trials involve
 multiple covariates, various outcome types, missing
 data, and complications such as noncompliance and
 intercurrent events. The estimand framework of ICH
-E9(R1) [@ichE9R12019] introduces additional
+E9(R1) [@ichE9R1Estimands2019] introduces additional
 considerations about what exactly is being estimated.
 Nevertheless, the core message is robust: pre-specified
 covariate adjustment improves efficiency without
@@ -816,7 +816,7 @@ from this review:
    efficiency bound, but the operating characteristics
    of cross-validated or penalized approaches in the
    trial data itself remain under study.
-   @vanlankerCombining2025 explored combining
+   @vanLanckerGroupSequential2025 explored combining
    covariate adjustment with group sequential and
    information-adaptive designs.
 
@@ -845,7 +845,7 @@ from this review:
    effects (natural for clinicians reasoning about
    individual patients) and marginal effects (natural
    for regulators reasoning about populations) remains
-   unresolved [@permuttEstimand2020;
-   @vanlancker2024; @harrellCommentary2024].
+   unresolved [@permuttCovariates2020;
+   @vanLanckerCovariate2024; @harrellCommentary2024].
 
 # References
