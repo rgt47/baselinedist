@@ -9,6 +9,7 @@ output:
   pdf_document:
     toc: true
     number_sections: true
+    latex_engine: xelatex
     highlight: monochrome
     keep_tex: true
     includes:
