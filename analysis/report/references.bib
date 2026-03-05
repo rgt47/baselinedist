@@ -1,3 +1,7 @@
+% ========================================
+% Core / Foundational Papers
+% ========================================
+
 @article{altmanComparabilityRandomisedGroups1985,
   title = {Comparability of {{Randomised Groups}}},
   author = {Altman, Douglas G.},
@@ -12,6 +16,52 @@
   urldate = {2024-06-27},
   abstract = {Randomised allocation in a clinical trial does not guarantee that the treatment groups are comparable with respect to baseline characteristics. It is common for differences between treatment groups to be assessed by significance tests but such tests only assess the correctness of the randomisation, not whether any observed imbalances between the groups might have affected the results of the trial. In particular, it is quite unjustified to conclude that variables that are not significantly differently distributed between groups cannot have affected the results of the trial.The possible effect of imbalance in a prognostic factor is considered, and it is shown that non-significant imbalances can exert a strong influence on the observed result of the trial, even when the risk associated with the factor is not all that great.It is suggested that comparability should be assessed partly on the basis of clinical knowledge and that it is wise to investigate whether any imbalances between the groups could have had an affect by reanalysing the data taking such factors into account. The implications for trial design are considered briefly.},
   file = {/Users/zenn/Zotero/storage/95V273SL/7121455.html}
+}
+
+@article{sennTestingBaselineBalance1994a,
+  title = {Testing for Baseline Balance in Clinical Trials},
+  author = {Senn, Stephen},
+  year = {1994},
+  journal = {Statistics in Medicine},
+  volume = {13},
+  number = {17},
+  pages = {1715--1726},
+  issn = {1097-0258},
+  doi = {10.1002/sim.4780131703},
+  urldate = {2024-06-27},
+  abstract = {Once the data from a clinical trial are available for analysis it is common practice to carry out `tests of baseline homogeneity' on prognostic covariates before proceeding to analyse the effects of treatment on outcome variables. It is argued that this practice is philosophically unsound, of no practical value and potentially misleading. Instead it is recommended that prognostic variables be identified in the trial-plan and fitted in an analysis of covariance regardless of their baseline distribution (statistical significance).},
+  copyright = {Copyright {\copyright} 1994 John Wiley \& Sons, Ltd.},
+  langid = {english},
+  file = {/Users/zenn/Zotero/storage/REJNUDMT/Senn - 1994 - Testing for baseline balance in clinical trials.pdf;/Users/zenn/Zotero/storage/CNAEVFB2/sim.html}
+}
+
+@article{raabHowSelectCovariates2000,
+  title = {How to {{Select Covariates}} to {{Include}} in the {{Analysis}} of a {{Clinical Trial}}},
+  author = {Raab, Gillian M and Day, Simon and Sales, Jill},
+  year = {2000},
+  month = aug,
+  journal = {Controlled Clinical Trials},
+  volume = {21},
+  number = {4},
+  pages = {330--342},
+  issn = {0197-2456},
+  doi = {10.1016/S0197-2456(00)00061-1},
+  urldate = {2023-04-14},
+  abstract = {The comparisons of treatments in randomized clinical trials may use the analysis of covariance to adjust for patient characteristics. We present theoretical results that describe when such an adjustment would be expected to be beneficial. A distinction is made between covariates that are balanced in the design and those that are assigned by the randomization process. The results support the commonly held view that features balanced in the design of the trial (e.g., by stratification) and those that are strongly predictive of the outcome, and thus considered clinically prognostic, should normally be included in the analysis. For other covariates that are not balanced in the design, the potential benefits of including them in the analysis will depend on the number of patients in the trial. However, there is frequently a set of variables whose relevance is unknown and for which data-dependent methods of selection, based on the data for the current trial, have been proposed. A review of the literature has shown that these methods can produce misleading inferences. The decision as to which covariates to include in the analysis should be specified in the protocol on the basis of data from previous trials on similar patient populations. The methods are illustrated with data from a trial comparing two therapies for treating scalp psoriasis where the clinical importance of patients' age and sex as prognostic factors for efficacy is unknown. We show for what size of future trials it would be beneficial to adjust for these covariates and for what size trials it would not. In all cases, prespecification of variables to be included in the analysis is essential in order to avoid bias. Control Clin Trials 2000;21:330--342},
+  langid = {english},
+  keywords = {adjustment,covariates,design,planning,stratification,Variable selection},
+  file = {/Users/zenn/Library/CloudStorage/GoogleDrive-rgthomas47@gmail.com/My Drive/raab et al_2000_how to select covariates to include in the analysis of a clinical trial.pdf;/Users/zenn/Zotero/storage/S8CN4A3A/S0197245600000611.html}
+}
+
+@article{assmannSubgroupAnalysis2000,
+  title = {Subgroup Analysis and Other (Mis)uses of Baseline Data in Clinical Trials},
+  author = {Assmann, Susan F. and Pocock, Stuart J. and Enos, Laura E. and Kasten, Linda E.},
+  year = {2000},
+  journal = {Lancet},
+  volume = {355},
+  number = {9209},
+  pages = {1064--1069},
+  doi = {10.1016/S0140-6736(00)02039-0}
 }
 
 @article{pocockSubgroupAnalysisCovariate2002,
@@ -33,37 +83,519 @@
   file = {/Users/zenn/Zotero/storage/WP7K8EK4/Pocock et al. - 2002 - Subgroup analysis, covariate adjustment and baseli.pdf;/Users/zenn/Zotero/storage/ITTDG2ZV/sim.html}
 }
 
-@article{raabHowSelectCovariates2000,
-  title = {How to {{Select Covariates}} to {{Include}} in the {{Analysis}} of a {{Clinical Trial}}},
-  author = {Raab, Gillian M and Day, Simon and Sales, Jill},
-  year = {2000},
-  month = aug,
-  journal = {Controlled Clinical Trials},
-  volume = {21},
-  number = {4},
-  pages = {330--342},
-  issn = {0197-2456},
-  doi = {10.1016/S0197-2456(00)00061-1},
-  urldate = {2023-04-14},
-  abstract = {The comparisons of treatments in randomized clinical trials may use the analysis of covariance to adjust for patient characteristics. We present theoretical results that describe when such an adjustment would be expected to be beneficial. A distinction is made between covariates that are balanced in the design and those that are assigned by the randomization process. The results support the commonly held view that features balanced in the design of the trial (e.g., by stratification) and those that are strongly predictive of the outcome, and thus considered clinically prognostic, should normally be included in the analysis. For other covariates that are not balanced in the design, the potential benefits of including them in the analysis will depend on the number of patients in the trial. However, there is frequently a set of variables whose relevance is unknown and for which data-dependent methods of selection, based on the data for the current trial, have been proposed. A review of the literature has shown that these methods can produce misleading inferences. The decision as to which covariates to include in the analysis should be specified in the protocol on the basis of data from previous trials on similar patient populations. The methods are illustrated with data from a trial comparing two therapies for treating scalp psoriasis where the clinical importance of patients' age and sex as prognostic factors for efficacy is unknown. We show for what size of future trials it would be beneficial to adjust for these covariates and for what size trials it would not. In all cases, prespecification of variables to be included in the analysis is essential in order to avoid bias. Control Clin Trials 2000;21:330--342},
-  langid = {english},
-  keywords = {adjustment,covariates,design,planning,stratification,Variable selection},
-  file = {/Users/zenn/Library/CloudStorage/GoogleDrive-rgthomas47@gmail.com/My Drive/raab et al_2000_how to select covariates to include in the analysis of a clinical trial.pdf;/Users/zenn/Zotero/storage/S8CN4A3A/S0197245600000611.html}
+@article{sennSevenMyths2013,
+  title = {Seven Myths of Randomisation in Clinical Trials},
+  author = {Senn, Stephen},
+  year = {2013},
+  journal = {Statistics in Medicine},
+  volume = {32},
+  number = {9},
+  pages = {1439--1450},
+  doi = {10.1002/sim.5713}
 }
 
-@article{sennTestingBaselineBalance1994a,
-  title = {Testing for Baseline Balance in Clinical Trials},
+@article{sennChangeBaseline2006,
+  title = {Change from Baseline and Analysis of Covariance Revisited},
   author = {Senn, Stephen},
-  year = {1994},
+  year = {2006},
   journal = {Statistics in Medicine},
-  volume = {13},
-  number = {17},
-  pages = {1715--1726},
-  issn = {1097-0258},
-  doi = {10.1002/sim.4780131703},
-  urldate = {2024-06-27},
-  abstract = {Once the data from a clinical trial are available for analysis it is common practice to carry out `tests of baseline homogeneity' on prognostic covariates before proceeding to analyse the effects of treatment on outcome variables. It is argued that this practice is philosophically unsound, of no practical value and potentially misleading. Instead it is recommended that prognostic variables be identified in the trial-plan and fitted in an analysis of covariance regardless of their baseline distribution (statistical significance).},
-  copyright = {Copyright {\copyright} 1994 John Wiley \& Sons, Ltd.},
-  langid = {english},
-  file = {/Users/zenn/Zotero/storage/REJNUDMT/Senn - 1994 - Testing for baseline balance in clinical trials.pdf;/Users/zenn/Zotero/storage/CNAEVFB2/sim.html}
+  volume = {25},
+  number = {24},
+  pages = {4334--4344},
+  doi = {10.1002/sim.2682}
+}
+
+@article{freedmanRegression2008,
+  title = {On Regression Adjustments to Randomized Experiments},
+  author = {Freedman, David A.},
+  year = {2008},
+  journal = {Annals of Applied Statistics},
+  volume = {2},
+  number = {1},
+  pages = {176--196},
+  doi = {10.1214/07-AOAS143}
+}
+
+@article{linAgnostic2013,
+  title = {Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining {Freedman}'s Critique},
+  author = {Lin, Winston},
+  year = {2013},
+  journal = {Annals of Applied Statistics},
+  volume = {7},
+  number = {1},
+  pages = {295--318},
+  doi = {10.1214/12-AOAS583}
+}
+
+@article{robinsonCovariate1991,
+  title = {Some Surprising Results about Covariate Adjustment in Logistic Regression Models},
+  author = {Robinson, L. D. and Jewell, N. P.},
+  year = {1991},
+  journal = {International Statistical Review},
+  volume = {59},
+  number = {2},
+  pages = {227--240},
+  doi = {10.2307/1403444}
+}
+
+@article{vickersBaseline2001,
+  title = {Statistics Notes: Analysing Controlled Trials with Baseline and Follow Up Measurements},
+  author = {Vickers, Andrew J. and Altman, Douglas G.},
+  year = {2001},
+  journal = {BMJ},
+  volume = {323},
+  number = {7321},
+  pages = {1123--1124},
+  doi = {10.1136/bmj.323.7321.1123}
+}
+
+% ========================================
+% Semiparametric Theory and Efficiency
+% ========================================
+
+@article{tsiatisCovariate2008,
+  title = {Covariate Adjustment for Two-Sample Treatment Comparisons in Randomized Clinical Trials: A Principled yet Flexible Approach},
+  author = {Tsiatis, Anastasios A. and Davidian, Marie and Zhang, Min and Lu, Xiaomin},
+  year = {2008},
+  journal = {Statistics in Medicine},
+  volume = {27},
+  number = {23},
+  pages = {4658--4677},
+  doi = {10.1002/sim.3113}
+}
+
+@article{zhangEfficiency2008,
+  title = {Improving Efficiency of Inferences in Randomized Clinical Trials Using Auxiliary Covariates},
+  author = {Zhang, Min and Tsiatis, Anastasios A. and Davidian, Marie},
+  year = {2008},
+  journal = {Biometrics},
+  volume = {64},
+  number = {3},
+  pages = {707--715},
+  doi = {10.1111/j.1541-0420.2007.00976.x}
+}
+
+@article{yangEfficiency2001,
+  title = {Efficiency Study of Estimators for a Treatment Effect in a Pretest-Posttest Trial},
+  author = {Yang, Lili and Tsiatis, Anastasios A.},
+  year = {2001},
+  journal = {American Statistician},
+  volume = {55},
+  number = {4},
+  pages = {314--321},
+  doi = {10.1198/000313001753272466}
+}
+
+@article{luLogRank2008,
+  title = {Improving the Efficiency of the Log-Rank Test Using Auxiliary Covariates},
+  author = {Lu, Xiaomin and Tsiatis, Anastasios A.},
+  year = {2008},
+  journal = {Biometrika},
+  volume = {95},
+  number = {3},
+  pages = {679--694},
+  doi = {10.1093/biomet/asn003}
+}
+
+@article{rosenblumRegression2009,
+  title = {Using Regression Models to Analyze Randomized Trials: Asymptotically Valid Hypothesis Tests despite Incorrectly Specified Models},
+  author = {Rosenblum, Michael and van der Laan, Mark J.},
+  year = {2009},
+  journal = {Biometrics},
+  volume = {65},
+  number = {3},
+  pages = {937--945},
+  doi = {10.1111/j.1541-0420.2008.01177.x}
+}
+
+@article{mooreCovariate2009,
+  title = {Covariate Adjustment in Randomized Trials with Binary Outcomes: Targeted Maximum Likelihood Estimation},
+  author = {Moore, Kelly L. and van der Laan, Mark J.},
+  year = {2009},
+  journal = {Statistics in Medicine},
+  volume = {28},
+  number = {1},
+  pages = {39--64},
+  doi = {10.1002/sim.3445}
+}
+
+@article{colantuoniPrognostic2015,
+  title = {Leveraging Prognostic Baseline Variables to Gain Precision in Randomized Trials},
+  author = {Colantuoni, Elizabeth and Rosenblum, Michael},
+  year = {2015},
+  journal = {Statistics in Medicine},
+  volume = {34},
+  number = {18},
+  pages = {2602--2617},
+  doi = {10.1002/sim.6507}
+}
+
+% ========================================
+% Regulatory Guidance
+% ========================================
+
+@article{ichE9Statistical1999,
+  title = {{ICH} {E9}: Statistical Principles for Clinical Trials},
+  author = {{ICH Expert Working Group}},
+  year = {1999},
+  journal = {Statistics in Medicine},
+  volume = {18},
+  number = {15},
+  pages = {1905--1942},
+  doi = {10.1002/(SICI)1097-0258(19990815)18:15<1905::AID-SIM188>3.0.CO;2-F}
+}
+
+@techreport{emaBaselineCovariates2015,
+  title = {Guideline on Adjustment for Baseline Covariates in Clinical Trials},
+  author = {{European Medicines Agency}},
+  year = {2015},
+  number = {EMA/CHMP/295050/2013},
+  institution = {European Medicines Agency},
+  address = {London}
+}
+
+@techreport{fdaCovariateAdjustment2023,
+  title = {Adjusting for Covariates in Randomized Clinical Trials for Drugs and Biological Products: Guidance for Industry},
+  author = {{US Food and Drug Administration}},
+  year = {2023},
+  institution = {US Food and Drug Administration},
+  address = {Silver Spring, MD}
+}
+
+@techreport{ichE9R1Estimands2019,
+  title = {Addendum on Estimands and Sensitivity Analysis in Clinical Trials to the Guideline on Statistical Principles for Clinical Trials},
+  author = {{ICH E9(R1) Expert Working Group}},
+  year = {2019},
+  institution = {International Council for Harmonisation}
+}
+
+% ========================================
+% Estimand Framework and Conditional vs Marginal Effects
+% ========================================
+
+@article{permuttCovariates2020,
+  title = {Do Covariates Change the Estimand?},
+  author = {Permutt, Thomas},
+  year = {2020},
+  journal = {Statistics in Biopharmaceutical Research},
+  volume = {12},
+  number = {1},
+  pages = {45--53},
+  doi = {10.1080/19466315.2019.1647874}
+}
+
+@article{vanLanckerCovariate2024,
+  title = {Covariate Adjustment in Randomized Controlled Trials: General Concepts and Practical Considerations},
+  author = {Van Lancker, Kelly and Bretz, Frank and Dukes, Oliver},
+  year = {2024},
+  journal = {Clinical Trials},
+  volume = {21},
+  number = {4},
+  pages = {399--411},
+  doi = {10.1177/17407745241251568}
+}
+
+@article{harrellCommentary2024,
+  title = {Commentary on van {Lancker} et al.},
+  author = {Harrell, Frank E., Jr.},
+  year = {2024},
+  journal = {Clinical Trials},
+  volume = {21},
+  number = {4},
+  pages = {412--414},
+  doi = {10.1177/17407745241251609}
+}
+
+% ========================================
+% Stratified Randomization and Design
+% ========================================
+
+@article{kahanImproper2012,
+  title = {Improper Analysis of Trials Randomised Using Stratified Blocks or Minimisation},
+  author = {Kahan, Brennan C. and Morris, Tim P.},
+  year = {2012},
+  journal = {Statistics in Medicine},
+  volume = {31},
+  number = {4},
+  pages = {328--340},
+  doi = {10.1002/sim.4431}
+}
+
+@article{kahanReporting2012,
+  title = {Reporting and Analysis of Trials Using Stratified Randomisation in Leading Medical Journals: Review and Reanalysis},
+  author = {Kahan, Brennan C. and Morris, Tim P.},
+  year = {2012},
+  journal = {BMJ},
+  volume = {345},
+  pages = {e5840},
+  doi = {10.1136/bmj.e5840}
+}
+
+% ========================================
+% Applied Examples / Empirical Evidence
+% ========================================
+
+@article{hernandezPower2004,
+  title = {Covariate Adjustment in Randomized Controlled Trials with Dichotomous Outcomes Increases Statistical Power and Reduces Sample Size Requirements},
+  author = {Hernandez, Adrian V. and Steyerberg, Ewout W. and Habbema, J. Dik F.},
+  year = {2004},
+  journal = {Journal of Clinical Epidemiology},
+  volume = {57},
+  number = {5},
+  pages = {454--460},
+  doi = {10.1016/j.jclinepi.2003.09.014}
+}
+
+@article{hernandezImpact2006,
+  title = {Adjustment for Strong Predictors of Outcome in Traumatic Brain Injury Trials: 25\% Reduction in Sample Size Requirements in the {IMPACT} Study},
+  author = {Hernandez, Adrian V. and Steyerberg, Ewout W. and Butcher, Isabel and others},
+  year = {2006},
+  journal = {Journal of Neurotrauma},
+  volume = {23},
+  number = {9},
+  pages = {1295--1303},
+  doi = {10.1089/neu.2006.23.1295}
+}
+
+@article{turnerCovariate2012,
+  title = {Covariate Adjustment Increased Power in Randomized Controlled Trials: An Example in Traumatic Brain Injury},
+  author = {Turner, Elizabeth L. and Perel, Pablo and Clayton, Tim and others},
+  year = {2012},
+  journal = {Journal of Clinical Epidemiology},
+  volume = {65},
+  number = {5},
+  pages = {474--481},
+  doi = {10.1016/j.jclinepi.2011.08.012}
+}
+
+@article{thompsonCovariate2015,
+  title = {Covariate Adjustment Had Similar Benefits in Small and Large Randomised Controlled Trials},
+  author = {Thompson, Danielle D. and Lingsma, Hester F. and Whiteley, William N. and Murray, Gordon D. and Steyerberg, Ewout W.},
+  year = {2015},
+  journal = {Journal of Clinical Epidemiology},
+  volume = {67},
+  number = {3},
+  pages = {1068--1075},
+  doi = {10.1016/j.jclinepi.2014.05.001}
+}
+
+@article{benkeserCovid2021,
+  title = {Improving Precision and Power in Randomized Trials for {COVID-19} Treatments Using Covariate Adjustment, for Binary, Ordinal, and Time-to-Event Outcomes},
+  author = {Benkeser, David and Diaz, Iv{\'a}n and Luedtke, Alex and Segal, Jodi and Scharfstein, Daniel and Rosenblum, Michael},
+  year = {2021},
+  journal = {Biometrics},
+  volume = {77},
+  number = {4},
+  pages = {1467--1481},
+  doi = {10.1111/biom.13377}
+}
+
+% ========================================
+% Practical Guides
+% ========================================
+
+@article{morrisPlanning2022,
+  title = {Planning a Method for Covariate Adjustment in Individually Randomised Trials: A Practical Guide},
+  author = {Morris, Tim P. and Walker, A. Sarah and Williamson, Elizabeth J. and White, Ian R.},
+  year = {2022},
+  journal = {Trials},
+  volume = {23},
+  number = {1},
+  pages = {328},
+  doi = {10.1186/s13063-022-06097-z}
+}
+
+@article{yeLogRank2024,
+  title = {Covariate-Adjusted Log-Rank Test: Guaranteed Efficiency Gain and Universal Applicability},
+  author = {Ye, Ting and Shao, Jun and Yi, Yanyao},
+  year = {2024},
+  journal = {Biometrika},
+  volume = {111},
+  number = {2},
+  pages = {691--705},
+  doi = {10.1093/biomet/asad045}
+}
+
+% ========================================
+% Methodological Extensions
+% ========================================
+
+@article{lesaffreNonparametric2003,
+  title = {A Note on Non-Parametric {ANCOVA} for Covariate Adjustment in Randomized Clinical Trials},
+  author = {Lesaffre, Emmanuel and Senn, Stephen},
+  year = {2003},
+  journal = {Statistics in Medicine},
+  volume = {22},
+  number = {23},
+  pages = {3583--3596},
+  doi = {10.1002/sim.1583}
+}
+
+@article{jiangRobust2019,
+  title = {Robust Alternatives to {ANCOVA} for Estimating the Treatment Effect via a Randomized Comparative Study},
+  author = {Jiang, Fei and Tian, Lu and Fu, Haoda and Hasegawa, Takahiro and Wei, L. J.},
+  year = {2019},
+  journal = {Journal of the American Statistical Association},
+  volume = {114},
+  number = {528},
+  pages = {1854--1864},
+  doi = {10.1080/01621459.2018.1527226}
+}
+
+@article{schulerPrognostic2022,
+  title = {Increasing the Efficiency of Randomized Trial Estimates via Linear Adjustment for a Prognostic Score},
+  author = {Schuler, Alejandro and Walsh, David and Hall, Diana and Walsh, John and Fisher, Charles},
+  year = {2022},
+  journal = {International Journal of Epidemiology},
+  volume = {51},
+  number = {4},
+  pages = {1150--1158},
+  doi = {10.1093/ije/dyac049}
+}
+
+@article{diazSurvival2019,
+  title = {Improved Precision in the Analysis of Randomized Trials with Survival Outcomes, without Assuming Proportional Hazards},
+  author = {D{\'\i}az, Iv{\'a}n and Colantuoni, Elizabeth and Hanley, Daniel F. and Rosenblum, Michael},
+  year = {2019},
+  journal = {Lifetime Data Analysis},
+  volume = {25},
+  number = {3},
+  pages = {439--468},
+  doi = {10.1007/s10985-018-9428-5}
+}
+
+@article{wangSubgroup2007,
+  title = {Statistics in Medicine -- Reporting of Subgroup Analyses in Clinical Trials},
+  author = {Wang, Rui and Lagakos, Stephen W. and Ware, James H. and Hunter, David J. and Drazen, Jeffrey M.},
+  year = {2007},
+  journal = {New England Journal of Medicine},
+  volume = {357},
+  number = {21},
+  pages = {2189--2194},
+  doi = {10.1056/NEJMsr077003}
+}
+
+% ========================================
+% Additional Important References
+% ========================================
+
+@article{steyerbergBaseline2000,
+  title = {Clinical Trials in Acute Myocardial Infarction: Should We Adjust for Baseline Characteristics?},
+  author = {Steyerberg, Ewout W. and Bossuyt, Patrick M. and Lee, Kerry L.},
+  year = {2000},
+  journal = {American Heart Journal},
+  volume = {139},
+  number = {5},
+  pages = {745--751},
+  doi = {10.1016/S0002-8703(00)90001-2}
+}
+
+@article{pocockStatistics2015,
+  title = {Making Sense of Statistics in Clinical Trial Reports: Part 1 of a 4-Part Series on Statistics for Clinical Trials},
+  author = {Pocock, Stuart J. and McMurray, John J. V. and Collier, Timothy J.},
+  year = {2015},
+  journal = {Journal of the American College of Cardiology},
+  volume = {66},
+  number = {23},
+  pages = {2536--2549},
+  doi = {10.1016/j.jacc.2015.10.014}
+}
+
+@article{beachCovariates1989,
+  title = {Choosing Covariates in the Analysis of Clinical Trials},
+  author = {Beach, Mary Lind and Meier, Paul},
+  year = {1989},
+  journal = {Controlled Clinical Trials},
+  volume = {10},
+  number = {4 Suppl},
+  pages = {161S--175S},
+  doi = {10.1016/0197-2456(89)90055-X}
+}
+
+@article{hauckCovariates1998,
+  title = {Should We Adjust for Covariates in Nonlinear Regression Analyses of Randomized Trials?},
+  author = {Hauck, Walter W. and Anderson, Sharon and Marcus, Sue M.},
+  year = {1998},
+  journal = {Controlled Clinical Trials},
+  volume = {19},
+  number = {3},
+  pages = {249--256},
+  doi = {10.1016/S0197-2456(97)00147-5}
+}
+
+@article{hernandezSubgroup2005,
+  title = {Subgroup Analysis and Covariate Adjustment in Randomized Clinical Trials of Traumatic Brain Injury: A Systematic Review},
+  author = {Hernandez, Adrian V. and Steyerberg, Ewout W. and Taylor, Gillian S. and Marmarou, Anthony and Habbema, J. Dik F. and Maas, Andrew I. R.},
+  year = {2005},
+  journal = {Neurosurgery},
+  volume = {57},
+  number = {6},
+  pages = {1244--1253},
+  doi = {10.1227/01.NEU.0000186039.57548.96}
+}
+
+@article{ciolinoImbalance2013,
+  title = {Covariate Imbalance and Adjustment for Logistic Regression Analysis of Clinical Trial Data},
+  author = {Ciolino, Jody D. and Martin, Renee H. and Zhao, Wenle and Hill, Michael D. and Jauch, Edward C. and Palesch, Yuko Y.},
+  year = {2013},
+  journal = {Journal of Biopharmaceutical Statistics},
+  volume = {23},
+  number = {6},
+  pages = {1383--1402},
+  doi = {10.1080/10543406.2013.834912}
+}
+
+@article{geWeightedRisk2011,
+  title = {Covariate-Adjusted Difference in Proportions from Clinical Trials Using Logistic Regression and Weighted Risk Differences},
+  author = {Ge, Miaomiao and Durham, L. Keaven and Meyer, Robert D. and Xie, Wei and Thomas, Neal},
+  year = {2011},
+  journal = {Drug Information Journal},
+  volume = {45},
+  number = {4},
+  pages = {481--493},
+  doi = {10.1177/009286151104500409}
+}
+
+@article{tangenNonparametric1999,
+  title = {Non-Parametric Covariance Methods for Incidence Density Analyses of Time-to-Event Data from a Randomized Clinical Trial and Their Robustness Properties},
+  author = {Tangen, Catherine M. and Koch, Gary G.},
+  year = {1999},
+  journal = {Statistics in Medicine},
+  volume = {18},
+  number = {14},
+  pages = {1839--1854},
+  doi = {10.1002/(SICI)1097-0258(19990730)18:14<1839::AID-SIM199>3.0.CO;2-T}
+}
+
+@article{vanLanckerGroupSequential2025,
+  title = {Combining Covariate Adjustment with Group Sequential, Information-Adaptive Designs to Improve Randomized Trial Efficiency},
+  author = {Van Lancker, Kelly and Betz, Joshua and Rosenblum, Michael},
+  year = {2025},
+  journal = {Biometrics},
+  volume = {81},
+  number = {1},
+  pages = {ujaf020},
+  doi = {10.1093/biom/ujaf020}
+}
+
+@article{yePractice2023,
+  title = {Toward Better Practice of Covariate Adjustment in Analyzing Randomized Clinical Trials},
+  author = {Ye, Ting and Shao, Jun and Yi, Yanyao and Zhao, Qingyuan},
+  year = {2023},
+  journal = {Journal of the American Statistical Association},
+  volume = {118},
+  number = {544},
+  pages = {2370--2382},
+  doi = {10.1080/01621459.2023.2179547}
+}
+
+@article{steyerbergHeterogeneity2004,
+  title = {Heterogeneity Bias: The Difference between Adjusted and Unadjusted Effects},
+  author = {Steyerberg, Ewout W. and Eijkemans, Marinus J. C.},
+  year = {2004},
+  journal = {Medical Decision Making},
+  volume = {24},
+  number = {2},
+  pages = {145--153},
+  doi = {10.1177/0272989X03262285}
 }
