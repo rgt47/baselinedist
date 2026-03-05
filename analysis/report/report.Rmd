@@ -129,10 +129,14 @@ analysis of change scores.
 
 @yangEfficiency2001 formally studied the relative
 efficiency of the change-score estimator, the
-follow-up-only estimator, and ANCOVA in the context
-of a pretest-posttest trial, proving that ANCOVA
-dominates the alternatives for all values of the
-correlation between baseline and outcome.
+follow-up-only estimator, and several ANCOVA variants
+in the context of a pretest-posttest trial. They showed
+that ANCOVA with a treatment-by-covariate interaction
+term (ANCOVA II) and the GEE approach are most
+efficient, while even the simpler ANCOVA without
+interaction dominates both the change-score and
+follow-up-only estimators for all values of the
+baseline-outcome correlation.
 
 ### The Freedman-Lin Debate
 
@@ -192,8 +196,9 @@ over the covariate distribution. This approach avoids
 the well-known problem identified by
 @robinsonCovariate1991 that covariate adjustment in
 logistic regression can reduce precision of the
-conditional odds ratio -- a problem that does not
-arise when the target is the marginal effect.
+conditional odds ratio. As @mooreCovariate2009 and
+@tsiatisCovariate2008 later clarified, this problem
+does not arise when the target is the marginal effect.
 
 ### Survival Outcomes
 
@@ -283,9 +288,13 @@ reviewed the landscape and advocated for the
 standardization approach, which leverages the
 covariate-outcome relationship for efficiency while
 targeting a well-defined marginal effect.
-@harrellCommentary2024 endorsed this position in a
-commentary, noting that covariate adjustment 'accounts
-for outcome heterogeneity and prevents power loss.'
+@harrellCommentary2024, in a commentary on this work,
+agreed that covariate adjustment 'accounts for outcome
+heterogeneity and prevents power loss,' but cautioned
+against the marginal/standardization framing, arguing
+that conditional models preserve the full information
+content of the covariates and that marginal effects
+can obscure treatment effect heterogeneity.
 
 ## Seven Myths and Persistent Misconceptions
 
