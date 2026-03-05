@@ -14,7 +14,6 @@ output:
     includes:
       in_header: "~/shr/preamble.tex"
 bibliography: references.bib
-csl: statistics-in-medicine.csl
 link-citations: true
 ---
 ```{r setup, include=FALSE, echo=FALSE}
