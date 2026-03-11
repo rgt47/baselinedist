@@ -2,7 +2,7 @@
 title: "Baseline Covariate Adjustment in Randomized Clinical Trials:
   Objective Criteria for When and How to Adjust"
 author: "R.G. Thomas"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 fontsize: 11pt
 geometry: "left=3cm,right=5cm,top=2cm,bottom=2cm"
 output:
@@ -15,6 +15,7 @@ output:
     includes:
       in_header: "~/shr/preamble.tex"
 bibliography: references.bib
+csl: statistics-in-medicine.csl
 link-citations: true
 ---
 ```{r setup, include=FALSE, echo=FALSE}
