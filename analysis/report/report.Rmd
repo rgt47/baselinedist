@@ -10,10 +10,8 @@ output:
     toc: true
     number_sections: true
     latex_engine: xelatex
-    highlight: monochrome
+    highlight: tango
     keep_tex: true
-    includes:
-      in_header: "~/shr/preamble.tex"
 bibliography: references.bib
 csl: statistics-in-medicine.csl
 link-citations: true
