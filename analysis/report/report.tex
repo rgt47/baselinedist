@@ -89,63 +89,6 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\usepackage{placeins, graphicx, geometry, longtable, fancyhdr, currfile, wrapfig,
-multicol, caption, capt-of, lipsum, booktabs, pgfpages, titling, fancyhdr, currfile}
-\usepackage[export]{adjustbox}
-\usepackage{xcolor}
-\usepackage[normalem]{ulem}
-\usepackage{setspace}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{xcolor}
-\usepackage{colortbl}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage{makecell}
-\usepackage{caption}
-\usepackage{fancyvrb}
-\definecolor{codebg}{RGB}{248,248,248}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\small}
-\pagestyle{fancy}
-\pretitle{
-\begin{flushright}
-% \write18{wget https://github.com/rgt47/kickstart/blob/master/sudoku_apple.pdf}
-\includegraphics[width=3cm,valign=c]{sudoku_apple.pdf}\\
-\end{flushright}
-\begin{flushleft} \LARGE }
-\posttitle{\par\end{flushleft}
-\vskip 0.5em}
-\predate{\begin{flushleft}\large}
-	\postdate{\par\end{flushleft}}
-	\preauthor{\begin{flushleft}\large}
-	\postauthor{\par\end{flushleft}}
-\fancyfoot[L]{\currfilename} %put date in header
-\fancyfoot[R]{\includegraphics[width=.8cm]{sudoku_apple.pdf}}
-\fancyhead[L]{\today} %put current file in footer
-\setlength{\headheight}{13.59999pt}
-
-\newcommand\zztab[3]{
-\noindent
-\begin{center} 
-\includegraphics[keepaspectratio,width=#2]{#1}
-\end{center} 
-\captionof{table}{#3}
-}
-
-\newcommand\zzfig[3]{
-\noindent
-\begin{center} 
-\includegraphics[keepaspectratio, width=#2]{#1}
-\end{center} 
-\captionof{figure}{#3}
-}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -172,7 +115,7 @@ multicol, caption, capt-of, lipsum, booktabs, pgfpages, titling, fancyhdr, currf
 \title{Baseline Covariate Adjustment in Randomized Clinical Trials:
 Objective Criteria for When and How to Adjust}
 \author{R.G. Thomas}
-\date{March 05, 2026}
+\date{April 20, 2026}
 
 \begin{document}
 \maketitle
@@ -202,33 +145,33 @@ Imbalance}\label{the-problem-of-baseline-imbalance}
 
 Randomization guarantees that, on average across repetitions, baseline
 covariates will be balanced between treatment groups. It does not
-guarantee balance in any individual trial. Altman
-(\citeproc{ref-altmanComparabilityRandomisedGroups1985}{1985})
+guarantee balance in any individual
+trial.\textsuperscript{\citeproc{ref-altmanComparabilityRandomisedGroups1985}{1}}
 demonstrated that even non-significant imbalances in prognostic factors
 can strongly influence the observed treatment effect, rendering
 conclusions misleading. The practice of testing for baseline balance and
 adjusting only when a difference is `significant' was criticized sharply
-by Senn (\citeproc{ref-sennTestingBaselineBalance1994a}{1994}), who
-argued it is `philosophically unsound, of no practical value and
+by\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{2}},
+who argued it is `philosophically unsound, of no practical value and
 potentially misleading.' Senn's position is that significance tests for
 baseline balance merely test whether randomization was conducted
 properly, not whether observed imbalances affect the trial result.
 
 Surveys of published trials confirm that these problematic practices
-remain widespread. Assmann et al.
-(\citeproc{ref-assmannSubgroupAnalysis2000}{2000}) examined 50 trial
-reports in four major journals, finding that most trials emphasized
-simple unadjusted results, that covariate adjustment usually made
-negligible difference, and that subgroup analyses were routinely
-overinterpreted. A companion paper by the same group
-(\citeproc{ref-pocockSubgroupAnalysisCovariate2002}{Pocock et al. 2002})
+remain
+widespread.\textsuperscript{\citeproc{ref-assmannSubgroupAnalysis2000}{3}}
+examined 50 trial reports in four major journals, finding that most
+trials emphasized simple unadjusted results, that covariate adjustment
+usually made negligible difference, and that subgroup analyses were
+routinely overinterpreted. A companion paper by the same
+group\textsuperscript{\citeproc{ref-pocockSubgroupAnalysisCovariate2002}{4}}
 highlighted the underuse of appropriate interaction tests and the
 inconsistency with which covariates were selected and adjusted for
-across studies. Kahan and Morris
-(\citeproc{ref-kahanImproper2012}{2012}) showed that among trials using
-stratified randomization, only 14 of 41 eligible studies adjusted for
-the stratification variables, leading to overly conservative inference
-with inflated confidence intervals and reduced power.
+across studies.\textsuperscript{\citeproc{ref-kahanImproper2012}{5}}
+showed that among trials using stratified randomization, only 14 of 41
+eligible studies adjusted for the stratification variables, leading to
+overly conservative inference with inflated confidence intervals and
+reduced power.
 
 \subsection{Theoretical Foundations}\label{theoretical-foundations}
 
@@ -244,23 +187,23 @@ comparison of means, provided \(X\) is prognostic for \(Y\). The
 variance reduction is proportional to \(R^2_{Y|X}\), the proportion of
 outcome variance explained by the covariate. This result holds
 regardless of whether randomization produced balanced or imbalanced
-groups (\citeproc{ref-raabHowSelectCovariates2000}{Raab et al. 2000}).
-Senn (\citeproc{ref-sennChangeBaseline2006}{2006}) showed that ANCOVA is
-superior to the analysis of change scores (the `simple analysis of
-change scores,' or SACS) and that ANCOVA does not require baseline
-balance, even in expectation, to provide unbiased treatment effect
-estimates. This resolves Lord's paradox in the clinical trial setting
-(\citeproc{ref-lesaffreNonparametric2003}{Lesaffre and Senn 2003}).
+groups\textsuperscript{\citeproc{ref-raabHowSelectCovariates2000}{6}}.\textsuperscript{\citeproc{ref-sennChangeBaseline2006}{7}}
+showed that ANCOVA is superior to the analysis of change scores (the
+`simple analysis of change scores,' or SACS) and that ANCOVA does not
+require baseline balance, even in expectation, to provide unbiased
+treatment effect estimates. This resolves Lord's paradox in the clinical
+trial
+setting\textsuperscript{\citeproc{ref-lesaffreNonparametric2003}{8}}.
 
-Vickers and Altman (\citeproc{ref-vickersBaseline2001}{2001}) provided a
+\textsuperscript{\citeproc{ref-vickersBaseline2001}{9}} provided a
 concise tutorial confirming that ANCOVA is the preferred analysis
 whenever a baseline measurement of the outcome exists, yielding
 estimates with smaller standard errors and greater statistical power
 than either the comparison of follow-up values alone or the analysis of
 change scores.
 
-Yang and Tsiatis (\citeproc{ref-yangEfficiency2001}{2001}) formally
-studied the relative efficiency of the change-score estimator, the
+\textsuperscript{\citeproc{ref-yangEfficiency2001}{10}} formally studied
+the relative efficiency of the change-score estimator, the
 follow-up-only estimator, and several ANCOVA variants in the context of
 a pretest-posttest trial. They showed that ANCOVA with a
 treatment-by-covariate interaction term (ANCOVA II) and the GEE approach
@@ -270,16 +213,16 @@ values of the baseline-outcome correlation.
 
 \subsubsection{The Freedman-Lin Debate}\label{the-freedman-lin-debate}
 
-Freedman (\citeproc{ref-freedmanRegression2008}{2008}) challenged the
-use of OLS regression adjustment in randomized experiments under
+\textsuperscript{\citeproc{ref-freedmanRegression2008}{11}} challenged
+the use of OLS regression adjustment in randomized experiments under
 Neyman's randomization inference framework. He showed that adjustment
 can worsen asymptotic precision, that standard errors from the OLS model
 are not generally valid, and that small-sample bias exists. These
 results generated considerable concern.
 
-Lin (\citeproc{ref-linAgnostic2013}{2013}) reexamined Freedman's
-critique and showed that the essential problem was the omission of
-treatment-by-covariate interactions. When a full set of
+\textsuperscript{\citeproc{ref-linAgnostic2013}{12}} reexamined
+Freedman's critique and showed that the essential problem was the
+omission of treatment-by-covariate interactions. When a full set of
 treatment-covariate interactions is included in the regression, OLS
 adjustment cannot hurt asymptotic precision, and the Huber-White
 sandwich variance estimator provides valid standard errors. In balanced
@@ -292,86 +235,89 @@ other.
 Theory}\label{semiparametric-efficiency-theory}
 
 The most rigorous theoretical framework for covariate adjustment in RCTs
-comes from semiparametric efficiency theory. Tsiatis et al.
-(\citeproc{ref-tsiatisCovariate2008}{2008}) and Zhang et al.
-(\citeproc{ref-zhangEfficiency2008}{2008}) developed a class of
-semiparametric estimators for the average treatment effect that are
-guaranteed to be at least as efficient as the unadjusted estimator and
-typically much more so. The key insight is that in a randomized trial,
-any function of the baseline covariates can be incorporated into the
-estimator to reduce variance without introducing bias, provided the
+comes from semiparametric efficiency
+theory.\textsuperscript{\citeproc{ref-tsiatisCovariate2008}{13}}
+and\textsuperscript{\citeproc{ref-zhangEfficiency2008}{14}} developed a
+class of semiparametric estimators for the average treatment effect that
+are guaranteed to be at least as efficient as the unadjusted estimator
+and typically much more so. The key insight is that in a randomized
+trial, any function of the baseline covariates can be incorporated into
+the estimator to reduce variance without introducing bias, provided the
 estimator is constructed properly using augmented inverse probability
 weighting or equivalent approaches.
 
-Rosenblum and Laan (\citeproc{ref-rosenblumRegression2009}{2009}) proved
-that for a large class of commonly used regression models -- including
-linear and logistic regression -- standard hypothesis tests using robust
+\textsuperscript{\citeproc{ref-rosenblumRegression2009}{15}} proved that
+for a large class of commonly used regression models -- including linear
+and logistic regression -- standard hypothesis tests using robust
 (sandwich) variance estimators are guaranteed to have correct Type I
 error asymptotically, even when the regression model is misspecified.
 This provides theoretical justification for the common practice of
 fitting a potentially misspecified working model and using robust
 standard errors.
 
-Moore and Laan (\citeproc{ref-mooreCovariate2009}{2009}) extended these
+\textsuperscript{\citeproc{ref-mooreCovariate2009}{16}} extended these
 ideas to binary outcomes using targeted maximum likelihood estimation
 (TMLE), showing that the marginal risk difference can be estimated
 efficiently by fitting a logistic regression model and then
 marginalizing (standardizing) over the covariate distribution. This
-approach avoids the well-known problem identified by Robinson and Jewell
-(\citeproc{ref-robinsonCovariate1991}{1991}) that covariate adjustment
-in logistic regression can reduce precision of the conditional odds
-ratio. As Moore and Laan (\citeproc{ref-mooreCovariate2009}{2009}) and
-Tsiatis et al. (\citeproc{ref-tsiatisCovariate2008}{2008}) later
+approach avoids the well-known problem identified
+by\textsuperscript{\citeproc{ref-robinsonCovariate1991}{17}} that
+covariate adjustment in logistic regression can reduce precision of the
+conditional odds ratio.
+As\textsuperscript{\citeproc{ref-mooreCovariate2009}{16}}
+and\textsuperscript{\citeproc{ref-tsiatisCovariate2008}{13}} later
 clarified, this problem does not arise when the target is the marginal
 effect.
 
 \subsubsection{Survival Outcomes}\label{survival-outcomes}
 
 Covariate adjustment in the survival analysis setting has its own
-theoretical development. Lu and Tsiatis
-(\citeproc{ref-luLogRank2008}{2008}) showed how auxiliary covariates can
-be incorporated into the log-rank test to improve efficiency. Ye et al.
-(\citeproc{ref-yeLogRank2024}{2024}) proposed a nonparametric
-covariate-adjusted log-rank test with a simple closed form that achieves
-guaranteed efficiency gains over the unadjusted test and applies
-universally across simple and covariate-adaptive randomization schemes.
-Dı́az et al. (\citeproc{ref-diazSurvival2019}{2019}) developed improved
-estimators for the restricted mean survival time that leverage baseline
-covariates without assuming proportional hazards.
+theoretical
+development.\textsuperscript{\citeproc{ref-luLogRank2008}{18}} showed
+how auxiliary covariates can be incorporated into the log-rank test to
+improve efficiency.\textsuperscript{\citeproc{ref-yeLogRank2024}{19}}
+proposed a nonparametric covariate-adjusted log-rank test with a simple
+closed form that achieves guaranteed efficiency gains over the
+unadjusted test and applies universally across simple and
+covariate-adaptive randomization
+schemes.\textsuperscript{\citeproc{ref-diazSurvival2019}{20}} developed
+improved estimators for the restricted mean survival time that leverage
+baseline covariates without assuming proportional hazards.
 
 \subsection{Regulatory Guidance}\label{regulatory-guidance}
 
 \subsubsection{ICH E9 (1998) and E9(R1)
 (2019)}\label{ich-e9-1998-and-e9r1-2019}
 
-The ICH E9 guideline (\citeproc{ref-ichE9Statistical1999}{ICH Expert
-Working Group 1999}) advises investigators to `identify covariates
-expected to have an important influence on the primary variable' and
-`specify how to account for these in the analysis, in order to improve
-the precision of the treatment comparisons.' The E9(R1) addendum
-(\citeproc{ref-ichE9R1Estimands2019}{ICH E9(R1) Expert Working Group
-2019}) introduced the estimand framework, which requires precise
-definition of the treatment effect of interest. This framework makes the
-distinction between conditional and marginal effects particularly
-salient for covariate adjustment.
+The ICH E9
+guideline\textsuperscript{\citeproc{ref-ichE9Statistical1999}{21}}
+advises investigators to `identify covariates expected to have an
+important influence on the primary variable' and `specify how to account
+for these in the analysis, in order to improve the precision of the
+treatment comparisons.' The E9(R1)
+addendum\textsuperscript{\citeproc{ref-ichE9R1Estimands2019}{22}}
+introduced the estimand framework, which requires precise definition of
+the treatment effect of interest. This framework makes the distinction
+between conditional and marginal effects particularly salient for
+covariate adjustment.
 
 \subsubsection{EMA Guideline (2015)}\label{ema-guideline-2015}
 
-The European Medicines Agency guideline
-(\citeproc{ref-emaBaselineCovariates2015}{European Medicines Agency
-2015}) provides concrete recommendations: (i) the primary analysis
-should include only pre-specified covariates, (ii) no
-treatment-by-covariate interaction terms should appear in the primary
-model, (iii) stratification variables used in the randomization should
-generally be included as covariates, and (iv) covariates should be
-measured before randomization.
+The European Medicines Agency
+guideline\textsuperscript{\citeproc{ref-emaBaselineCovariates2015}{23}}
+provides concrete recommendations: (i) the primary analysis should
+include only pre-specified covariates, (ii) no treatment-by-covariate
+interaction terms should appear in the primary model, (iii)
+stratification variables used in the randomization should generally be
+included as covariates, and (iv) covariates should be measured before
+randomization.
 
 \subsubsection{FDA Guidance (2023)}\label{fda-guidance-2023}
 
-The FDA's final guidance on covariate adjustment
-(\citeproc{ref-fdaCovariateAdjustment2023}{US Food and Drug
-Administration 2023}) represents the most comprehensive regulatory
-position to date. Key recommendations include:
+The FDA's final guidance on covariate
+adjustment\textsuperscript{\citeproc{ref-fdaCovariateAdjustment2023}{24}}
+represents the most comprehensive regulatory position to date. Key
+recommendations include:
 
 \begin{itemize}
 \tightlist
@@ -390,11 +336,11 @@ position to date. Key recommendations include:
   Avoidance of data-driven covariate selection
 \end{itemize}
 
-The FDA guidance was informed directly by the semiparametric theory of
-Tsiatis et al. (\citeproc{ref-tsiatisCovariate2008}{2008}) and the
-practical work of Benkeser et al.
-(\citeproc{ref-benkeserCovid2021}{2021}), Colantuoni and Rosenblum
-(\citeproc{ref-colantuoniPrognostic2015}{2015}), and others.
+The FDA guidance was informed directly by the semiparametric theory
+of\textsuperscript{\citeproc{ref-tsiatisCovariate2008}{13}} and the
+practical work
+of\textsuperscript{\citeproc{ref-benkeserCovid2021}{25}},\textsuperscript{\citeproc{ref-colantuoniPrognostic2015}{26}},
+and others.
 
 \subsection{The Conditional versus Marginal
 Distinction}\label{the-conditional-versus-marginal-distinction}
@@ -407,27 +353,27 @@ distribution), even if there is no confounding or effect modification.
 This `noncollapsibility' has generated confusion about whether covariate
 adjustment `changes the estimand.'
 
-Permutt (\citeproc{ref-permuttCovariates2020}{2020}) addressed this
-directly, arguing that if the target parameter is carefully defined,
-adjustments can be used with minimal assumptions and the benefit of
-increased efficiency is achieved at essentially no cost. Van Lancker et
-al. (\citeproc{ref-vanLanckerCovariate2024}{2024}) reviewed the
-landscape and advocated for the standardization approach, which
-leverages the covariate-outcome relationship for efficiency while
-targeting a well-defined marginal effect. Harrell
-(\citeproc{ref-harrellCommentary2024}{2024}), in a commentary on this
-work, agreed that covariate adjustment `accounts for outcome
-heterogeneity and prevents power loss,' but cautioned against the
-marginal/standardization framing, arguing that conditional models
+\textsuperscript{\citeproc{ref-permuttCovariates2020}{27}} addressed
+this directly, arguing that if the target parameter is carefully
+defined, adjustments can be used with minimal assumptions and the
+benefit of increased efficiency is achieved at essentially no
+cost.\textsuperscript{\citeproc{ref-vanLanckerCovariate2024}{28}}
+reviewed the landscape and advocated for the standardization approach,
+which leverages the covariate-outcome relationship for efficiency while
+targeting a well-defined marginal
+effect.\textsuperscript{\citeproc{ref-harrellCommentary2024}{29}}, in a
+commentary on this work, agreed that covariate adjustment `accounts for
+outcome heterogeneity and prevents power loss,' but cautioned against
+the marginal/standardization framing, arguing that conditional models
 preserve the full information content of the covariates and that
 marginal effects can obscure treatment effect heterogeneity.
 
 \subsection{Seven Myths and Persistent
 Misconceptions}\label{seven-myths-and-persistent-misconceptions}
 
-Senn (\citeproc{ref-sennSevenMyths2013}{2013}) enumerated seven common
-misconceptions about randomization, several of which bear directly on
-covariate adjustment:
+\textsuperscript{\citeproc{ref-sennSevenMyths2013}{30}} enumerated seven
+common misconceptions about randomization, several of which bear
+directly on covariate adjustment:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -453,37 +399,38 @@ little about its role in enabling efficient estimation.
 Gains}\label{empirical-evidence-on-efficiency-gains}
 
 Multiple empirical studies have quantified the practical benefits of
-covariate adjustment. Hernandez et al.
-(\citeproc{ref-hernandezPower2004}{2004}) showed via simulation that
-pre-specified adjustment for prognostic covariates in trials with binary
-outcomes can reduce required sample sizes by 3\% to 46\%, depending on
-the strength of the covariate-outcome association. {Hernandez et al.}
-(\citeproc{ref-hernandezImpact2006}{2006}) demonstrated a 25\% reduction
-in sample size requirements in traumatic brain injury (TBI) trials when
-adjusting for seven baseline predictors in the IMPACT dataset. {Turner
-et al.} (\citeproc{ref-turnerCovariate2012}{2012}) reanalyzed the CRASH
-trial (n = 9497), finding that covariate adjustment using validated
-prognostic models substantially increased power. Steyerberg and
-Eijkemans (\citeproc{ref-steyerbergHeterogeneity2004}{2004}) showed that
-the difference between adjusted and unadjusted effects can be
-substantial in the presence of outcome heterogeneity, with adjustment
+covariate
+adjustment.\textsuperscript{\citeproc{ref-hernandezPower2004}{31}}
+showed via simulation that pre-specified adjustment for prognostic
+covariates in trials with binary outcomes can reduce required sample
+sizes by 3\% to 46\%, depending on the strength of the covariate-outcome
+association.\textsuperscript{\citeproc{ref-hernandezImpact2006}{32}}
+demonstrated a 25\% reduction in sample size requirements in traumatic
+brain injury (TBI) trials when adjusting for seven baseline predictors
+in the IMPACT
+dataset.\textsuperscript{\citeproc{ref-turnerCovariate2012}{33}}
+reanalyzed the CRASH trial (n = 9497), finding that covariate adjustment
+using validated prognostic models substantially increased
+power.\textsuperscript{\citeproc{ref-steyerbergHeterogeneity2004}{34}}
+showed that the difference between adjusted and unadjusted effects can
+be substantial in the presence of outcome heterogeneity, with adjustment
 providing a more accurate estimate of the treatment benefit.
 
-Colantuoni and Rosenblum (\citeproc{ref-colantuoniPrognostic2015}{2015})
+\textsuperscript{\citeproc{ref-colantuoniPrognostic2015}{26}}
 demonstrated efficiency gains equivalent to a 22-30\% reduction in
-sample size in simulations. Benkeser et al.
-(\citeproc{ref-benkeserCovid2021}{2021}) applied semiparametric methods
-to COVID-19 treatment trials, achieving meaningful precision gains for
-binary, ordinal, and time-to-event outcomes. Schuler et al.
-(\citeproc{ref-schulerPrognostic2022}{2022}) proposed a method for
-adjusting via a prognostic score trained on external (historical) data,
-showing that the approach attains the semiparametric efficiency bound
-under certain conditions.
+sample size in
+simulations.\textsuperscript{\citeproc{ref-benkeserCovid2021}{25}}
+applied semiparametric methods to COVID-19 treatment trials, achieving
+meaningful precision gains for binary, ordinal, and time-to-event
+outcomes.\textsuperscript{\citeproc{ref-schulerPrognostic2022}{35}}
+proposed a method for adjusting via a prognostic score trained on
+external (historical) data, showing that the approach attains the
+semiparametric efficiency bound under certain conditions.
 
 \subsection{Practical Guidance for Covariate
 Selection}\label{practical-guidance-for-covariate-selection}
 
-Raab et al. (\citeproc{ref-raabHowSelectCovariates2000}{2000}) provided
+\textsuperscript{\citeproc{ref-raabHowSelectCovariates2000}{6}} provided
 the first systematic framework for selecting covariates. Their key
 recommendations are: (i) covariates balanced by design (stratification
 factors) should always be included, (ii) strongly prognostic covariates
@@ -492,7 +439,7 @@ methods based on the current trial data should be avoided as they
 produce misleading inference, and (iv) all decisions should be
 pre-specified in the protocol based on prior knowledge.
 
-Morris et al. (\citeproc{ref-morrisPlanning2022}{2022}) offered a
+\textsuperscript{\citeproc{ref-morrisPlanning2022}{36}} offered a
 comprehensive practical guide for planning covariate adjustment in
 individually randomized trials. They compared three approaches -- direct
 adjustment, standardization, and inverse probability of treatment
@@ -501,17 +448,17 @@ similar in large samples, but that standardization should be preferred
 when the target is a marginal estimand because it avoids convergence
 problems with nonstandard models.
 
-Beach and Meier (\citeproc{ref-beachCovariates1989}{1989}) addressed the
+\textsuperscript{\citeproc{ref-beachCovariates1989}{37}} addressed the
 question of how many covariates to include, showing that the benefits of
 adjustment diminish and can reverse when too many weakly prognostic
 covariates are added relative to the sample size.
 
-Hauck et al. (\citeproc{ref-hauckCovariates1998}{1998}) examined
+\textsuperscript{\citeproc{ref-hauckCovariates1998}{38}} examined
 adjustment in nonlinear models, confirming that the standard advice for
 linear models does not always transfer and that care is needed with the
 choice of estimand and variance estimation.
 
-Ye et al. (\citeproc{ref-yePractice2023}{2023}) provided a synthesis
+\textsuperscript{\citeproc{ref-yePractice2023}{39}} provided a synthesis
 linking covariate-adaptive randomization, stratification, and
 covariate-adjusted analysis, with practical recommendations for modern
 trial design and analysis.
@@ -686,7 +633,7 @@ data-dependent, introducing a subtle form of model selection bias.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio,alt={Relative efficiency of ANCOVA versus the unadjusted estimator as a function of covariate prognostic strength. Relative efficiency is defined as the ratio of empirical variances (unadjusted / ANCOVA).}]{report_files/figure-latex/efficiency-plot-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Relative efficiency of ANCOVA versus the unadjusted estimator as a function of covariate prognostic strength. Relative efficiency is defined as the ratio of empirical variances (unadjusted / ANCOVA).}]{report_files/report_files/figure-latex/efficiency-plot-1.pdf}}
 \caption{Relative efficiency of ANCOVA versus the unadjusted estimator
 as a function of covariate prognostic strength. Relative efficiency is
 defined as the ratio of empirical variances (unadjusted / ANCOVA).}
@@ -701,7 +648,7 @@ beneficial for both small and large trials.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio,alt={Empirical coverage of 95\% confidence intervals across analysis strategies. The horizontal dashed line marks nominal 95\% coverage.}]{report_files/figure-latex/coverage-plot-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Empirical coverage of 95\% confidence intervals across analysis strategies. The horizontal dashed line marks nominal 95\% coverage.}]{report_files/report_files/figure-latex/coverage-plot-1.pdf}}
 \caption{Empirical coverage of 95\% confidence intervals across analysis
 strategies. The horizontal dashed line marks nominal 95\% coverage.}
 \end{figure}
@@ -728,21 +675,16 @@ adjustment in the primary analysis of an RCT.
 \item
   \emph{Always}, if prognostic covariates are available and
   pre-specified. The decision to adjust should never be based on
-  observed baseline balance
-  (\citeproc{ref-sennTestingBaselineBalance1994a}{Senn 1994},
-  \citeproc{ref-sennSevenMyths2013}{2013}).
+  observed baseline
+  balance\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{2},\citeproc{ref-sennSevenMyths2013}{30}}.
 \item
   \emph{Always} include stratification variables used in the
-  randomization design as covariates in the analysis
-  (\citeproc{ref-kahanImproper2012}{Kahan and Morris 2012};
-  \citeproc{ref-emaBaselineCovariates2015}{European Medicines Agency
-  2015}; \citeproc{ref-fdaCovariateAdjustment2023}{US Food and Drug
-  Administration 2023}).
+  randomization design as covariates in the
+  analysis\textsuperscript{\citeproc{ref-kahanImproper2012}{5},\citeproc{ref-emaBaselineCovariates2015}{23},\citeproc{ref-fdaCovariateAdjustment2023}{24}}.
 \item
   \emph{Always} include the baseline measurement of the outcome
-  variable, if available (\citeproc{ref-vickersBaseline2001}{Vickers and
-  Altman 2001}; \citeproc{ref-sennChangeBaseline2006}{Senn 2006};
-  \citeproc{ref-yangEfficiency2001}{Yang and Tsiatis 2001}).
+  variable, if
+  available\textsuperscript{\citeproc{ref-sennChangeBaseline2006}{7},\citeproc{ref-vickersBaseline2001}{9},\citeproc{ref-yangEfficiency2001}{10}}.
 \end{enumerate}
 
 \textbf{Which covariates to adjust for:}
@@ -754,19 +696,17 @@ adjustment in the primary analysis of an RCT.
 \item
   Select covariates based on prior knowledge of their prognostic value
   -- from previous trials, meta-analyses, or established clinical
-  understanding (\citeproc{ref-raabHowSelectCovariates2000}{Raab et al.
-  2000}; \citeproc{ref-beachCovariates1989}{Beach and Meier 1989}).
+  understanding\textsuperscript{\citeproc{ref-raabHowSelectCovariates2000}{6},\citeproc{ref-beachCovariates1989}{37}}.
 \item
-  The number of covariates should be small relative to the sample size.
-  Raab et al. (\citeproc{ref-raabHowSelectCovariates2000}{2000}) provide
-  a formula relating the benefit of adjustment to the number of subjects
-  per covariate.
+  The number of covariates should be small relative to the sample
+  size.\textsuperscript{\citeproc{ref-raabHowSelectCovariates2000}{6}}
+  provide a formula relating the benefit of adjustment to the number of
+  subjects per covariate.
 \item
   Do not select covariates based on the trial data itself (neither on
   baseline imbalance nor on observed covariate-outcome associations).
-  Data-driven selection produces biased inference
-  (\citeproc{ref-raabHowSelectCovariates2000}{Raab et al. 2000};
-  \citeproc{ref-assmannSubgroupAnalysis2000}{Assmann et al. 2000}).
+  Data-driven selection produces biased
+  inference\textsuperscript{\citeproc{ref-assmannSubgroupAnalysis2000}{3},\citeproc{ref-raabHowSelectCovariates2000}{6}}.
 \end{enumerate}
 
 \textbf{How to adjust:}
@@ -778,47 +718,40 @@ adjustment in the primary analysis of an RCT.
 \item
   For continuous outcomes: use ANCOVA (linear regression of \(Y\) on
   \(Z\) and \(X\)). Standard (OLS) or robust standard errors are both
-  acceptable for balanced designs (\citeproc{ref-linAgnostic2013}{Lin
-  2013}; \citeproc{ref-fdaCovariateAdjustment2023}{US Food and Drug
-  Administration 2023}).
+  acceptable for balanced
+  designs\textsuperscript{\citeproc{ref-linAgnostic2013}{12},\citeproc{ref-fdaCovariateAdjustment2023}{24}}.
 \item
   For binary outcomes: fit a logistic regression model and compute the
   marginal effect (standardization / g-computation) to obtain a risk
-  difference or relative risk (\citeproc{ref-mooreCovariate2009}{Moore
-  and Laan 2009}; \citeproc{ref-vanLanckerCovariate2024}{Van Lancker et
-  al. 2024}). Alternatively, use a linear probability model or modified
-  Poisson regression with robust standard errors.
+  difference or relative
+  risk\textsuperscript{\citeproc{ref-mooreCovariate2009}{16},\citeproc{ref-vanLanckerCovariate2024}{28}}.
+  Alternatively, use a linear probability model or modified Poisson
+  regression with robust standard errors.
 \item
-  For time-to-event outcomes: use a covariate-adjusted log-rank test
-  (\citeproc{ref-yeLogRank2024}{Ye et al. 2024}) or estimate the
-  restricted mean survival time with covariate adjustment
-  (\citeproc{ref-diazSurvival2019}{Dı́az et al. 2019};
-  \citeproc{ref-luLogRank2008}{Lu and Tsiatis 2008}).
+  For time-to-event outcomes: use a covariate-adjusted log-rank
+  test\textsuperscript{\citeproc{ref-yeLogRank2024}{19}} or estimate the
+  restricted mean survival time with covariate
+  adjustment\textsuperscript{\citeproc{ref-luLogRank2008}{18},\citeproc{ref-diazSurvival2019}{20}}.
 \item
   Use robust (sandwich) standard errors to guard against model
-  misspecification (\citeproc{ref-rosenblumRegression2009}{Rosenblum and
-  Laan 2009}; \citeproc{ref-tsiatisCovariate2008}{Tsiatis et al. 2008};
-  \citeproc{ref-fdaCovariateAdjustment2023}{US Food and Drug
-  Administration 2023}).
+  misspecification\textsuperscript{\citeproc{ref-tsiatisCovariate2008}{13},\citeproc{ref-rosenblumRegression2009}{15},\citeproc{ref-fdaCovariateAdjustment2023}{24}}.
 \item
   Pre-specify all covariates and the analysis method in the statistical
   analysis plan. The primary analysis should contain no interaction
-  terms (\citeproc{ref-emaBaselineCovariates2015}{European Medicines
-  Agency 2015}).
+  terms\textsuperscript{\citeproc{ref-emaBaselineCovariates2015}{23}}.
 \end{enumerate}
 
 \subsection{Consistency with Regulatory
 Guidance}\label{consistency-with-regulatory-guidance}
 
-These criteria are fully consistent with the EMA guideline
-(\citeproc{ref-emaBaselineCovariates2015}{European Medicines Agency
-2015}) and the FDA final guidance
-(\citeproc{ref-fdaCovariateAdjustment2023}{US Food and Drug
-Administration 2023}). Both agencies endorse pre-specified covariate
-adjustment as a tool for improving precision and recommend against
-data-driven covariate selection. The FDA guidance specifically
-recommends standardization for nonlinear models and robust variance
-estimation.
+These criteria are fully consistent with the EMA
+guideline\textsuperscript{\citeproc{ref-emaBaselineCovariates2015}{23}}
+and the FDA final
+guidance\textsuperscript{\citeproc{ref-fdaCovariateAdjustment2023}{24}}.
+Both agencies endorse pre-specified covariate adjustment as a tool for
+improving precision and recommend against data-driven covariate
+selection. The FDA guidance specifically recommends standardization for
+nonlinear models and robust variance estimation.
 
 \subsection{Limitations}\label{limitations}
 
@@ -826,18 +759,19 @@ The simulation presented here is deliberately simple, restricted to a
 continuous outcome with a single covariate and no missing data. Real
 trials involve multiple covariates, various outcome types, missing data,
 and complications such as noncompliance and intercurrent events. The
-estimand framework of ICH E9(R1)
-(\citeproc{ref-ichE9R1Estimands2019}{ICH E9(R1) Expert Working Group
-2019}) introduces additional considerations about what exactly is being
+estimand framework of ICH
+E9(R1)\textsuperscript{\citeproc{ref-ichE9R1Estimands2019}{22}}
+introduces additional considerations about what exactly is being
 estimated. Nevertheless, the core message is robust: pre-specified
 covariate adjustment improves efficiency without sacrificing validity,
 across all outcome types and regulatory frameworks.
 
 The simulation uses OLS-based standard errors rather than the sandwich
 estimator. For the balanced designs considered here, the two are
-asymptotically equivalent (\citeproc{ref-linAgnostic2013}{Lin 2013}),
-but in practice, the sandwich estimator is more robust to
-heteroscedasticity and is recommended by the FDA.
+asymptotically
+equivalent\textsuperscript{\citeproc{ref-linAgnostic2013}{12}}, but in
+practice, the sandwich estimator is more robust to heteroscedasticity
+and is recommended by the FDA.
 
 \section{Future Research}\label{future-research}
 
@@ -848,13 +782,14 @@ Several directions for future investigation emerge from this review:
 \item
   \textbf{Machine learning for covariate adjustment.} The FDA guidance
   does not yet address the use of machine learning methods for
-  constructing prognostic scores. Schuler et al.
-  (\citeproc{ref-schulerPrognostic2022}{2022}) showed that a prognostic
-  score trained on external data can achieve the efficiency bound, but
-  the operating characteristics of cross-validated or penalized
-  approaches in the trial data itself remain under study. Van Lancker et
-  al. (\citeproc{ref-vanLanckerGroupSequential2025}{2025}) explored
-  combining covariate adjustment with group sequential and
+  constructing prognostic
+  scores.\textsuperscript{\citeproc{ref-schulerPrognostic2022}{35}}
+  showed that a prognostic score trained on external data can achieve
+  the efficiency bound, but the operating characteristics of
+  cross-validated or penalized approaches in the trial data itself
+  remain under
+  study.\textsuperscript{\citeproc{ref-vanLanckerGroupSequential2025}{40}}
+  explored combining covariate adjustment with group sequential and
   information-adaptive designs.
 \item
   \textbf{Missing covariate data.} When baseline covariates are missing,
@@ -876,255 +811,296 @@ Several directions for future investigation emerge from this review:
   \textbf{Harmonization of conditional and marginal frameworks.} The
   tension between conditional effects (natural for clinicians reasoning
   about individual patients) and marginal effects (natural for
-  regulators reasoning about populations) remains unresolved
-  (\citeproc{ref-permuttCovariates2020}{Permutt 2020};
-  \citeproc{ref-vanLanckerCovariate2024}{Van Lancker et al. 2024};
-  \citeproc{ref-harrellCommentary2024}{Harrell 2024}).
+  regulators reasoning about populations) remains
+  unresolved\textsuperscript{\citeproc{ref-permuttCovariates2020}{27}--\citeproc{ref-harrellCommentary2024}{29}}.
 \end{enumerate}
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
 \protect\phantomsection\label{refs}
-\begin{CSLReferences}{1}{1}
+\begin{CSLReferences}{0}{1}
 \bibitem[\citeproctext]{ref-altmanComparabilityRandomisedGroups1985}
-Altman, Douglas G. 1985. {``Comparability of {Randomised Groups}.''}
+\CSLLeftMargin{1. }%
+\CSLRightInline{Altman DG. Comparability of {Randomised Groups}.
 \emph{Journal of the Royal Statistical Society Series D: The
-Statistician} 34 (1): 125--36. \url{https://doi.org/10.2307/2987510}.
-
-\bibitem[\citeproctext]{ref-assmannSubgroupAnalysis2000}
-Assmann, Susan F., Stuart J. Pocock, Laura E. Enos, and Linda E. Kasten.
-2000. {``Subgroup Analysis and Other (Mis)uses of Baseline Data in
-Clinical Trials.''} \emph{Lancet} 355 (9209): 1064--69.
-\url{https://doi.org/10.1016/S0140-6736(00)02039-0}.
-
-\bibitem[\citeproctext]{ref-beachCovariates1989}
-Beach, Mary Lind, and Paul Meier. 1989. {``Choosing Covariates in the
-Analysis of Clinical Trials.''} \emph{Controlled Clinical Trials} 10 (4
-Suppl): 161S--175S. \url{https://doi.org/10.1016/0197-2456(89)90055-X}.
-
-\bibitem[\citeproctext]{ref-benkeserCovid2021}
-Benkeser, David, Iván Diaz, Alex Luedtke, Jodi Segal, Daniel
-Scharfstein, and Michael Rosenblum. 2021. {``Improving Precision and
-Power in Randomized Trials for {COVID-19} Treatments Using Covariate
-Adjustment, for Binary, Ordinal, and Time-to-Event Outcomes.''}
-\emph{Biometrics} 77 (4): 1467--81.
-\url{https://doi.org/10.1111/biom.13377}.
-
-\bibitem[\citeproctext]{ref-colantuoniPrognostic2015}
-Colantuoni, Elizabeth, and Michael Rosenblum. 2015. {``Leveraging
-Prognostic Baseline Variables to Gain Precision in Randomized Trials.''}
-\emph{Statistics in Medicine} 34 (18): 2602--17.
-\url{https://doi.org/10.1002/sim.6507}.
-
-\bibitem[\citeproctext]{ref-diazSurvival2019}
-Dı́az, Iván, Elizabeth Colantuoni, Daniel F. Hanley, and Michael
-Rosenblum. 2019. {``Improved Precision in the Analysis of Randomized
-Trials with Survival Outcomes, Without Assuming Proportional Hazards.''}
-\emph{Lifetime Data Analysis} 25 (3): 439--68.
-\url{https://doi.org/10.1007/s10985-018-9428-5}.
-
-\bibitem[\citeproctext]{ref-emaBaselineCovariates2015}
-European Medicines Agency. 2015. \emph{Guideline on Adjustment for
-Baseline Covariates in Clinical Trials}. EMA/CHMP/295050/2013. European
-Medicines Agency.
-
-\bibitem[\citeproctext]{ref-freedmanRegression2008}
-Freedman, David A. 2008. {``On Regression Adjustments to Randomized
-Experiments.''} \emph{Annals of Applied Statistics} 2 (1): 176--96.
-\url{https://doi.org/10.1214/07-AOAS143}.
-
-\bibitem[\citeproctext]{ref-harrellCommentary2024}
-Harrell, Jr., Frank E. 2024. {``Commentary on van {Lancker} Et Al.''}
-\emph{Clinical Trials} 21 (4): 412--14.
-\url{https://doi.org/10.1177/17407745241251609}.
-
-\bibitem[\citeproctext]{ref-hauckCovariates1998}
-Hauck, Walter W., Sharon Anderson, and Sue M. Marcus. 1998. {``Should We
-Adjust for Covariates in Nonlinear Regression Analyses of Randomized
-Trials?''} \emph{Controlled Clinical Trials} 19 (3): 249--56.
-\url{https://doi.org/10.1016/S0197-2456(97)00147-5}.
-
-\bibitem[\citeproctext]{ref-hernandezImpact2006}
-{Hernandez, Adrian V., Ewout W. Steyerberg, Isabel Butcher, et al.}
-2006. {``Adjustment for Strong Predictors of Outcome in Traumatic Brain
-Injury Trials: 25\% Reduction in Sample Size Requirements in the
-{IMPACT} Study.''} \emph{Journal of Neurotrauma} 23 (9): 1295--303.
-\url{https://doi.org/10.1089/neu.2006.23.1295}.
-
-\bibitem[\citeproctext]{ref-hernandezPower2004}
-Hernandez, Adrian V., Ewout W. Steyerberg, and J. Dik F. Habbema. 2004.
-{``Covariate Adjustment in Randomized Controlled Trials with Dichotomous
-Outcomes Increases Statistical Power and Reduces Sample Size
-Requirements.''} \emph{Journal of Clinical Epidemiology} 57 (5):
-454--60. \url{https://doi.org/10.1016/j.jclinepi.2003.09.014}.
-
-\bibitem[\citeproctext]{ref-ichE9R1Estimands2019}
-ICH E9(R1) Expert Working Group. 2019. \emph{Addendum on Estimands and
-Sensitivity Analysis in Clinical Trials to the Guideline on Statistical
-Principles for Clinical Trials}. International Council for
-Harmonisation.
-
-\bibitem[\citeproctext]{ref-ichE9Statistical1999}
-ICH Expert Working Group. 1999. {``{ICH} {E9}: Statistical Principles
-for Clinical Trials.''} \emph{Statistics in Medicine} 18 (15): 1905--42.
-\url{https://doi.org/10.1002/(SICI)1097-0258(19990815)18:15\%3C1905::AID-SIM188\%3E3.0.CO;2-F}.
-
-\bibitem[\citeproctext]{ref-kahanImproper2012}
-Kahan, Brennan C., and Tim P. Morris. 2012. {``Improper Analysis of
-Trials Randomised Using Stratified Blocks or Minimisation.''}
-\emph{Statistics in Medicine} 31 (4): 328--40.
-\url{https://doi.org/10.1002/sim.4431}.
-
-\bibitem[\citeproctext]{ref-lesaffreNonparametric2003}
-Lesaffre, Emmanuel, and Stephen Senn. 2003. {``A Note on Non-Parametric
-{ANCOVA} for Covariate Adjustment in Randomized Clinical Trials.''}
-\emph{Statistics in Medicine} 22 (23): 3583--96.
-\url{https://doi.org/10.1002/sim.1583}.
-
-\bibitem[\citeproctext]{ref-linAgnostic2013}
-Lin, Winston. 2013. {``Agnostic Notes on Regression Adjustments to
-Experimental Data: Reexamining {Freedman}'s Critique.''} \emph{Annals of
-Applied Statistics} 7 (1): 295--318.
-\url{https://doi.org/10.1214/12-AOAS583}.
-
-\bibitem[\citeproctext]{ref-luLogRank2008}
-Lu, Xiaomin, and Anastasios A. Tsiatis. 2008. {``Improving the
-Efficiency of the Log-Rank Test Using Auxiliary Covariates.''}
-\emph{Biometrika} 95 (3): 679--94.
-\url{https://doi.org/10.1093/biomet/asn003}.
-
-\bibitem[\citeproctext]{ref-mooreCovariate2009}
-Moore, Kelly L., and Mark J. van der Laan. 2009. {``Covariate Adjustment
-in Randomized Trials with Binary Outcomes: Targeted Maximum Likelihood
-Estimation.''} \emph{Statistics in Medicine} 28 (1): 39--64.
-\url{https://doi.org/10.1002/sim.3445}.
-
-\bibitem[\citeproctext]{ref-morrisPlanning2022}
-Morris, Tim P., A. Sarah Walker, Elizabeth J. Williamson, and Ian R.
-White. 2022. {``Planning a Method for Covariate Adjustment in
-Individually Randomised Trials: A Practical Guide.''} \emph{Trials} 23
-(1): 328. \url{https://doi.org/10.1186/s13063-022-06097-z}.
-
-\bibitem[\citeproctext]{ref-permuttCovariates2020}
-Permutt, Thomas. 2020. {``Do Covariates Change the Estimand?''}
-\emph{Statistics in Biopharmaceutical Research} 12 (1): 45--53.
-\url{https://doi.org/10.1080/19466315.2019.1647874}.
-
-\bibitem[\citeproctext]{ref-pocockSubgroupAnalysisCovariate2002}
-Pocock, Stuart J., Susan E. Assmann, Laura E. Enos, and Linda E. Kasten.
-2002. {``Subgroup Analysis, Covariate Adjustment and Baseline
-Comparisons in Clinical Trial Reporting: Current Practiceand
-Problems.''} \emph{Statistics in Medicine} 21 (19): 2917--30.
-\url{https://doi.org/10.1002/sim.1296}.
-
-\bibitem[\citeproctext]{ref-raabHowSelectCovariates2000}
-Raab, Gillian M, Simon Day, and Jill Sales. 2000. {``How to {Select
-Covariates} to {Include} in the {Analysis} of a {Clinical Trial}.''}
-\emph{Controlled Clinical Trials} 21 (4): 330--42.
-\url{https://doi.org/10.1016/S0197-2456(00)00061-1}.
-
-\bibitem[\citeproctext]{ref-robinsonCovariate1991}
-Robinson, L. D., and N. P. Jewell. 1991. {``Some Surprising Results
-about Covariate Adjustment in Logistic Regression Models.''}
-\emph{International Statistical Review} 59 (2): 227--40.
-\url{https://doi.org/10.2307/1403444}.
-
-\bibitem[\citeproctext]{ref-rosenblumRegression2009}
-Rosenblum, Michael, and Mark J. van der Laan. 2009. {``Using Regression
-Models to Analyze Randomized Trials: Asymptotically Valid Hypothesis
-Tests Despite Incorrectly Specified Models.''} \emph{Biometrics} 65 (3):
-937--45. \url{https://doi.org/10.1111/j.1541-0420.2008.01177.x}.
-
-\bibitem[\citeproctext]{ref-schulerPrognostic2022}
-Schuler, Alejandro, David Walsh, Diana Hall, John Walsh, and Charles
-Fisher. 2022. {``Increasing the Efficiency of Randomized Trial Estimates
-via Linear Adjustment for a Prognostic Score.''} \emph{International
-Journal of Epidemiology} 51 (4): 1150--58.
-\url{https://doi.org/10.1093/ije/dyac049}.
+Statistician}. 1985;34(1):125-136.
+doi:\href{https://doi.org/10.2307/2987510}{10.2307/2987510}}
 
 \bibitem[\citeproctext]{ref-sennTestingBaselineBalance1994a}
-Senn, Stephen. 1994. {``Testing for Baseline Balance in Clinical
-Trials.''} \emph{Statistics in Medicine} 13 (17): 1715--26.
-\url{https://doi.org/10.1002/sim.4780131703}.
+\CSLLeftMargin{2. }%
+\CSLRightInline{Senn S. Testing for baseline balance in clinical trials.
+\emph{Statistics in Medicine}. 1994;13(17):1715-1726.
+doi:\href{https://doi.org/10.1002/sim.4780131703}{10.1002/sim.4780131703}}
+
+\bibitem[\citeproctext]{ref-assmannSubgroupAnalysis2000}
+\CSLLeftMargin{3. }%
+\CSLRightInline{Assmann SF, Pocock SJ, Enos LE, Kasten LE. Subgroup
+analysis and other (mis)uses of baseline data in clinical trials.
+\emph{Lancet}. 2000;355(9209):1064-1069.
+doi:\href{https://doi.org/10.1016/S0140-6736(00)02039-0}{10.1016/S0140-6736(00)02039-0}}
+
+\bibitem[\citeproctext]{ref-pocockSubgroupAnalysisCovariate2002}
+\CSLLeftMargin{4. }%
+\CSLRightInline{Pocock SJ, Assmann SE, Enos LE, Kasten LE. Subgroup
+analysis, covariate adjustment and baseline comparisons in clinical
+trial reporting: Current practiceand problems. \emph{Statistics in
+Medicine}. 2002;21(19):2917-2930.
+doi:\href{https://doi.org/10.1002/sim.1296}{10.1002/sim.1296}}
+
+\bibitem[\citeproctext]{ref-kahanImproper2012}
+\CSLLeftMargin{5. }%
+\CSLRightInline{Kahan BC, Morris TP. Improper analysis of trials
+randomised using stratified blocks or minimisation. \emph{Statistics in
+Medicine}. 2012;31(4):328-340.
+doi:\href{https://doi.org/10.1002/sim.4431}{10.1002/sim.4431}}
+
+\bibitem[\citeproctext]{ref-raabHowSelectCovariates2000}
+\CSLLeftMargin{6. }%
+\CSLRightInline{Raab GM, Day S, Sales J. How to {Select Covariates} to
+{Include} in the {Analysis} of a {Clinical Trial}. \emph{Controlled
+Clinical Trials}. 2000;21(4):330-342.
+doi:\href{https://doi.org/10.1016/S0197-2456(00)00061-1}{10.1016/S0197-2456(00)00061-1}}
 
 \bibitem[\citeproctext]{ref-sennChangeBaseline2006}
-Senn, Stephen. 2006. {``Change from Baseline and Analysis of Covariance
-Revisited.''} \emph{Statistics in Medicine} 25 (24): 4334--44.
-\url{https://doi.org/10.1002/sim.2682}.
+\CSLLeftMargin{7. }%
+\CSLRightInline{Senn S. Change from baseline and analysis of covariance
+revisited. \emph{Statistics in Medicine}. 2006;25(24):4334-4344.
+doi:\href{https://doi.org/10.1002/sim.2682}{10.1002/sim.2682}}
 
-\bibitem[\citeproctext]{ref-sennSevenMyths2013}
-Senn, Stephen. 2013. {``Seven Myths of Randomisation in Clinical
-Trials.''} \emph{Statistics in Medicine} 32 (9): 1439--50.
-\url{https://doi.org/10.1002/sim.5713}.
-
-\bibitem[\citeproctext]{ref-steyerbergHeterogeneity2004}
-Steyerberg, Ewout W., and Marinus J. C. Eijkemans. 2004.
-{``Heterogeneity Bias: The Difference Between Adjusted and Unadjusted
-Effects.''} \emph{Medical Decision Making} 24 (2): 145--53.
-\url{https://doi.org/10.1177/0272989X03262285}.
-
-\bibitem[\citeproctext]{ref-tsiatisCovariate2008}
-Tsiatis, Anastasios A., Marie Davidian, Min Zhang, and Xiaomin Lu. 2008.
-{``Covariate Adjustment for Two-Sample Treatment Comparisons in
-Randomized Clinical Trials: A Principled yet Flexible Approach.''}
-\emph{Statistics in Medicine} 27 (23): 4658--77.
-\url{https://doi.org/10.1002/sim.3113}.
-
-\bibitem[\citeproctext]{ref-turnerCovariate2012}
-{Turner, Elizabeth L., Pablo Perel, Tim Clayton, et al.} 2012.
-{``Covariate Adjustment Increased Power in Randomized Controlled Trials:
-An Example in Traumatic Brain Injury.''} \emph{Journal of Clinical
-Epidemiology} 65 (5): 474--81.
-\url{https://doi.org/10.1016/j.jclinepi.2011.08.012}.
-
-\bibitem[\citeproctext]{ref-fdaCovariateAdjustment2023}
-US Food and Drug Administration. 2023. \emph{Adjusting for Covariates in
-Randomized Clinical Trials for Drugs and Biological Products: Guidance
-for Industry}. US Food; Drug Administration.
-
-\bibitem[\citeproctext]{ref-vanLanckerGroupSequential2025}
-Van Lancker, Kelly, Joshua Betz, and Michael Rosenblum. 2025.
-{``Combining Covariate Adjustment with Group Sequential,
-Information-Adaptive Designs to Improve Randomized Trial Efficiency.''}
-\emph{Biometrics} 81 (1): ujaf020.
-\url{https://doi.org/10.1093/biom/ujaf020}.
-
-\bibitem[\citeproctext]{ref-vanLanckerCovariate2024}
-Van Lancker, Kelly, Frank Bretz, and Oliver Dukes. 2024. {``Covariate
-Adjustment in Randomized Controlled Trials: General Concepts and
-Practical Considerations.''} \emph{Clinical Trials} 21 (4): 399--411.
-\url{https://doi.org/10.1177/17407745241251568}.
+\bibitem[\citeproctext]{ref-lesaffreNonparametric2003}
+\CSLLeftMargin{8. }%
+\CSLRightInline{Lesaffre E, Senn S. A note on non-parametric {ANCOVA}
+for covariate adjustment in randomized clinical trials. \emph{Statistics
+in Medicine}. 2003;22(23):3583-3596.
+doi:\href{https://doi.org/10.1002/sim.1583}{10.1002/sim.1583}}
 
 \bibitem[\citeproctext]{ref-vickersBaseline2001}
-Vickers, Andrew J., and Douglas G. Altman. 2001. {``Statistics Notes:
-Analysing Controlled Trials with Baseline and Follow up Measurements.''}
-\emph{BMJ} 323 (7321): 1123--24.
-\url{https://doi.org/10.1136/bmj.323.7321.1123}.
+\CSLLeftMargin{9. }%
+\CSLRightInline{Vickers AJ, Altman DG. Statistics notes: Analysing
+controlled trials with baseline and follow up measurements. \emph{BMJ}.
+2001;323(7321):1123-1124.
+doi:\href{https://doi.org/10.1136/bmj.323.7321.1123}{10.1136/bmj.323.7321.1123}}
 
 \bibitem[\citeproctext]{ref-yangEfficiency2001}
-Yang, Lili, and Anastasios A. Tsiatis. 2001. {``Efficiency Study of
-Estimators for a Treatment Effect in a Pretest-Posttest Trial.''}
-\emph{American Statistician} 55 (4): 314--21.
-\url{https://doi.org/10.1198/000313001753272466}.
+\CSLLeftMargin{10. }%
+\CSLRightInline{Yang L, Tsiatis AA. Efficiency study of estimators for a
+treatment effect in a pretest-posttest trial. \emph{American
+Statistician}. 2001;55(4):314-321.
+doi:\href{https://doi.org/10.1198/000313001753272466}{10.1198/000313001753272466}}
 
-\bibitem[\citeproctext]{ref-yeLogRank2024}
-Ye, Ting, Jun Shao, and Yanyao Yi. 2024. {``Covariate-Adjusted Log-Rank
-Test: Guaranteed Efficiency Gain and Universal Applicability.''}
-\emph{Biometrika} 111 (2): 691--705.
-\url{https://doi.org/10.1093/biomet/asad045}.
+\bibitem[\citeproctext]{ref-freedmanRegression2008}
+\CSLLeftMargin{11. }%
+\CSLRightInline{Freedman DA. On regression adjustments to randomized
+experiments. \emph{Annals of Applied Statistics}. 2008;2(1):176-196.
+doi:\href{https://doi.org/10.1214/07-AOAS143}{10.1214/07-AOAS143}}
 
-\bibitem[\citeproctext]{ref-yePractice2023}
-Ye, Ting, Jun Shao, Yanyao Yi, and Qingyuan Zhao. 2023. {``Toward Better
-Practice of Covariate Adjustment in Analyzing Randomized Clinical
-Trials.''} \emph{Journal of the American Statistical Association} 118
-(544): 2370--82. \url{https://doi.org/10.1080/01621459.2023.2179547}.
+\bibitem[\citeproctext]{ref-linAgnostic2013}
+\CSLLeftMargin{12. }%
+\CSLRightInline{Lin W. Agnostic notes on regression adjustments to
+experimental data: Reexamining {Freedman}'s critique. \emph{Annals of
+Applied Statistics}. 2013;7(1):295-318.
+doi:\href{https://doi.org/10.1214/12-AOAS583}{10.1214/12-AOAS583}}
+
+\bibitem[\citeproctext]{ref-tsiatisCovariate2008}
+\CSLLeftMargin{13. }%
+\CSLRightInline{Tsiatis AA, Davidian M, Zhang M, Lu X. Covariate
+adjustment for two-sample treatment comparisons in randomized clinical
+trials: A principled yet flexible approach. \emph{Statistics in
+Medicine}. 2008;27(23):4658-4677.
+doi:\href{https://doi.org/10.1002/sim.3113}{10.1002/sim.3113}}
 
 \bibitem[\citeproctext]{ref-zhangEfficiency2008}
-Zhang, Min, Anastasios A. Tsiatis, and Marie Davidian. 2008.
-{``Improving Efficiency of Inferences in Randomized Clinical Trials
-Using Auxiliary Covariates.''} \emph{Biometrics} 64 (3): 707--15.
-\url{https://doi.org/10.1111/j.1541-0420.2007.00976.x}.
+\CSLLeftMargin{14. }%
+\CSLRightInline{Zhang M, Tsiatis AA, Davidian M. Improving efficiency of
+inferences in randomized clinical trials using auxiliary covariates.
+\emph{Biometrics}. 2008;64(3):707-715.
+doi:\href{https://doi.org/10.1111/j.1541-0420.2007.00976.x}{10.1111/j.1541-0420.2007.00976.x}}
+
+\bibitem[\citeproctext]{ref-rosenblumRegression2009}
+\CSLLeftMargin{15. }%
+\CSLRightInline{Rosenblum M, Laan MJ van der. Using regression models to
+analyze randomized trials: Asymptotically valid hypothesis tests despite
+incorrectly specified models. \emph{Biometrics}. 2009;65(3):937-945.
+doi:\href{https://doi.org/10.1111/j.1541-0420.2008.01177.x}{10.1111/j.1541-0420.2008.01177.x}}
+
+\bibitem[\citeproctext]{ref-mooreCovariate2009}
+\CSLLeftMargin{16. }%
+\CSLRightInline{Moore KL, Laan MJ van der. Covariate adjustment in
+randomized trials with binary outcomes: Targeted maximum likelihood
+estimation. \emph{Statistics in Medicine}. 2009;28(1):39-64.
+doi:\href{https://doi.org/10.1002/sim.3445}{10.1002/sim.3445}}
+
+\bibitem[\citeproctext]{ref-robinsonCovariate1991}
+\CSLLeftMargin{17. }%
+\CSLRightInline{Robinson LD, Jewell NP. Some surprising results about
+covariate adjustment in logistic regression models. \emph{International
+Statistical Review}. 1991;59(2):227-240.
+doi:\href{https://doi.org/10.2307/1403444}{10.2307/1403444}}
+
+\bibitem[\citeproctext]{ref-luLogRank2008}
+\CSLLeftMargin{18. }%
+\CSLRightInline{Lu X, Tsiatis AA. Improving the efficiency of the
+log-rank test using auxiliary covariates. \emph{Biometrika}.
+2008;95(3):679-694.
+doi:\href{https://doi.org/10.1093/biomet/asn003}{10.1093/biomet/asn003}}
+
+\bibitem[\citeproctext]{ref-yeLogRank2024}
+\CSLLeftMargin{19. }%
+\CSLRightInline{Ye T, Shao J, Yi Y. Covariate-adjusted log-rank test:
+Guaranteed efficiency gain and universal applicability.
+\emph{Biometrika}. 2024;111(2):691-705.
+doi:\href{https://doi.org/10.1093/biomet/asad045}{10.1093/biomet/asad045}}
+
+\bibitem[\citeproctext]{ref-diazSurvival2019}
+\CSLLeftMargin{20. }%
+\CSLRightInline{Dı́az I, Colantuoni E, Hanley DF, Rosenblum M. Improved
+precision in the analysis of randomized trials with survival outcomes,
+without assuming proportional hazards. \emph{Lifetime Data Analysis}.
+2019;25(3):439-468.
+doi:\href{https://doi.org/10.1007/s10985-018-9428-5}{10.1007/s10985-018-9428-5}}
+
+\bibitem[\citeproctext]{ref-ichE9Statistical1999}
+\CSLLeftMargin{21. }%
+\CSLRightInline{ICH Expert Working Group. {ICH} {E9}: Statistical
+principles for clinical trials. \emph{Statistics in Medicine}.
+1999;18(15):1905-1942.
+doi:\href{https://doi.org/10.1002/(SICI)1097-0258(19990815)18:15\%3C1905::AID-SIM188\%3E3.0.CO;2-F}{10.1002/(SICI)1097-0258(19990815)18:15\textless1905::AID-SIM188\textgreater3.0.CO;2-F}}
+
+\bibitem[\citeproctext]{ref-ichE9R1Estimands2019}
+\CSLLeftMargin{22. }%
+\CSLRightInline{ICH E9(R1) Expert Working Group. \emph{Addendum on
+Estimands and Sensitivity Analysis in Clinical Trials to the Guideline
+on Statistical Principles for Clinical Trials}. International Council
+for Harmonisation; 2019.}
+
+\bibitem[\citeproctext]{ref-emaBaselineCovariates2015}
+\CSLLeftMargin{23. }%
+\CSLRightInline{European Medicines Agency. \emph{Guideline on Adjustment
+for Baseline Covariates in Clinical Trials}. European Medicines Agency;
+2015.}
+
+\bibitem[\citeproctext]{ref-fdaCovariateAdjustment2023}
+\CSLLeftMargin{24. }%
+\CSLRightInline{US Food and Drug Administration. \emph{Adjusting for
+Covariates in Randomized Clinical Trials for Drugs and Biological
+Products: Guidance for Industry}. US Food; Drug Administration; 2023.}
+
+\bibitem[\citeproctext]{ref-benkeserCovid2021}
+\CSLLeftMargin{25. }%
+\CSLRightInline{Benkeser D, Diaz I, Luedtke A, Segal J, Scharfstein D,
+Rosenblum M. Improving precision and power in randomized trials for
+{COVID-19} treatments using covariate adjustment, for binary, ordinal,
+and time-to-event outcomes. \emph{Biometrics}. 2021;77(4):1467-1481.
+doi:\href{https://doi.org/10.1111/biom.13377}{10.1111/biom.13377}}
+
+\bibitem[\citeproctext]{ref-colantuoniPrognostic2015}
+\CSLLeftMargin{26. }%
+\CSLRightInline{Colantuoni E, Rosenblum M. Leveraging prognostic
+baseline variables to gain precision in randomized trials.
+\emph{Statistics in Medicine}. 2015;34(18):2602-2617.
+doi:\href{https://doi.org/10.1002/sim.6507}{10.1002/sim.6507}}
+
+\bibitem[\citeproctext]{ref-permuttCovariates2020}
+\CSLLeftMargin{27. }%
+\CSLRightInline{Permutt T. Do covariates change the estimand?
+\emph{Statistics in Biopharmaceutical Research}. 2020;12(1):45-53.
+doi:\href{https://doi.org/10.1080/19466315.2019.1647874}{10.1080/19466315.2019.1647874}}
+
+\bibitem[\citeproctext]{ref-vanLanckerCovariate2024}
+\CSLLeftMargin{28. }%
+\CSLRightInline{Van Lancker K, Bretz F, Dukes O. Covariate adjustment in
+randomized controlled trials: General concepts and practical
+considerations. \emph{Clinical Trials}. 2024;21(4):399-411.
+doi:\href{https://doi.org/10.1177/17407745241251568}{10.1177/17407745241251568}}
+
+\bibitem[\citeproctext]{ref-harrellCommentary2024}
+\CSLLeftMargin{29. }%
+\CSLRightInline{Harrell Jr Frank E. Commentary on van {Lancker} et al.
+\emph{Clinical Trials}. 2024;21(4):412-414.
+doi:\href{https://doi.org/10.1177/17407745241251609}{10.1177/17407745241251609}}
+
+\bibitem[\citeproctext]{ref-sennSevenMyths2013}
+\CSLLeftMargin{30. }%
+\CSLRightInline{Senn S. Seven myths of randomisation in clinical trials.
+\emph{Statistics in Medicine}. 2013;32(9):1439-1450.
+doi:\href{https://doi.org/10.1002/sim.5713}{10.1002/sim.5713}}
+
+\bibitem[\citeproctext]{ref-hernandezPower2004}
+\CSLLeftMargin{31. }%
+\CSLRightInline{Hernandez AV, Steyerberg EW, Habbema JDF. Covariate
+adjustment in randomized controlled trials with dichotomous outcomes
+increases statistical power and reduces sample size requirements.
+\emph{Journal of Clinical Epidemiology}. 2004;57(5):454-460.
+doi:\href{https://doi.org/10.1016/j.jclinepi.2003.09.014}{10.1016/j.jclinepi.2003.09.014}}
+
+\bibitem[\citeproctext]{ref-hernandezImpact2006}
+\CSLLeftMargin{32. }%
+\CSLRightInline{{Hernandez AV, Steyerberg EW, Butcher I, et al.}
+Adjustment for strong predictors of outcome in traumatic brain injury
+trials: 25\% reduction in sample size requirements in the {IMPACT}
+study. \emph{Journal of Neurotrauma}. 2006;23(9):1295-1303.
+doi:\href{https://doi.org/10.1089/neu.2006.23.1295}{10.1089/neu.2006.23.1295}}
+
+\bibitem[\citeproctext]{ref-turnerCovariate2012}
+\CSLLeftMargin{33. }%
+\CSLRightInline{{Turner EL, Perel P, Clayton T, et al.} Covariate
+adjustment increased power in randomized controlled trials: An example
+in traumatic brain injury. \emph{Journal of Clinical Epidemiology}.
+2012;65(5):474-481.
+doi:\href{https://doi.org/10.1016/j.jclinepi.2011.08.012}{10.1016/j.jclinepi.2011.08.012}}
+
+\bibitem[\citeproctext]{ref-steyerbergHeterogeneity2004}
+\CSLLeftMargin{34. }%
+\CSLRightInline{Steyerberg EW, Eijkemans MJC. Heterogeneity bias: The
+difference between adjusted and unadjusted effects. \emph{Medical
+Decision Making}. 2004;24(2):145-153.
+doi:\href{https://doi.org/10.1177/0272989X03262285}{10.1177/0272989X03262285}}
+
+\bibitem[\citeproctext]{ref-schulerPrognostic2022}
+\CSLLeftMargin{35. }%
+\CSLRightInline{Schuler A, Walsh D, Hall D, Walsh J, Fisher C.
+Increasing the efficiency of randomized trial estimates via linear
+adjustment for a prognostic score. \emph{International Journal of
+Epidemiology}. 2022;51(4):1150-1158.
+doi:\href{https://doi.org/10.1093/ije/dyac049}{10.1093/ije/dyac049}}
+
+\bibitem[\citeproctext]{ref-morrisPlanning2022}
+\CSLLeftMargin{36. }%
+\CSLRightInline{Morris TP, Walker AS, Williamson EJ, White IR. Planning
+a method for covariate adjustment in individually randomised trials: A
+practical guide. \emph{Trials}. 2022;23(1):328.
+doi:\href{https://doi.org/10.1186/s13063-022-06097-z}{10.1186/s13063-022-06097-z}}
+
+\bibitem[\citeproctext]{ref-beachCovariates1989}
+\CSLLeftMargin{37. }%
+\CSLRightInline{Beach ML, Meier P. Choosing covariates in the analysis
+of clinical trials. \emph{Controlled Clinical Trials}. 1989;10(4
+Suppl):161S-175S.
+doi:\href{https://doi.org/10.1016/0197-2456(89)90055-X}{10.1016/0197-2456(89)90055-X}}
+
+\bibitem[\citeproctext]{ref-hauckCovariates1998}
+\CSLLeftMargin{38. }%
+\CSLRightInline{Hauck WW, Anderson S, Marcus SM. Should we adjust for
+covariates in nonlinear regression analyses of randomized trials?
+\emph{Controlled Clinical Trials}. 1998;19(3):249-256.
+doi:\href{https://doi.org/10.1016/S0197-2456(97)00147-5}{10.1016/S0197-2456(97)00147-5}}
+
+\bibitem[\citeproctext]{ref-yePractice2023}
+\CSLLeftMargin{39. }%
+\CSLRightInline{Ye T, Shao J, Yi Y, Zhao Q. Toward better practice of
+covariate adjustment in analyzing randomized clinical trials.
+\emph{Journal of the American Statistical Association}.
+2023;118(544):2370-2382.
+doi:\href{https://doi.org/10.1080/01621459.2023.2179547}{10.1080/01621459.2023.2179547}}
+
+\bibitem[\citeproctext]{ref-vanLanckerGroupSequential2025}
+\CSLLeftMargin{40. }%
+\CSLRightInline{Van Lancker K, Betz J, Rosenblum M. Combining covariate
+adjustment with group sequential, information-adaptive designs to
+improve randomized trial efficiency. \emph{Biometrics}.
+2025;81(1):ujaf020.
+doi:\href{https://doi.org/10.1093/biom/ujaf020}{10.1093/biom/ujaf020}}
 
 \end{CSLReferences}
 
