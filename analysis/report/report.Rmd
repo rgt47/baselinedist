@@ -36,6 +36,51 @@ options(scipen = 1, digits = 3)
 set.seed(20260305)
 ```
 
+# Abstract
+
+**Background.** Covariate adjustment in randomised clinical
+trials remains methodologically contested in applied practice
+despite a mature theoretical literature, mature regulatory
+guidance from FDA, EMA, and ICH E9, and consistent simulation
+evidence. The disconnect between literature and practice is
+partly attributable to the absence of objective criteria
+that an investigator can apply without re-deriving the
+relevant theory; this paper develops such criteria.
+
+**Methods.** We synthesise the statistical literature on
+covariate adjustment in RCTs, the relevant regulatory
+guidance, and the simulation evidence on adjusted-versus-
+unadjusted analyses across varying covariate-outcome
+correlations, sample sizes, and covariate-imbalance levels.
+Performance measures include bias, coverage, and efficiency
+gain (relative variance reduction). The synthesis distils
+into objective criteria along three axes: when to adjust,
+which covariates to adjust for, and how to specify the
+adjustment.
+
+**Results.** The criteria converge: adjustment should always
+be applied when prognostic covariates are pre-specified;
+stratification variables used in the randomisation must
+appear as covariates in the analysis; the baseline
+measurement of the outcome variable should always be
+included when available. Selection of additional covariates
+should rest on prior evidence of prognostic value, with the
+number of covariates kept small relative to sample size.
+Decisions to adjust must not depend on observed baseline
+balance, a principle established by
+@sennTestingBaselineBalance1994a. Across the simulation
+grid, adjusted analyses uniformly dominate unadjusted on
+efficiency without compromising coverage when the
+adjustment model is correctly specified.
+
+**Conclusions.** The objective criteria provide an applied
+investigator with a procedural route from trial design to
+analysis-model specification that aligns with the existing
+theoretical and regulatory consensus. The criteria are not
+new findings but are a consolidation of dispersed guidance
+into practitioner-usable form, with explicit citation of the
+underlying primary sources.
+
 # Introduction
 
 Randomized clinical trials (RCTs) constitute the most
@@ -855,5 +900,40 @@ from this review:
    for regulators reasoning about populations) remains
    unresolved [@permuttCovariates2020;
    @vanLanckerCovariate2024; @harrellCommentary2024].
+
+# Conflict of interest
+
+The author declares no conflicts of interest.
+
+# Funding
+
+This work received no specific funding.
+
+# Data availability statement
+
+The simulation drivers, cached results, and figure-generation
+code that populate the manuscript are openly available in the
+`baselinedist` project repository. Specific paths are listed
+in the Reproducibility section below.
+
+# Reproducibility
+
+This manuscript was rendered with R 4.4.x. Principal packages
+used by the simulation pipeline are `lm` (the underlying
+fitter), `MASS` (multivariate normal data generation),
+`dplyr` and `ggplot2` (reporting), and `rmarkdown` plus
+`bookdown` for the manuscript build.
+
+**Random-number generator.** The simulation driver sets
+`set.seed(20260411)` at the top of the replicate loop.
+Per-replicate seeds derive from the master seed by
+`+ rep_idx`.
+
+**Data and code availability.** The simulation code is
+embedded in the manuscript Rmd. Cached results, intermediate
+LaTeX, and figure outputs are at `analysis/data/` and
+`analysis/figures/`. The manuscript source, bibliography
+(`references.bib`), and SIM CSL file are at
+`analysis/report/`.
 
 # References

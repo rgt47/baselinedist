@@ -115,7 +115,7 @@
 \title{Baseline Covariate Adjustment in Randomized Clinical Trials:
 Objective Criteria for When and How to Adjust}
 \author{R.G. Thomas}
-\date{April 20, 2026}
+\date{May 08, 2026}
 
 \begin{document}
 \maketitle
@@ -124,6 +124,45 @@ Objective Criteria for When and How to Adjust}
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
+\section{Abstract}\label{abstract}
+
+\textbf{Background.} Covariate adjustment in randomised clinical trials
+remains methodologically contested in applied practice despite a mature
+theoretical literature, mature regulatory guidance from FDA, EMA, and
+ICH E9, and consistent simulation evidence. The disconnect between
+literature and practice is partly attributable to the absence of
+objective criteria that an investigator can apply without re-deriving
+the relevant theory; this paper develops such criteria.
+
+\textbf{Methods.} We synthesise the statistical literature on covariate
+adjustment in RCTs, the relevant regulatory guidance, and the simulation
+evidence on adjusted-versus- unadjusted analyses across varying
+covariate-outcome correlations, sample sizes, and covariate-imbalance
+levels. Performance measures include bias, coverage, and efficiency gain
+(relative variance reduction). The synthesis distils into objective
+criteria along three axes: when to adjust, which covariates to adjust
+for, and how to specify the adjustment.
+
+\textbf{Results.} The criteria converge: adjustment should always be
+applied when prognostic covariates are pre-specified; stratification
+variables used in the randomisation must appear as covariates in the
+analysis; the baseline measurement of the outcome variable should always
+be included when available. Selection of additional covariates should
+rest on prior evidence of prognostic value, with the number of
+covariates kept small relative to sample size. Decisions to adjust must
+not depend on observed baseline balance, a principle established
+by\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{1}}.
+Across the simulation grid, adjusted analyses uniformly dominate
+unadjusted on efficiency without compromising coverage when the
+adjustment model is correctly specified.
+
+\textbf{Conclusions.} The objective criteria provide an applied
+investigator with a procedural route from trial design to analysis-model
+specification that aligns with the existing theoretical and regulatory
+consensus. The criteria are not new findings but are a consolidation of
+dispersed guidance into practitioner-usable form, with explicit citation
+of the underlying primary sources.
+
 \section{Introduction}\label{introduction}
 
 Randomized clinical trials (RCTs) constitute the most rigorous method
@@ -146,12 +185,12 @@ Imbalance}\label{the-problem-of-baseline-imbalance}
 Randomization guarantees that, on average across repetitions, baseline
 covariates will be balanced between treatment groups. It does not
 guarantee balance in any individual
-trial.\textsuperscript{\citeproc{ref-altmanComparabilityRandomisedGroups1985}{1}}
+trial.\textsuperscript{\citeproc{ref-altmanComparabilityRandomisedGroups1985}{2}}
 demonstrated that even non-significant imbalances in prognostic factors
 can strongly influence the observed treatment effect, rendering
 conclusions misleading. The practice of testing for baseline balance and
 adjusting only when a difference is `significant' was criticized sharply
-by\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{2}},
+by\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{1}},
 who argued it is `philosophically unsound, of no practical value and
 potentially misleading.' Senn's position is that significance tests for
 baseline balance merely test whether randomization was conducted
@@ -676,7 +715,7 @@ adjustment in the primary analysis of an RCT.
   \emph{Always}, if prognostic covariates are available and
   pre-specified. The decision to adjust should never be based on
   observed baseline
-  balance\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{2},\citeproc{ref-sennSevenMyths2013}{30}}.
+  balance\textsuperscript{\citeproc{ref-sennTestingBaselineBalance1994a}{1},\citeproc{ref-sennSevenMyths2013}{30}}.
 \item
   \emph{Always} include stratification variables used in the
   randomization design as covariates in the
@@ -815,23 +854,56 @@ Several directions for future investigation emerge from this review:
   unresolved\textsuperscript{\citeproc{ref-permuttCovariates2020}{27}--\citeproc{ref-harrellCommentary2024}{29}}.
 \end{enumerate}
 
+\section{Conflict of interest}\label{conflict-of-interest}
+
+The author declares no conflicts of interest.
+
+\section{Funding}\label{funding}
+
+This work received no specific funding.
+
+\section{Data availability statement}\label{data-availability-statement}
+
+The simulation drivers, cached results, and figure-generation code that
+populate the manuscript are openly available in the
+\texttt{baselinedist} project repository. Specific paths are listed in
+the Reproducibility section below.
+
+\section{Reproducibility}\label{reproducibility}
+
+This manuscript was rendered with R 4.4.x. Principal packages used by
+the simulation pipeline are \texttt{lm} (the underlying fitter),
+\texttt{MASS} (multivariate normal data generation), \texttt{dplyr} and
+\texttt{ggplot2} (reporting), and \texttt{rmarkdown} plus
+\texttt{bookdown} for the manuscript build.
+
+\textbf{Random-number generator.} The simulation driver sets
+\texttt{set.seed(20260411)} at the top of the replicate loop.
+Per-replicate seeds derive from the master seed by \texttt{+\ rep\_idx}.
+
+\textbf{Data and code availability.} The simulation code is embedded in
+the manuscript Rmd. Cached results, intermediate LaTeX, and figure
+outputs are at \texttt{analysis/data/} and \texttt{analysis/figures/}.
+The manuscript source, bibliography (\texttt{references.bib}), and SIM
+CSL file are at \texttt{analysis/report/}.
+
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
 \protect\phantomsection\label{refs}
 \begin{CSLReferences}{0}{1}
-\bibitem[\citeproctext]{ref-altmanComparabilityRandomisedGroups1985}
+\bibitem[\citeproctext]{ref-sennTestingBaselineBalance1994a}
 \CSLLeftMargin{1. }%
+\CSLRightInline{Senn S. Testing for baseline balance in clinical trials.
+\emph{Statistics in Medicine}. 1994;13(17):1715-1726.
+doi:\href{https://doi.org/10.1002/sim.4780131703}{10.1002/sim.4780131703}}
+
+\bibitem[\citeproctext]{ref-altmanComparabilityRandomisedGroups1985}
+\CSLLeftMargin{2. }%
 \CSLRightInline{Altman DG. Comparability of {Randomised Groups}.
 \emph{Journal of the Royal Statistical Society Series D: The
 Statistician}. 1985;34(1):125-136.
 doi:\href{https://doi.org/10.2307/2987510}{10.2307/2987510}}
-
-\bibitem[\citeproctext]{ref-sennTestingBaselineBalance1994a}
-\CSLLeftMargin{2. }%
-\CSLRightInline{Senn S. Testing for baseline balance in clinical trials.
-\emph{Statistics in Medicine}. 1994;13(17):1715-1726.
-doi:\href{https://doi.org/10.1002/sim.4780131703}{10.1002/sim.4780131703}}
 
 \bibitem[\citeproctext]{ref-assmannSubgroupAnalysis2000}
 \CSLLeftMargin{3. }%

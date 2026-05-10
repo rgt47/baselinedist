@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.22)  20 APR 2026 11:00
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.22)  8 MAY 2026 11:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1170,133 +1170,132 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) (./report.toc
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 2.
+(Font)              scaled to size 7.665pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 2.
+(Font)              scaled to size 5.475pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95099pt on input line 2.
+(Font)              scaled to size 10.95099pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.66568pt on input line 2.
+(Font)              scaled to size 7.66568pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.4755pt on input line 2.
+(Font)              scaled to size 5.4755pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 2.
+(Font)              scaled to size 10.94882pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 2.
+(Font)              scaled to size 7.66417pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 2.
-)
+(Font)              scaled to size 5.47441pt on input line 3.
+[1
+
+])
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
-[1
-
-] [2] [3] [4] [5] [6]
+[2] [3] [4] [5] [6] [7]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 534.
+(Font)              scaled to size 10.0pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 534.
+(Font)              scaled to size 7.0pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 534.
+(Font)              scaled to size 5.0pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00092pt on input line 534.
+(Font)              scaled to size 10.00092pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00064pt on input line 534.
+(Font)              scaled to size 7.00064pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 534.
+(Font)              scaled to size 5.00046pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 534.
+(Font)              scaled to size 9.99893pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 534.
+(Font)              scaled to size 6.99925pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 534.
+(Font)              scaled to size 4.99947pt on input line 573.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 615.
+(Font)              scaled to size 9.0pt on input line 654.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.00082pt on input line 615.
+(Font)              scaled to size 9.00082pt on input line 654.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.99904pt on input line 615.
+(Font)              scaled to size 8.99904pt on input line 654.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[7]
 File: report_files/report_files/figure-latex/efficiency-plot-1.pdf Graphic file
  (type pdf)
 <use report_files/report_files/figure-latex/efficiency-plot-1.pdf>
 File: report_files/report_files/figure-latex/coverage-plot-1.pdf Graphic file (
 type pdf)
 <use report_files/report_files/figure-latex/coverage-plot-1.pdf>
-[8] [9]
-Overfull \hbox (37.95554pt too wide) in paragraph at lines 736--739
+[8] [9] [10]
+Overfull \hbox (37.95554pt too wide) in paragraph at lines 775--778
 []\TU/lmr/m/n/10.95 Use robust (sandwich) standard errors to guard against mode
 l misspecification$[]$. 
  []
 
-[10] [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 946--946
+[11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 1018--1018
 []|\TU/lmr/m/n/10.95 Lu X, Tsiatis AA. Improving the efficiency of the log-rank
 
  []
 
 
-Underfull \hbox (badness 3209) in paragraph at lines 946--946
+Underfull \hbox (badness 3209) in paragraph at lines 1018--1018
 \TU/lmr/m/n/10.95 test using auxiliary covariates. \TU/lmr/m/it/10.95 Biometrik
 a\TU/lmr/m/n/10.95 . 2008;95(3):679-694.
  []
 
 
-Underfull \hbox (badness 5359) in paragraph at lines 968--968
+Underfull \hbox (badness 5359) in paragraph at lines 1040--1040
 []|\TU/lmr/m/n/10.95 ICH Expert Working Group. ICH E9: Statistical principles
  []
 
 
-Underfull \hbox (badness 6380) in paragraph at lines 968--968
+Underfull \hbox (badness 6380) in paragraph at lines 1040--1040
 \TU/lmr/m/n/10.95 for clinical trials. \TU/lmr/m/it/10.95 Statistics in Medicin
 e\TU/lmr/m/n/10.95 . 1999;18(15):1905-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 968--968
+Underfull \hbox (badness 10000) in paragraph at lines 1040--1040
 \TU/lmr/m/n/10.95 1942. doi:[]10.1002/(SICI)1097-0258(19990815)18:15<1905::AID-
 
  []
 
-
-Underfull \hbox (badness 3158) in paragraph at lines 1002--1002
+[14]
+Underfull \hbox (badness 3158) in paragraph at lines 1074--1074
 []|\TU/lmr/m/n/10.95 Colantuoni E, Rosenblum M. Leveraging prognostic baseline 
 vari-
  []
 
-[13]
-Underfull \hbox (badness 1400) in paragraph at lines 1051--1051
+
+Underfull \hbox (badness 1400) in paragraph at lines 1123--1123
 []|\TU/lmr/m/n/10.95 Turner EL, Perel P, Clayton T, et al. Covariate adjustment
  in-
  []
 
-
-Underfull \hbox (badness 3872) in paragraph at lines 1095--1095
+[15]
+Underfull \hbox (badness 3872) in paragraph at lines 1167--1167
 []|\TU/lmr/m/n/10.95 Ye T, Shao J, Yi Y, Zhao Q. Toward better practice of co-
  []
 
 
-Underfull \hbox (badness 2165) in paragraph at lines 1095--1095
+Underfull \hbox (badness 2165) in paragraph at lines 1167--1167
 \TU/lmr/m/n/10.95 variate adjustment in analyzing randomized clinical trials. \
 TU/lmr/m/it/10.95 Jour-
  []
 
-[14] [15] (./report.aux)
+[16] (./report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 20479 strings out of 468168
- 373538 string characters out of 5432815
- 976958 words of memory out of 5000000
- 48880 multiletter control sequences out of 15000+600000
+ 20489 strings out of 468168
+ 373655 string characters out of 5432815
+ 977159 words of memory out of 5000000
+ 48890 multiletter control sequences out of 15000+600000
  638139 words of font info for 118 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 90i,11n,114p,1003b,449s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,11n,114p,1003b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on report.pdf (15 pages).
+Output written on report.pdf (16 pages).
