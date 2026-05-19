@@ -447,11 +447,11 @@ recommendations for modern trial design and analysis.
 ## Present Study
 
 The preceding literature provides a strong theoretical
-and empirical foundation. Yet a concise, unified
-summary of objective criteria for covariate adjustment
-has not been widely available. We synthesize the evidence into concrete decision
-rules and illustrate the efficiency gains through a
-simple Monte Carlo simulation.
+and empirical foundation. Yet a concise, unified summary of objective criteria for
+covariate adjustment has not, to the best of our knowledge,
+been widely available. We synthesize the evidence into
+concrete decision rules and illustrate the efficiency gains
+through a Monte Carlo simulation.
 
 # Methods
 
@@ -659,23 +659,22 @@ sim_results |>
   )
 ```
 
-Table 2 presents the simulation results. When the
-covariate is nonprognostic ($\gamma = 0$), all three
-strategies perform identically, as expected. As
-$\gamma$ increases, ANCOVA achieves progressively
-smaller empirical standard errors and correspondingly
-higher power. For $\gamma = 0.7$ (i.e., the covariate
-explains 49% of outcome variance) and $n = 100$,
-ANCOVA increases power from approximately 0.56 to
-approximately 0.88 -- equivalent to nearly doubling
-the sample size.
+Table 2 presents the simulation results. We observe that
+when the covariate is nonprognostic ($\gamma = 0$), all
+three strategies perform identically, as expected. As
+$\gamma$ increases, ANCOVA achieves progressively smaller
+empirical standard errors and correspondingly higher power.
+For $\gamma = 0.7$ (i.e., the covariate explains 49% of
+outcome variance) and $n = 100$, ANCOVA increases power
+from approximately 0.56 to approximately 0.88 -- equivalent
+to nearly doubling the sample size.
 
 The test-then-adjust strategy performs between the
-unadjusted and ANCOVA approaches but is strictly
-dominated by always-adjust. Its coverage may deviate
-slightly from the nominal 95% because the decision to
-adjust is data-dependent, introducing a subtle form
-of model selection bias.
+unadjusted and ANCOVA approaches but is strictly dominated
+by always-adjust. Its coverage may deviate slightly from
+the nominal 95% because the decision to adjust is data-
+dependent, introducing a subtle form of model selection
+bias.
 
 ## Relative Efficiency
 
@@ -715,11 +714,11 @@ ggplot(eff_data, aes(x = gamma, y = rel_eff,
   theme(legend.position = c(0.2, 0.85))
 ```
 
-Figure 1 shows that the relative efficiency of
-ANCOVA increases approximately as $1 / (1 - \gamma^2)$,
-consistent with theory. The gains are independent of
-sample size, confirming that ANCOVA is beneficial for
-both small and large trials.
+We see in Figure 1 that the relative efficiency of ANCOVA
+increases approximately as $1 / (1 - \gamma^2)$, consistent
+with theory. The gains are independent of sample size,
+confirming that ANCOVA is beneficial for both small and
+large trials.
 
 ## Coverage Properties
 
@@ -750,12 +749,11 @@ sim_results |>
   theme(legend.position = "bottom")
 ```
 
-Figure 2 demonstrates that all three strategies
-maintain approximately nominal coverage. The
-test-then-adjust strategy shows minor coverage
-perturbations in some scenarios, consistent with the
-theoretical concerns about data-dependent model
-selection.
+Figure 2 shows that all three strategies maintain
+approximately nominal coverage. The test-then-adjust
+strategy shows minor coverage perturbations in some
+scenarios, consistent with the theoretical concerns about
+data-dependent model selection.
 
 # Discussion
 
@@ -842,9 +840,9 @@ robust variance estimation.
 
 ## Limitations
 
-The simulation presented here is deliberately simple,
-restricted to a continuous outcome with a single
-covariate and no missing data. Real trials involve
+We should note that the simulation presented here is
+deliberately simple, restricted to a continuous outcome
+with a single covariate and no missing data. Real trials involve
 multiple covariates, various outcome types, missing
 data, and complications such as noncompliance and
 intercurrent events. The estimand framework of ICH
