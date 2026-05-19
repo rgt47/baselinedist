@@ -102,11 +102,11 @@ test for baseline balance between treatment groups
 covariates from the primary analysis to preserve
 'simplicity,' or select covariates post hoc based on
 observed associations with the outcome. Each of these
-practices is suboptimal or outright harmful. This
-report reviews the theoretical, empirical, and
-regulatory evidence bearing on covariate adjustment
-and synthesizes it into a set of objective criteria
-for when and how to adjust.
+practices is suboptimal or outright harmful. We review
+the theoretical, empirical, and regulatory evidence
+bearing on covariate adjustment and synthesize it
+into a set of objective criteria for when and how
+to adjust.
 
 ## The Problem of Baseline Imbalance
 
@@ -449,9 +449,8 @@ recommendations for modern trial design and analysis.
 The preceding literature provides a strong theoretical
 and empirical foundation. Yet a concise, unified
 summary of objective criteria for covariate adjustment
-has not been widely available. The remainder of this
-report synthesizes the evidence into concrete decision
-rules and illustrates the efficiency gains through a
+has not been widely available. We synthesize the evidence into concrete decision
+rules and illustrate the efficiency gains through a
 simple Monte Carlo simulation.
 
 # Methods
