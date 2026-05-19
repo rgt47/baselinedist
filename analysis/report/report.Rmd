@@ -336,7 +336,7 @@ arguing that if the target parameter is carefully
 defined, adjustments can be used with minimal
 assumptions and the benefit of increased efficiency
 is achieved at essentially no cost. @vanLanckerCovariate2024
-reviewed the landscape and advocated for the
+reviewed the available methods and advocated for the
 standardization approach, which leverages the
 covariate-outcome relationship for efficiency while
 targeting a well-defined marginal effect.
