@@ -29,7 +29,6 @@ knit: (function(input, ...) { d <- dirname(input); while (!file.exists(file.path
 ---
 
 ```{r setup, include=FALSE, echo=FALSE}
-rm(list = ls())
 options(
   knitr.kable.NA = "",
   dplyr.print_max = 1e9,
@@ -38,6 +37,7 @@ options(
 library(knitr)
 library(kableExtra)
 library(tidyverse)
+library(here)
 
 opts_chunk$set(
   warning = FALSE, message = FALSE, echo = FALSE,
@@ -45,12 +45,11 @@ opts_chunk$set(
   results = "asis", dev = "pdf"
 )
 options(scipen = 1, digits = 3)
-set.seed(20260305)
 ```
 
 # Abstract
 
-**Background.** Covariate adjustment in randomised clinical
+**Background.** Covariate adjustment in randomized clinical
 trials remains methodologically contested in applied practice
 despite a mature theoretical literature, mature regulatory
 guidance from FDA, EMA, and ICH E9, and consistent simulation
@@ -59,20 +58,21 @@ partly attributable to the absence of objective criteria
 that an investigator can apply without re-deriving the
 relevant theory; this paper develops such criteria.
 
-**Methods.** We synthesise the statistical literature on
+**Methods.** We synthesize the statistical literature on
 covariate adjustment in RCTs, the relevant regulatory
-guidance, and the simulation evidence on adjusted-versus-
-unadjusted analyses across varying covariate-outcome
-correlations, sample sizes, and covariate-imbalance levels.
-Performance measures include bias, coverage, and efficiency
-gain (relative variance reduction). The synthesis distils
-into objective criteria along three axes: when to adjust,
-which covariates to adjust for, and how to specify the
-adjustment.
+guidance, and illustrative simulation evidence on adjusted-
+versus-unadjusted analyses across varying covariate-outcome
+correlations and sample sizes. Performance measures include
+bias, coverage, and efficiency gain (relative variance
+reduction), reported with Monte Carlo standard errors
+following the ADEMP framework of
+@morrisUsingSimulation2019. The synthesis distills into
+objective criteria along three axes: when to adjust, which
+covariates to adjust for, and how to specify the adjustment.
 
 **Results.** The criteria converge: adjustment should always
 be applied when prognostic covariates are pre-specified;
-stratification variables used in the randomisation must
+stratification variables used in the randomization must
 appear as covariates in the analysis; the baseline
 measurement of the outcome variable should always be
 included when available. Selection of additional covariates
@@ -81,9 +81,10 @@ number of covariates kept small relative to sample size.
 Decisions to adjust must not depend on observed baseline
 balance, a principle established by
 @sennTestingBaselineBalance1994a. Across the simulation
-grid, adjusted analyses uniformly dominate unadjusted on
-efficiency without compromising coverage when the
-adjustment model is correctly specified.
+grid, ANCOVA dominates the unadjusted analysis on efficiency
+without compromising coverage, while the test-then-adjust
+strategy shows systematic over-coverage relative to nominal
+95%.
 
 **Conclusions.** The objective criteria provide an applied
 investigator with a procedural route from trial design to
@@ -91,7 +92,8 @@ analysis-model specification that aligns with the existing
 theoretical and regulatory consensus. The criteria are not
 new findings but are a consolidation of dispersed guidance
 into practitioner-usable form, with explicit citation of the
-underlying primary sources.
+underlying primary sources; this paper is a tutorial/review,
+not a report of novel methodology.
 
 # Introduction
 
@@ -174,7 +176,7 @@ change scores,' or SACS) and that ANCOVA does not
 require baseline balance, even in expectation, to
 provide unbiased treatment effect estimates. This
 resolves Lord's paradox in the clinical trial setting
-[@lesaffreNonparametric2003].
+[@sennChangeBaseline2006].
 
 @vickersBaseline2001 provided a concise tutorial
 confirming that ANCOVA is the preferred analysis
@@ -275,7 +277,7 @@ assuming proportional hazards.
 
 ## Regulatory Guidance
 
-### ICH E9 (1998) and E9(R1) (2019)
+### ICH E9 (1999) and E9(R1) (2019)
 
 The ICH E9 guideline [@ichE9Statistical1999] advises
 investigators to 'identify covariates expected to
@@ -451,25 +453,45 @@ recommendations for modern trial design and analysis.
 
 ## Present Study
 
-The preceding literature provides a strong theoretical
-and empirical foundation. Yet a concise, unified summary of objective criteria for
-covariate adjustment has not, to the best of our knowledge,
-been widely available. We synthesize the evidence into
-concrete decision rules and illustrate the efficiency gains
-through a Monte Carlo simulation.
+The preceding literature provides a strong theoretical and
+empirical foundation, and several sources already give
+practitioner-facing recommendations that overlap
+substantially with what follows, including the FDA and EMA
+guidance documents themselves, @morrisPlanning2022's
+practical guide to planning adjustment,
+@kahanRisks2014's empirical assessment of the consequences
+of (not) adjusting, and @vanLanckerCovariate2024's review of
+conditional-versus-marginal considerations. This paper does
+not claim a new empirical finding or a novel estimator; its
+contribution is a single, citation-backed decision procedure
+that maps each of these dispersed sources onto three
+operational questions -- when to adjust, which covariates to
+adjust for, and how to specify the adjustment -- together
+with a worked illustration of why the common test-then-adjust
+heuristic fails. We synthesize the evidence into these
+decision rules and illustrate the efficiency and coverage
+consequences through a small Monte Carlo simulation.
 
 # Methods
 
 ## Simulation Design
 
-We conduct a Monte Carlo simulation to illustrate the
-efficiency gains from ANCOVA relative to the
-unadjusted comparison of means, across a range of
-covariate-outcome correlations. The simulation also
-demonstrates that testing for baseline balance and
-adjusting only when a significant imbalance is
-detected (the 'test-then-adjust' strategy) does not
-improve -- and may harm -- inferential properties.
+We conduct a Monte Carlo simulation, reported following
+the ADEMP framework of @morrisUsingSimulation2019 (Aims,
+Data-generating mechanisms, Estimands, Methods,
+Performance measures), to illustrate the efficiency
+gains from ANCOVA relative to the unadjusted comparison
+of means, across a range of covariate-outcome
+correlations. The simulation also illustrates that
+testing for baseline balance and adjusting only when a
+significant imbalance is detected (the 'test-then-adjust'
+strategy) does not improve -- and can distort the
+coverage of -- inferential properties. The simulation
+varies the covariate-outcome correlation ($\gamma$) and
+sample size ($n$) only; it does not vary baseline
+imbalance as a design factor, and it is restricted to a
+single continuous outcome and a correctly specified
+adjustment model (see Limitations).
 
 ## Data Generating Model
 
@@ -548,89 +570,27 @@ For each scenario and analysis strategy, we compute:
 - **Power**: Proportion of replications rejecting
   $H_0: \tau = 0$ at $\alpha = 0.05$ (two-sided)
 
-```{r simulation, cache=TRUE}
-run_sim <- function(n, gamma, tau = 0.3, B = 5000) {
-  results <- matrix(NA, nrow = B, ncol = 9)
-  colnames(results) <- c(
-    "est_unadj", "se_unadj", "p_unadj",
-    "est_ancova", "se_ancova", "p_ancova",
-    "est_tta", "se_tta", "p_tta"
-  )
-  sigma <- sqrt(1 - gamma^2)
-
-  for (b in seq_len(B)) {
-    z <- rep(0:1, each = n / 2)
-    x <- rnorm(n)
-    y <- tau * z + gamma * x + rnorm(n, 0, sigma)
-
-    fit_unadj <- lm(y ~ z)
-    su <- summary(fit_unadj)$coefficients
-    results[b, 1] <- su["z", "Estimate"]
-    results[b, 2] <- su["z", "Std. Error"]
-    results[b, 3] <- su["z", "Pr(>|t|)"]
-
-    fit_ancova <- lm(y ~ z + x)
-    sa <- summary(fit_ancova)$coefficients
-    results[b, 4] <- sa["z", "Estimate"]
-    results[b, 5] <- sa["z", "Std. Error"]
-    results[b, 6] <- sa["z", "Pr(>|t|)"]
-
-    p_balance <- t.test(x ~ z)$p.value
-    if (p_balance < 0.10) {
-      results[b, 7] <- sa["z", "Estimate"]
-      results[b, 8] <- sa["z", "Std. Error"]
-      results[b, 9] <- sa["z", "Pr(>|t|)"]
-    } else {
-      results[b, 7] <- su["z", "Estimate"]
-      results[b, 8] <- su["z", "Std. Error"]
-      results[b, 9] <- su["z", "Pr(>|t|)"]
-    }
-  }
-
-  res <- as.data.frame(results)
-  tibble(
-    n = n, gamma = gamma,
-    strategy = c("Unadjusted", "ANCOVA",
-                 "Test-then-adjust"),
-    bias = c(
-      mean(res$est_unadj) - tau,
-      mean(res$est_ancova) - tau,
-      mean(res$est_tta) - tau
-    ),
-    emp_se = c(
-      sd(res$est_unadj),
-      sd(res$est_ancova),
-      sd(res$est_tta)
-    ),
-    mean_se = c(
-      mean(res$se_unadj),
-      mean(res$se_ancova),
-      mean(res$se_tta)
-    ),
-    coverage = c(
-      mean(abs(res$est_unadj - tau) <
-             1.96 * res$se_unadj),
-      mean(abs(res$est_ancova - tau) <
-             1.96 * res$se_ancova),
-      mean(abs(res$est_tta - tau) <
-             1.96 * res$se_tta)
-    ),
-    power = c(
-      mean(res$p_unadj < 0.05),
-      mean(res$p_ancova < 0.05),
-      mean(res$p_tta < 0.05)
-    )
+```{r simulation}
+## The simulation itself lives in R/run_sim.R (package function
+## `run_sim()`) and is executed by
+## analysis/scripts/run_simulation.R, which saves the combined
+## results to analysis/data/derived_data/sim_results.rds. This
+## chunk only reads that saved object, so the numbers in this
+## document cannot silently desync from a stale knitr cache. To
+## regenerate the results, run (from the repository root):
+##   Rscript analysis/scripts/run_simulation.R
+sim_results_path <- here::here(
+  "analysis", "data", "derived_data", "sim_results.rds"
+)
+if (!file.exists(sim_results_path)) {
+  stop(
+    "Simulation results not found at ", sim_results_path,
+    ". Run `Rscript analysis/scripts/run_simulation.R` from the ",
+    "repository root before rendering this document."
   )
 }
-
-gammas <- c(0, 0.3, 0.5, 0.7)
-ns <- c(100, 200)
-scenarios <- expand.grid(n = ns, gamma = gammas)
-
-sim_results <- purrr::pmap_dfr(
-  scenarios,
-  function(n, gamma) run_sim(n = n, gamma = gamma)
-)
+sim_output <- readRDS(sim_results_path)
+sim_results <- sim_output$sim_results
 ```
 
 # Results
@@ -642,18 +602,27 @@ sim_results |>
   mutate(
     across(c(bias, emp_se, mean_se), ~round(., 4)),
     coverage = round(coverage, 3),
-    power = round(power, 3)
+    power = round(power, 3),
+    mcse_coverage = round(mcse_coverage, 3),
+    mcse_power = round(mcse_power, 3)
+  ) |>
+  select(
+    n, gamma, strategy, bias, emp_se, mean_se,
+    coverage, mcse_coverage, power, mcse_power
   ) |>
   kable(
     format = "latex", booktabs = TRUE,
     caption = paste(
-      "Simulation results across analysis",
-      "strategies and covariate strengths."
+      "Simulation results across analysis strategies and",
+      "covariate strengths ($B = 5000$ replications per",
+      "scenario). MCSE columns are Monte Carlo standard",
+      "errors for coverage and power, following the ADEMP",
+      "framework of Morris, White, and Crowther (2019)."
     ),
     col.names = c(
       "$n$", "$\\gamma$", "Strategy",
       "Bias", "Emp. SE", "Mean SE",
-      "Coverage", "Power"
+      "Coverage", "MCSE(Cov.)", "Power", "MCSE(Pow.)"
     ),
     escape = FALSE,
     linesep = c("", "", "\\addlinespace")
@@ -664,22 +633,73 @@ sim_results |>
   )
 ```
 
-Table 2 presents the simulation results. We observe that
+```{r key-values, include=FALSE}
+pull_val <- function(n_val, gamma_val, strat, metric) {
+  sim_results |>
+    filter(n == n_val, gamma == gamma_val, strategy == strat) |>
+    pull({{ metric }})
+}
+
+pw_unadj_100_g7 <- pull_val(100, 0.7, "Unadjusted", power)
+pw_ancova_100_g7 <- pull_val(100, 0.7, "ANCOVA", power)
+pw_unadj_200_g7 <- pull_val(200, 0.7, "Unadjusted", power)
+pw_ancova_200_g7 <- pull_val(200, 0.7, "ANCOVA", power)
+pw_tta_100_g7 <- pull_val(100, 0.7, "Test-then-adjust", power)
+
+cov_tta_100_g7 <- pull_val(100, 0.7, "Test-then-adjust", coverage)
+cov_tta_200_g7 <- pull_val(200, 0.7, "Test-then-adjust", coverage)
+mcse_cov_tta_100_g7 <- pull_val(
+  100, 0.7, "Test-then-adjust", mcse_coverage
+)
+empse_unadj_100_g7 <- pull_val(100, 0.7, "Unadjusted", emp_se)
+meanse_unadj_100_g7 <- pull_val(100, 0.7, "Unadjusted", mean_se)
+empse_tta_100_g7 <- pull_val(100, 0.7, "Test-then-adjust", emp_se)
+meanse_tta_100_g7 <- pull_val(100, 0.7, "Test-then-adjust", mean_se)
+```
+
+Table \@ref(tab:results-table) presents the simulation
+results (all figures computed directly from the saved
+simulation output; none are hard-coded). We observe that
 when the covariate is nonprognostic ($\gamma = 0$), all
-three strategies perform identically, as expected. As
+three strategies perform similarly, as expected. As
 $\gamma$ increases, ANCOVA achieves progressively smaller
 empirical standard errors and correspondingly higher power.
 For $\gamma = 0.7$ (i.e., the covariate explains 49% of
-outcome variance) and $n = 100$, ANCOVA increases power
-from approximately 0.56 to approximately 0.88 -- equivalent
-to nearly doubling the sample size.
+outcome variance), ANCOVA increases power from
+`r sprintf("%.2f", pw_unadj_100_g7)` to
+`r sprintf("%.2f", pw_ancova_100_g7)` at $n = 100$, and
+from `r sprintf("%.2f", pw_unadj_200_g7)` to
+`r sprintf("%.2f", pw_ancova_200_g7)` at $n = 200$.
 
-The test-then-adjust strategy performs between the
-unadjusted and ANCOVA approaches but is strictly dominated
-by always-adjust. Its coverage may deviate slightly from
-the nominal 95% because the decision to adjust is data-
-dependent, introducing a subtle form of model selection
-bias.
+The test-then-adjust strategy's power
+(`r sprintf("%.2f", pw_tta_100_g7)` at $n = 100$,
+$\gamma = 0.7$) is close to the unadjusted power and far
+below ANCOVA's, so it is more accurate to say
+test-then-adjust behaves like the unadjusted analysis on
+power rather than as an intermediate strategy. Its
+coverage, however, is systematically above nominal: at
+$n = 100$, $\gamma = 0.7$, coverage is
+`r sprintf("%.3f", cov_tta_100_g7)`
+(Monte Carlo SE `r sprintf("%.3f", mcse_cov_tta_100_g7)`),
+and at $n = 200$ it is
+`r sprintf("%.3f", cov_tta_200_g7)`, both several Monte
+Carlo standard errors above 0.95. This is not model
+selection bias in the usual sense; it reflects that most
+replications are approximately balanced, so
+test-then-adjust falls back to the unadjusted standard
+error (mean model SE
+`r sprintf("%.3f", meanse_unadj_100_g7)` at $n = 100$,
+$\gamma = 0.7$), which is conservative relative to the
+empirical variability that would obtain if ANCOVA were
+always used
+(`r sprintf("%.3f", empse_tta_100_g7)` empirical SE for
+test-then-adjust versus
+`r sprintf("%.3f", meanse_tta_100_g7)` mean model SE in
+the same scenario). The strategy is therefore strictly
+dominated by always-adjust: it sacrifices power relative
+to ANCOVA without offering a validity advantage, since
+ANCOVA's coverage is close to nominal in every scenario
+studied.
 
 ## Relative Efficiency
 
@@ -719,11 +739,14 @@ ggplot(eff_data, aes(x = gamma, y = rel_eff,
   theme(legend.position = c(0.2, 0.85))
 ```
 
-We see in Figure 1 that the relative efficiency of ANCOVA
-increases approximately as $1 / (1 - \gamma^2)$, consistent
-with theory. The gains are independent of sample size,
-confirming that ANCOVA is beneficial for both small and
-large trials.
+We see in Figure \@ref(fig:efficiency-plot) that the
+relative efficiency of ANCOVA increases approximately as
+$1 / (1 - \gamma^2)$, consistent with theory. This ratio
+is asymptotically independent of sample size; the close
+agreement between the $n = 100$ and $n = 200$ curves here
+is consistent with that asymptotic result but is based on
+only two sample sizes and should not be read as a general
+empirical finding across arbitrary $n$.
 
 ## Coverage Properties
 
@@ -749,16 +772,20 @@ sim_results |>
     y = "Coverage of 95% CI",
     linetype = NULL, shape = NULL
   ) +
-  coord_cartesian(ylim = c(0.93, 0.97)) +
+  coord_cartesian(ylim = c(0.93, 0.98)) +
   theme_minimal(base_size = 10) +
   theme(legend.position = "bottom")
 ```
 
-Figure 2 shows that all three strategies maintain
-approximately nominal coverage. The test-then-adjust
-strategy shows minor coverage perturbations in some
-scenarios, consistent with the theoretical concerns about
-data-dependent model selection.
+Figure \@ref(fig:coverage-plot) shows that the unadjusted
+and ANCOVA strategies maintain approximately nominal
+coverage throughout. The test-then-adjust strategy shows
+systematic over-coverage that grows with $\gamma$, as
+quantified in Table \@ref(tab:results-table) and discussed
+above; this is a consequence of the SE mixture described
+above, not a form of model-selection bias in the estimate
+itself (the point estimates remain approximately unbiased
+in every scenario, per Table \@ref(tab:results-table)).
 
 # Discussion
 
@@ -819,10 +846,9 @@ in the primary analysis of an RCT.
    modified Poisson regression with robust standard
    errors.
 9. For time-to-event outcomes: use a covariate-adjusted
-   log-rank test [@yeLogRank2024] or estimate the
-   restricted mean survival time with covariate
-   adjustment [@diazSurvival2019;
-   @luLogRank2008].
+   log-rank test [@yeLogRank2024; @luLogRank2008] or
+   estimate the restricted mean survival time with
+   covariate adjustment [@diazSurvival2019].
 10. Use robust (sandwich) standard errors to guard
     against model misspecification
     [@rosenblumRegression2009;
@@ -845,25 +871,40 @@ robust variance estimation.
 
 ## Limitations
 
-We should note that the simulation presented here is
-deliberately simple, restricted to a continuous outcome
-with a single covariate and no missing data. Real trials involve
-multiple covariates, various outcome types, missing
-data, and complications such as noncompliance and
-intercurrent events. The estimand framework of ICH
-E9(R1) [@ichE9R1Estimands2019] introduces additional
-considerations about what exactly is being estimated.
-Nevertheless, the core message is robust: pre-specified
-covariate adjustment improves efficiency without
-sacrificing validity, across all outcome types and
-regulatory frameworks.
+The simulation presented here is deliberately simple and
+illustrative, not a comprehensive evaluation of the eleven
+criteria. It is restricted to a single continuous outcome,
+a single covariate, a correctly specified linear
+data-generating model, and no missing data. It does not
+vary baseline imbalance as a design factor and does not
+include a binary or time-to-event scenario, so criteria
+8-10 (nonlinear and survival outcomes) rest on the cited
+theoretical and applied literature rather than on evidence
+generated here. Real trials involve multiple covariates,
+various outcome types, missing data, and complications
+such as noncompliance and intercurrent events. The
+estimand framework of ICH E9(R1)
+[@ichE9R1Estimands2019] introduces additional
+considerations about what exactly is being estimated. The
+core qualitative message -- that pre-specified covariate
+adjustment improves efficiency without sacrificing
+validity -- is supported by the broader literature cited
+throughout this paper across outcome types and regulatory
+frameworks, but the simulation itself demonstrates this
+only for the continuous-outcome, correctly specified case.
 
-The simulation uses OLS-based standard errors rather
-than the sandwich estimator. For the balanced designs
-considered here, the two are asymptotically equivalent
-[@linAgnostic2013], but in practice, the sandwich
-estimator is more robust to heteroscedasticity and
-is recommended by the FDA.
+The simulation uses heteroskedasticity-consistent (HC2)
+standard errors for the ANCOVA and test-then-adjust
+strategies, computed via `sandwich::vcovHC()`, matching
+the Methods description and the FDA's recommendation for
+robust variance estimation. For the balanced,
+correctly-specified designs considered here HC2 and
+classical OLS standard errors are asymptotically
+equivalent [@linAgnostic2013]; the sandwich estimator was
+retained because it remains valid under the
+misspecification and heteroscedasticity that can arise in
+practice, even though neither is present by construction
+in this simulation.
 
 # Future Research
 
@@ -920,30 +961,47 @@ This work received no specific funding.
 
 # Data availability statement
 
-The simulation drivers, cached results, and figure-generation
-code that populate the manuscript are openly available in the
-`baselinedist` project repository. Specific paths are listed
-in the Reproducibility section below.
+The simulation function, the driver script that runs it, the
+saved simulation output, and the manuscript source are all in
+the `baselinedist` project repository. Specific paths are
+listed in the Reproducibility section below.
 
 # Reproducibility
 
-This manuscript was rendered with R 4.4.x. Principal packages
-used by the simulation pipeline are `lm` (the underlying
-fitter), `MASS` (multivariate normal data generation),
-`dplyr` and `ggplot2` (reporting), and `rmarkdown` plus
-`bookdown` for the manuscript build.
+This manuscript was rendered with R 4.4.x. The simulation
+function `run_sim()` lives in `R/run_sim.R` as a documented,
+exported package function and is unit-tested in
+`inst/tinytest/test_run_sim.R`. It uses base R `lm()` for
+model fitting, `sandwich::vcovHC()` (HC2) for the ANCOVA and
+test-then-adjust standard errors, `tibble` for the returned
+summary, `dplyr` and `ggplot2` for reporting, and `rmarkdown`
+plus `bookdown` for the manuscript build. `MASS` is not used;
+the single covariate is generated with `stats::rnorm()`.
 
-**Random-number generator.** The simulation driver sets
-`set.seed(20260411)` at the top of the replicate loop.
-Per-replicate seeds derive from the master seed by
-`+ rep_idx`.
+**Random-number generator.** `analysis/scripts/run_simulation.R`
+calls `run_sim(..., seed = master_seed + scenario_id)` once per
+scenario, with `master_seed <- 20260305`, so each of the eight
+$(n, \gamma)$ scenarios has its own reproducible seed set at
+the top of `run_sim()`. There is no per-replicate reseeding
+within a scenario; replicates within a scenario share one
+continuous RNG stream started from that scenario's seed.
 
-**Data and code availability.** The simulation code is
-embedded in the manuscript Rmd. Cached results, intermediate
-LaTeX, and figure outputs are at `analysis/data/` and
-`analysis/figures/`. The manuscript source, bibliography
-(`references.bib`), and SIM CSL file are at
-`analysis/report/`.
+**Data and code availability.** The simulation is not embedded
+in this Rmd. `analysis/scripts/run_simulation.R` runs the full
+factorial design ($n \in \{100, 200\}$,
+$\gamma \in \{0, 0.3, 0.5, 0.7\}$, $B = 5000$) and saves the
+combined results, together with the master seed and a
+timestamp, to `analysis/data/derived_data/sim_results.rds`.
+This document's `simulation` chunk reads that `.rds` file
+directly and stops with an informative error if it is
+missing, so the manuscript can never silently render with
+stale or absent results. To regenerate the results, run
+`Rscript analysis/scripts/run_simulation.R` from the
+repository root (approximately one to two minutes on a
+laptop); then re-render this document with
+`bash tools/render.sh analysis/report/report.Rmd`. The
+manuscript source, bibliography (`references.bib`), and CSL
+file are at `analysis/report/`.
 
 # References
 

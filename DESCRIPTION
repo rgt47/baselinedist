@@ -7,7 +7,10 @@ Description: Analysis of baseline covariate distributions and their impact on cl
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+Imports:
+    sandwich,
+    stats,
+    tibble
 Suggests:
     here,
     kableExtra,
@@ -17,3 +20,5 @@ Suggests:
     rprojroot,
     tidyverse,
     tinytest
+RoxygenNote: 7.2.0
+Config/roxygen2/version: 8.0.0

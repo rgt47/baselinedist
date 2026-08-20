@@ -9,3 +9,5 @@ renv/library/
 renv/staging/
 .zzcollab.log
 .make/
+analysis/report/report_cache/
+analysis/report/report_files/report_files/
