@@ -2091,9 +2091,6 @@
         "stats",
         "utils"
       ],
-      "LinkingTo": [
-        null
-      ],
       "Suggests": [
         "KernSmooth",
         "MASS",
@@ -3210,9 +3207,6 @@
         "utils",
         "zoo"
       ],
-      "LinkingTo": [
-        null
-      ],
       "Suggests": [
         "AER",
         "car",
@@ -3230,9 +3224,6 @@
         "stats4",
         "strucchange",
         "survival"
-      ],
-      "Enhances": [
-        null
       ],
       "License": "GPL-2 | GPL-3",
       "License_is_FOSS": null,
@@ -4290,9 +4281,6 @@
         "grDevices",
         "lattice (>= 0.20-27)"
       ],
-      "LinkingTo": [
-        null
-      ],
       "Suggests": [
         "AER",
         "coda",
@@ -4308,9 +4296,6 @@
         "tis",
         "tseries",
         "xts"
-      ],
-      "Enhances": [
-        null
       ],
       "License": "GPL-2 | GPL-3",
       "License_is_FOSS": null,
