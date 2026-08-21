@@ -139,8 +139,8 @@
   \renewcommand{\headrulewidth}{0pt}%
   \renewcommand{\footrulewidth}{0.4pt}}
 \renewcommand{\stampsource}{\textasciitilde{}/\allowbreak{}prj/\allowbreak{}res/\allowbreak{}12-baseline-covariate-dist/\allowbreak{}baselinedist/\allowbreak{}analysis/\allowbreak{}report/\allowbreak{}report.Rmd}
-\renewcommand{\stamptime}{2026-08-20 13:18 PDT}
-\renewcommand{\stampversion}{\detokenize{8137caa-wip}}
+\renewcommand{\stamptime}{2026-08-20 17:19 PDT}
+\renewcommand{\stampversion}{\detokenize{45f15fd-wip}}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
@@ -222,7 +222,12 @@ balance, a principle established by\textsuperscript{\citeproc{ref-sennTestingBas
 grid, ANCOVA dominates the unadjusted analysis on efficiency
 without compromising coverage, while the test-then-adjust
 strategy shows systematic over-coverage relative to nominal
-95\%.
+95\%. A second scenario with a binary outcome shows that
+marginal standardization (g-computation) remains
+approximately unbiased for the true marginal risk difference
+even when its working model omits a true nonlinear covariate
+term, at a modest efficiency cost relative to the correctly
+specified working model.
 
 \textbf{Conclusions.} The objective criteria provide an applied
 investigator with a procedural route from trial design to
@@ -612,22 +617,25 @@ consequences through a small Monte Carlo simulation.
 
 \subsection{Simulation Design}\label{simulation-design}
 
-We conduct a Monte Carlo simulation, reported following
-the ADEMP framework of\textsuperscript{\citeproc{ref-morrisUsingSimulation2019}{1}} (Aims,
-Data-generating mechanisms, Estimands, Methods,
-Performance measures), to illustrate the efficiency
-gains from ANCOVA relative to the unadjusted comparison
-of means, across a range of covariate-outcome
-correlations. The simulation also illustrates that
-testing for baseline balance and adjusting only when a
-significant imbalance is detected (the `test-then-adjust'
-strategy) does not improve -- and can distort the
-coverage of -- inferential properties. The simulation
-varies the covariate-outcome correlation (\(\gamma\)) and
-sample size (\(n\)) only; it does not vary baseline
-imbalance as a design factor, and it is restricted to a
-single continuous outcome and a correctly specified
-adjustment model (see Limitations).
+We conduct two Monte Carlo simulations, both reported
+following the ADEMP framework of\textsuperscript{\citeproc{ref-morrisUsingSimulation2019}{1}} (Aims, Data-generating
+mechanisms, Estimands, Methods, Performance measures).
+The first illustrates the efficiency gains from ANCOVA
+relative to the unadjusted comparison of means for a
+continuous outcome, across a range of covariate-outcome
+correlations, and shows that testing for baseline
+balance and adjusting only when a significant imbalance
+is detected (the `test-then-adjust' strategy) does not
+improve -- and can distort the coverage of --
+inferential properties. It varies the covariate-outcome
+correlation (\(\gamma\)) and sample size (\(n\)) only; it
+does not vary baseline imbalance as a design factor, and
+it is restricted to a single continuous outcome and a
+correctly specified adjustment model (see Limitations).
+The second scenario (Binary Outcome Under Model
+Misspecification, below) adds a binary outcome and a
+deliberately misspecified working model, to illustrate
+criteria 8 and 10.
 
 \subsection{Data Generating Model}\label{data-generating-model}
 
@@ -717,6 +725,96 @@ For each scenario and analysis strategy, we compute:
   \textbf{Power}: Proportion of replications rejecting
   \(H_0: \tau = 0\) at \(\alpha = 0.05\) (two-sided)
 \end{itemize}
+
+\subsection{Binary Outcome Under Model Misspecification}\label{binary-outcome-under-model-misspecification}
+
+The scenario above covers only a continuous outcome under
+a correctly specified linear model, leaving criterion 8
+(standardization for binary outcomes) and criterion 10
+(robustness to misspecification) without simulation
+support. We add a second scenario to address this
+directly.
+
+\subsubsection{Data Generating Model}\label{data-generating-model-1}
+
+For each replication, \(n\) subjects are randomized 1:1 to
+\(Z \in \{0, 1\}\) and a baseline covariate
+\(X_i \sim \text{Normal}(0, 1)\) is generated. The binary
+outcome is
+\[
+\text{logit}\{P(Y_i = 1)\} = \beta_0 + \tau Z_i + \gamma X_i
++ \gamma_2 X_i^2,
+\]
+with \(\beta_0 = -0.5\), \(\tau = 0.6\) (log-odds treatment
+effect), and \(\gamma = 0.8\) (linear log-odds covariate
+effect). The quadratic term \(\gamma_2 X_i^2\) is the true
+data-generating nonlinearity; it also defines the
+misspecification, since one of the two working models
+below omits it entirely. The estimand is the marginal risk
+difference \(E[Y(1)] - E[Y(0)]\), obtained once by numerical
+integration of the true model over the known \(X\) density
+(not estimated from simulated data), because \(\tau\) is a
+conditional log-odds parameter that does not by itself
+equal the marginal risk difference under a nonlinear model.
+
+\subsubsection{Analysis Strategies}\label{analysis-strategies-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Unadjusted}: difference in sample proportions
+  between arms, with the usual normal-approximation
+  standard error.
+\item
+  \textbf{Standardized (correct)}: fit
+  \(\text{logit}\{P(Y_i=1)\} = b_0 + b_1 Z_i + b_2 X_i +
+  b_3 X_i^2\) by maximum likelihood, predict \(P(Y_i=1)\)
+  under the counterfactuals \(Z_i = 1\) and \(Z_i = 0\) for
+  every subject, average each set of predictions over the
+  observed covariate distribution, and difference the two
+  averages (marginal standardization / g-computation).
+  The standard error is obtained by the delta method,
+  combining a numerical gradient of the standardized
+  contrast with an HC2 sandwich covariance matrix for
+  \((b_0, b_1, b_2, b_3)\).
+\item
+  \textbf{Standardized (misspecified)}: identical procedure,
+  but the working model omits the quadratic term
+  (\(\text{logit}\{P(Y_i=1)\} = b_0 + b_1 Z_i + b_2 X_i\)),
+  so the fitted conditional model is wrong whenever
+  \(\gamma_2 \neq 0\).
+\end{enumerate}
+
+Both standardization estimators target the same marginal
+risk difference; per\textsuperscript{\citeproc{ref-rosenblumRegression2009}{15}} and\textsuperscript{\citeproc{ref-mooreCovariate2009}{16}}, this
+target should remain identifiable from a possibly
+misspecified working model in a randomized trial, because
+randomization ensures the covariate distribution is the
+same, in expectation, across counterfactual arms, so
+averaging model predictions over the observed (not a
+covariate-adjusted) distribution removes the dependence on
+correct specification of the conditional mean.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:params-binary}Binary-outcome simulation parameters.}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{ll}
+\toprule
+Parameter & Values\\
+\midrule
+Sample size ($n$) & 100, 200\\
+Intercept ($\beta_0$) & -0.5\\
+Treatment effect, log-odds ($\tau$) & 0.6\\
+Linear covariate effect, log-odds ($\gamma$) & 0.8\\
+Quadratic covariate effect / misspecification ($\gamma_2$) & 0, 0.4, 0.8\\
+\addlinespace
+Number of replications ($B$) & 2000\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Results}\label{results}
 
@@ -846,6 +944,74 @@ above, not a form of model-selection bias in the estimate
 itself (the point estimates remain approximately unbiased
 in every scenario, per Table \ref{tab:results-table}).
 
+\subsection{Binary Outcome and Model Misspecification}\label{binary-outcome-and-model-misspecification}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:results-table-binary}Binary-outcome simulation results across analysis strategies and misspecification magnitudes ($B = 2000$ replications per scenario). Bias, coverage, and power are relative to the true marginal risk difference, obtained by numerical integration of the true data-generating model. MCSE columns are Monte Carlo standard errors, following the ADEMP framework of Morris, White, and Crowther (2019).}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{9}{11}\selectfont
+\begin{tabular}[t]{rrlrrrrrrr}
+\toprule
+$n$ & $\gamma_2$ & Strategy & Bias & Emp. SE & Mean SE & Coverage & MCSE(Cov.) & Power & MCSE(Pow.)\\
+\midrule
+100 & 0.0 & Unadjusted & -0.003 & 0.098 & 0.098 & 0.941 & 0.005 & 0.258 & 0.010\\
+100 & 0.0 & Standardized (correct) & -0.002 & 0.092 & 0.093 & 0.943 & 0.005 & 0.276 & 0.010\\
+100 & 0.0 & Standardized (misspecified) & -0.002 & 0.092 & 0.093 & 0.943 & 0.005 & 0.283 & 0.010\\
+\addlinespace
+200 & 0.0 & Unadjusted & 0.001 & 0.069 & 0.070 & 0.953 & 0.005 & 0.470 & 0.011\\
+200 & 0.0 & Standardized (correct) & 0.001 & 0.065 & 0.066 & 0.948 & 0.005 & 0.512 & 0.011\\
+200 & 0.0 & Standardized (misspecified) & 0.001 & 0.065 & 0.066 & 0.948 & 0.005 & 0.510 & 0.011\\
+\addlinespace
+100 & 0.4 & Unadjusted & 0.003 & 0.100 & 0.098 & 0.942 & 0.005 & 0.278 & 0.010\\
+100 & 0.4 & Standardized (correct) & 0.002 & 0.095 & 0.094 & 0.949 & 0.005 & 0.301 & 0.010\\
+100 & 0.4 & Standardized (misspecified) & 0.003 & 0.096 & 0.095 & 0.948 & 0.005 & 0.294 & 0.010\\
+\addlinespace
+200 & 0.4 & Unadjusted & 0.000 & 0.070 & 0.070 & 0.948 & 0.005 & 0.478 & 0.011\\
+200 & 0.4 & Standardized (correct) & 0.000 & 0.066 & 0.066 & 0.949 & 0.005 & 0.504 & 0.011\\
+200 & 0.4 & Standardized (misspecified) & 0.000 & 0.067 & 0.067 & 0.948 & 0.005 & 0.495 & 0.011\\
+\addlinespace
+100 & 0.8 & Unadjusted & 0.000 & 0.098 & 0.097 & 0.947 & 0.005 & 0.260 & 0.010\\
+100 & 0.8 & Standardized (correct) & 0.000 & 0.092 & 0.091 & 0.945 & 0.005 & 0.288 & 0.010\\
+100 & 0.8 & Standardized (misspecified) & 0.001 & 0.096 & 0.096 & 0.946 & 0.005 & 0.256 & 0.010\\
+\addlinespace
+200 & 0.8 & Unadjusted & 0.002 & 0.071 & 0.069 & 0.945 & 0.005 & 0.461 & 0.011\\
+200 & 0.8 & Standardized (correct) & 0.003 & 0.066 & 0.064 & 0.939 & 0.005 & 0.510 & 0.011\\
+200 & 0.8 & Standardized (misspecified) & 0.003 & 0.069 & 0.068 & 0.941 & 0.005 & 0.481 & 0.011\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Table \ref{tab:results-table-binary} presents the
+binary-outcome results. At \(n = 200\) and the largest
+misspecification magnitude studied (\(\gamma_2 = 0.8\)),
+the misspecified standardization estimator's bias is
+0.0027, close to the
+correctly specified estimator's
+0.0028 and small relative
+to the true marginal risk difference; its coverage is
+0.941 (Monte Carlo SE
+0.005), consistent with
+nominal 95\%. This supports the theoretical claim, discussed
+under Theoretical Foundations and reiterated in criterion 10,
+that standardization from a possibly misspecified working
+model remains valid for the marginal treatment effect in a
+randomized trial: omitting the true quadratic covariate term
+does not reintroduce meaningful bias here. The cost is in
+efficiency rather than validity: the empirical SE of the
+misspecified standardization estimator
+(0.0692) falls between the
+correctly specified estimator's
+(0.0664) and the
+unadjusted estimator's
+(0.0706), so misspecification
+narrows but does not eliminate the efficiency advantage of
+standardization over the unadjusted difference in
+proportions. When \(\gamma_2 = 0\) the two standardization
+working models coincide and their estimates are numerically
+close, as expected.
+
 \section{Discussion}\label{discussion}
 
 \subsection{Summary of Objective Criteria}\label{summary-of-objective-criteria}
@@ -910,10 +1076,11 @@ in the primary analysis of an RCT.
   For binary outcomes: fit a logistic regression
   model and compute the marginal effect
   (standardization / g-computation) to obtain a
-  risk difference or relative risk\textsuperscript{\citeproc{ref-mooreCovariate2009}{16},\citeproc{ref-vanLanckerCovariate2024}{28}}.
-  Alternatively, use a linear probability model or
-  modified Poisson regression with robust standard
-  errors.
+  risk difference or relative risk\textsuperscript{\citeproc{ref-mooreCovariate2009}{16},\citeproc{ref-vanLanckerCovariate2024}{28}}, a
+  procedure illustrated directly in the Binary Outcome
+  and Model Misspecification results above. Alternatively,
+  use a linear probability model or modified Poisson
+  regression with robust standard errors.
 \item
   For time-to-event outcomes: use a covariate-adjusted
   log-rank test\textsuperscript{\citeproc{ref-luLogRank2008}{18},\citeproc{ref-yeLogRank2024}{19}} or
@@ -921,7 +1088,12 @@ in the primary analysis of an RCT.
   covariate adjustment\textsuperscript{\citeproc{ref-diazSurvival2019}{20}}.
 \item
   Use robust (sandwich) standard errors to guard
-  against model misspecification\textsuperscript{\citeproc{ref-tsiatisCovariate2008}{13},\citeproc{ref-rosenblumRegression2009}{15},\citeproc{ref-fdaCovariateAdjustment2023}{24}}.
+  against model misspecification\textsuperscript{\citeproc{ref-tsiatisCovariate2008}{13},\citeproc{ref-rosenblumRegression2009}{15},\citeproc{ref-fdaCovariateAdjustment2023}{24}}. The
+  Binary Outcome and Model Misspecification results above
+  illustrate this directly: a standardized estimator built
+  from a working model that omits a true nonlinear
+  covariate term remains approximately unbiased for the
+  marginal risk difference, at some efficiency cost.
 \item
   Pre-specify all covariates and the analysis method
   in the statistical analysis plan. The primary
@@ -941,26 +1113,42 @@ robust variance estimation.
 
 \subsection{Limitations}\label{limitations}
 
-The simulation presented here is deliberately simple and
+The simulations presented here are deliberately simple and
 illustrative, not a comprehensive evaluation of the eleven
-criteria. It is restricted to a single continuous outcome,
-a single covariate, a correctly specified linear
-data-generating model, and no missing data. It does not
-vary baseline imbalance as a design factor and does not
-include a binary or time-to-event scenario, so criteria
-8-10 (nonlinear and survival outcomes) rest on the cited
-theoretical and applied literature rather than on evidence
-generated here. Real trials involve multiple covariates,
+criteria. Both are restricted to a single covariate and no
+missing data, and neither varies baseline imbalance as a
+design factor. The continuous-outcome scenario uses a
+correctly specified linear data-generating model
+throughout. The binary-outcome scenario adds one
+misspecified working model (a quadratic term omitted from
+the covariate) and one comparator estimator
+(standardization), which supports criteria 8 and 10 but
+does not exhaust them: it does not examine alternative
+link functions, multiple covariates, more severe or
+qualitatively different (e.g., non-monotone, interaction-
+driven) forms of misspecification, or the propensity-score
+and augmented estimators discussed in the Theoretical
+Foundations section. Neither scenario includes a
+time-to-event outcome, so criterion 9 (survival outcomes)
+still rests on the cited theoretical and applied literature
+rather than on evidence generated here. Real trials involve
+multiple covariates,
 various outcome types, missing data, and complications
 such as noncompliance and intercurrent events. The
 estimand framework of ICH E9(R1)\textsuperscript{\citeproc{ref-ichE9R1Estimands2019}{22}} introduces additional
 considerations about what exactly is being estimated. The
 core qualitative message -- that pre-specified covariate
 adjustment improves efficiency without sacrificing
-validity -- is supported by the broader literature cited
-throughout this paper across outcome types and regulatory
-frameworks, but the simulation itself demonstrates this
-only for the continuous-outcome, correctly specified case.
+validity, and that standardization remains valid under
+working-model misspecification in a randomized trial -- is
+supported by the broader literature cited throughout this
+paper across outcome types and regulatory frameworks. The
+two scenarios simulated here demonstrate it directly for a
+correctly specified continuous-outcome model and for a
+binary outcome under one form of working-model
+misspecification; the time-to-event case (criterion 9)
+remains supported only by the cited literature, not by
+simulation evidence generated here.
 
 The simulation uses heteroskedasticity-consistent (HC2)
 standard errors for the ANCOVA and test-then-adjust
@@ -1046,7 +1234,17 @@ model fitting, \texttt{sandwich::vcovHC()} (HC2) for the ANCOVA and
 test-then-adjust standard errors, \texttt{tibble} for the returned
 summary, \texttt{dplyr} and \texttt{ggplot2} for reporting, and \texttt{rmarkdown}
 plus \texttt{bookdown} for the manuscript build. \texttt{MASS} is not used;
-the single covariate is generated with \texttt{stats::rnorm()}.
+the single covariate is generated with \texttt{stats::rnorm()}. The
+binary-outcome scenario's simulation function
+\texttt{run\_sim\_binary()} lives alongside it in
+\texttt{R/run\_sim\_binary.R}, is unit-tested in
+\texttt{inst/tinytest/test\_run\_sim\_binary.R}, and uses base R
+\texttt{glm(family\ =\ binomial())} for model fitting,
+\texttt{sandwich::vcovHC()} (HC2) combined with a numerical
+(central finite-difference) gradient for the delta-method
+standard error of the standardized contrast, and
+\texttt{stats::integrate()} to compute the true marginal risk
+difference from the known data-generating model.
 
 \textbf{Random-number generator.} \texttt{analysis/scripts/run\_simulation.R}
 calls \texttt{run\_sim(...,\ seed\ =\ master\_seed\ +\ scenario\_id)} once per
@@ -1055,20 +1253,34 @@ scenario, with \texttt{master\_seed\ \textless{}-\ 20260305}, so each of the eig
 the top of \texttt{run\_sim()}. There is no per-replicate reseeding
 within a scenario; replicates within a scenario share one
 continuous RNG stream started from that scenario's seed.
+\texttt{analysis/scripts/run\_simulation\_binary.R} follows the same
+pattern with its own \texttt{master\_seed\ \textless{}-\ 20260819}, so the six
+\((n, \gamma_2)\) binary-outcome scenarios each have their own
+reproducible seed, independent of the continuous-outcome
+scenario's RNG stream.
 
-\textbf{Data and code availability.} The simulation is not embedded
-in this Rmd. \texttt{analysis/scripts/run\_simulation.R} runs the full
-factorial design (\(n \in \{100, 200\}\),
-\(\gamma \in \{0, 0.3, 0.5, 0.7\}\), \(B = 5000\)) and saves the
-combined results, together with the master seed and a
-timestamp, to \texttt{analysis/data/derived\_data/sim\_results.rds}.
-This document's \texttt{simulation} chunk reads that \texttt{.rds} file
-directly and stops with an informative error if it is
-missing, so the manuscript can never silently render with
-stale or absent results. To regenerate the results, run
-\texttt{Rscript\ analysis/scripts/run\_simulation.R} from the
-repository root (approximately one to two minutes on a
-laptop); then re-render this document with
+\textbf{Data and code availability.} Neither simulation is
+embedded in this Rmd. \texttt{analysis/scripts/run\_simulation.R}
+runs the continuous-outcome factorial design
+(\(n \in \{100, 200\}\), \(\gamma \in \{0, 0.3, 0.5, 0.7\}\),
+\(B = 5000\)) and saves the combined results, together with
+the master seed and a timestamp, to
+\texttt{analysis/data/derived\_data/sim\_results.rds}.
+\texttt{analysis/scripts/run\_simulation\_binary.R} runs the
+binary-outcome factorial design (\(n \in \{100, 200\}\),
+\(\gamma_2 \in \{0, 0.4, 0.8\}\), \(B = 2000\)) and saves its
+results to
+\texttt{analysis/data/derived\_data/sim\_results\_binary.rds}. This
+document's \texttt{simulation} and \texttt{simulation-binary} chunks read
+those \texttt{.rds} files directly and stop with an informative
+error if either is missing, so the manuscript can never
+silently render with stale or absent results. To regenerate
+the results, run \texttt{Rscript\ analysis/scripts/run\_simulation.R} (approximately one to two
+minutes on a laptop) and \texttt{Rscript\ analysis/scripts/run\_simulation\_binary.R} (approximately
+four to six minutes, since \texttt{glm()} fitting and the
+delta-method standard error are substantially more expensive
+per replicate than the continuous scenario's \texttt{lm()} fits)
+from the repository root; then re-render this document with
 \texttt{bash\ tools/render.sh\ analysis/report/report.Rmd}. The
 manuscript source, bibliography (\texttt{references.bib}), and CSL
 file are at \texttt{analysis/report/}.

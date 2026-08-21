@@ -195,3 +195,146 @@ Addresses the referee comments in
   this was verified only against the host R library
   (`renv skipped - use container for reproducibility`), not inside
   the project's Docker/renv container.
+
+## 4. Follow-up session (2026-08-20, later same day): binary/misspecified-model scenario
+
+The item deferred above (whitepaper item 9: a binary-outcome
+standardization scenario and/or a misspecified-model scenario, to
+support criteria 8 and 10) has now been implemented and integrated
+into the manuscript.
+
+**What was added**
+
+- `R/run_sim_binary.R`: a new exported, documented package function
+  `run_sim_binary(n, gamma2, tau, gamma, beta0, b_reps, seed)`.
+  Data-generating model: a binary outcome with
+  $\text{logit}\{P(Y_i=1)\} = \beta_0 + \tau Z_i + \gamma X_i +
+  \gamma_2 X_i^2$, $X_i \sim N(0,1)$, 1:1 randomization. `gamma2` is
+  both the true quadratic log-odds effect and the magnitude of
+  misspecification in the "misspecified" working model below. Three
+  analysis strategies per replicate: (1) unadjusted difference in
+  sample proportions; (2) marginal standardization / g-computation
+  from a correctly specified logistic working model
+  (`glm(y ~ z + x + I(x^2))`); (3) the same standardization procedure
+  from a misspecified working model that omits the quadratic term
+  (`glm(y ~ z + x)`). The estimand (true marginal risk difference) is
+  computed once by `stats::integrate()` over the known $X$ density,
+  not from simulated data. Standard errors for the two
+  standardization estimators use the delta method: a central
+  finite-difference gradient of the standardized contrast with
+  respect to the fitted coefficients, combined with an HC2 sandwich
+  covariance matrix (`sandwich::vcovHC(fit, type = "HC2")`). Three
+  internal helper functions (`true_marginal_rd()`,
+  `standardize_rd()`/`standardize_rd_at()`, `standardize_se()`) do
+  the integration, g-computation, and delta-method work respectively.
+  No new package dependencies were needed; `sandwich`, `stats`, and
+  `tibble` were already Imports. `[verified]`: ran the function
+  interactively at small `b_reps`, inspected bias, coverage, and the
+  efficiency ordering (correct standardization more efficient than
+  misspecified, both more efficient than unadjusted) against theory.
+- `analysis/scripts/run_simulation_binary.R`: driver script, parallel
+  in structure to the existing `run_simulation.R`, running the full
+  factorial design ($n \in \{100, 200\}$,
+  $\gamma_2 \in \{0, 0.4, 0.8\}$, $B = 2000$, own
+  `master_seed <- 20260819`, per-scenario seeding) and saving to
+  `analysis/data/derived_data/sim_results_binary.rds`. `b_reps` was
+  set to 2000 rather than the continuous scenario's 5000 because
+  `glm()` fitting plus the delta-method standard error is
+  substantially more expensive per replicate than `lm()`; the full
+  six-scenario run took approximately 4-5 minutes on this laptop.
+  `[verified]`: ran to completion, inspected the saved output
+  (non-`NA`, plausible values).
+- `analysis/report/report.Rmd`: added a Methods subsection ("Binary
+  Outcome Under Model Misspecification") describing the
+  data-generating model, estimand, and the two standardization
+  strategies, with its own parameters table; a new `simulation-binary`
+  chunk reading `sim_results_binary.rds` (same stop-with-actionable-
+  error pattern as the continuous `simulation` chunk); and a Results
+  subsection ("Binary Outcome and Model Misspecification") with its
+  own results table (`results-table-binary`, `\@ref()`-cross-referenced)
+  and prose computed via inline `r` expressions from the saved
+  results object (no hard-coded numbers). Updated the Abstract
+  Results paragraph, the Methods "Simulation Design" paragraph, the
+  Limitations section, criteria 8 and 10 in the Discussion, and the
+  Reproducibility section to describe the second scenario accurately.
+  `[verified]`: full render succeeded; inline values in `report.tex`
+  cross-checked against `sim_results_binary.rds`.
+- `inst/tinytest/test_run_sim_binary.R`: 11 new assertions covering
+  row/strategy structure, near-zero bias for all three strategies
+  including the misspecified standardization estimator, nominal
+  coverage, MCSE positivity, that `true_rd` depends only on the DGM
+  parameters (not on the seed or simulated data), the efficiency
+  ordering (correct standardization at least as efficient as
+  misspecified, both more efficient than unadjusted), exact seed
+  reproducibility, and input validation (odd `n` rejected). Added an
+  `exists("run_sim_binary", ...)` export check to
+  `inst/tinytest/test_basic.R`. `[verified]`:
+  `tinytest::run_test_dir("inst/tinytest")` -> "All ok, 21 results"
+  (about 80 seconds; the binary tests dominate the runtime because
+  `glm()` is slower than `lm()`).
+- `NAMESPACE`, `man/run_sim_binary.Rd`, `man/true_marginal_rd.Rd`,
+  `man/standardize_rd.Rd`, `man/standardize_rd_at.Rd`,
+  `man/standardize_se.Rd`: regenerated via `devtools::document()`.
+  No `DESCRIPTION` changes were needed (`sandwich`, `stats`, `tibble`
+  were already Imports).
+
+**Conclusions: consistent with the existing scenarios**
+
+At $n = 200$, $\gamma_2 = 0.8$ (largest misspecification studied),
+the misspecified standardization estimator's bias is 0.0027, close
+to the correctly specified estimator's 0.0028, both small relative
+to the true marginal risk difference (about 0.124); coverage is
+0.941, consistent with nominal 95%. Empirical SE orders as
+correct (0.0664) < misspecified (0.0692) < unadjusted (0.0706) at
+that scenario, and this ordering holds (with minor exceptions
+consistent with Monte Carlo noise at $B = 2000$) across the other
+five scenarios in the saved results. This supports, rather than
+contradicts, the qualitative claims already in the manuscript: (a)
+covariate adjustment/standardization improves efficiency over the
+unadjusted comparison, extending the continuous-outcome scenario's
+finding to a binary outcome; (b) unlike the continuous scenario's
+test-then-adjust strategy, which showed genuine coverage distortion,
+this scenario's model-misspecification manipulation does not
+materially distort coverage or introduce meaningful bias, which is
+the specific theoretical claim (Rosenblum and van der Laan 2009;
+Moore and van der Laan 2009, both already cited in the manuscript)
+that criteria 8 and 10 rest on. `[verified]` for the numbers quoted
+above (read directly from `sim_results_binary.rds` and the rendered
+`report.tex`); the broader claim that this single form of
+misspecification (an omitted quadratic term, one covariate) is
+representative of "model misspecification" generally is `[inferred]`
+from theory, not established by this one scenario -- the Limitations
+section says so explicitly.
+
+**Not done in this follow-up session (still deferred, unchanged from Section 2 above)**
+
+- Whitepaper Section 5 title/framing change: not touched. YAML
+  `title:` is unchanged.
+- Whitepaper item 14 / minor 13-14 (submission-format variant): not
+  touched.
+- No time-to-event (survival) scenario was added; criterion 9 still
+  rests on cited literature only. This was explicitly out of scope
+  for this follow-up (the task was the binary/misspecified-model
+  scenario specifically) and remains a genuine gap if a referee
+  presses on criterion 9.
+- The binary scenario examines only one form of misspecification (an
+  omitted quadratic covariate term) and only two working models
+  (correct vs. this one misspecified form). It does not vary the link
+  function, use multiple covariates, or compare against propensity-
+  score or augmented (doubly robust) estimators, all of which appear
+  in the cited theoretical literature. This is disclosed in the
+  Limitations section.
+- The nested `analysis/report/report_files/report_files/` duplicate
+  reappeared again after this session's render, as previously
+  documented; still gitignored, still not fixed at the render-
+  pipeline level.
+- No `git add`/`git commit` was performed as part of this follow-up;
+  new and modified files remain in the working tree
+  (`git status --short` at the time of writing shows `R/run_sim_binary.R`,
+  `analysis/scripts/run_simulation_binary.R`,
+  `analysis/data/derived_data/sim_results_binary.rds`,
+  `inst/tinytest/test_run_sim_binary.R`, modified `NAMESPACE`,
+  `analysis/report/report.Rmd`/`.tex`/`.pdf`, modified `man/*.Rd`,
+  and modified `inst/tinytest/test_basic.R`, among the regenerated
+  `report_files/` figure PDFs and `share/` staged copy, as untracked
+  or modified). Committing was not requested.
