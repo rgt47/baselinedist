@@ -50,55 +50,55 @@ options(scipen = 1, digits = 3)
 # Abstract
 
 **Background.** Covariate adjustment in randomized clinical
-trials remains methodologically contested in applied practice
+trials remains methodologically contested in applied practice,
 despite a mature theoretical literature, mature regulatory
 guidance from FDA, EMA, and ICH E9, and consistent simulation
-evidence. The disconnect between literature and practice is
-partly attributable to the absence of objective criteria
-that an investigator can apply without re-deriving the
-relevant theory; this paper develops such criteria.
+evidence. This disconnect between literature and practice is
+partly attributable to the absence of objective criteria that
+an investigator can apply without re-deriving the relevant
+theory. We develop such criteria in this paper.
 
 **Methods.** We synthesize the statistical literature on
-covariate adjustment in RCTs, the relevant regulatory
-guidance, and illustrative simulation evidence on adjusted-
-versus-unadjusted analyses across varying covariate-outcome
-correlations and sample sizes. Performance measures include
-bias, coverage, and efficiency gain (relative variance
-reduction), reported with Monte Carlo standard errors
-following the ADEMP framework of
-@morrisUsingSimulation2019. The synthesis distills into
-objective criteria along three axes: when to adjust, which
-covariates to adjust for, and how to specify the adjustment.
+covariate adjustment in RCTs, the relevant regulatory guidance,
+and illustrative simulation evidence on
+adjusted-versus-unadjusted analyses across varying
+covariate-outcome correlations and sample sizes. Our performance
+measures include bias, coverage, and efficiency gain (relative
+variance reduction), reported with Monte Carlo standard errors
+following the ADEMP framework of @morrisUsingSimulation2019. The
+synthesis distills into objective criteria along three axes:
+when to adjust, which covariates to adjust for, and how to
+specify the adjustment.
 
-**Results.** The criteria converge: adjustment should always
-be applied when prognostic covariates are pre-specified;
-stratification variables used in the randomization must
-appear as covariates in the analysis; the baseline
-measurement of the outcome variable should always be
+**Results.** We find that the criteria converge. Adjustment
+should always be applied when prognostic covariates are
+pre-specified; stratification variables used in the
+randomization must appear as covariates in the analysis; the
+baseline measurement of the outcome variable should always be
 included when available. Selection of additional covariates
 should rest on prior evidence of prognostic value, with the
 number of covariates kept small relative to sample size.
 Decisions to adjust must not depend on observed baseline
 balance, a principle established by
-@sennTestingBaselineBalance1994a. Across the simulation
-grid, ANCOVA dominates the unadjusted analysis on efficiency
-without compromising coverage, while the test-then-adjust
-strategy shows systematic over-coverage relative to nominal
-95%. A second scenario with a binary outcome shows that
-marginal standardization (g-computation) remains
-approximately unbiased for the true marginal risk difference
-even when its working model omits a true nonlinear covariate
-term, at a modest efficiency cost relative to the correctly
-specified working model.
+@sennTestingBaselineBalance1994a. Across the simulation grid,
+ANCOVA dominates the unadjusted analysis on efficiency without
+compromising coverage, while the test-then-adjust strategy shows
+systematic over-coverage relative to nominal 95%. A second
+scenario with a binary outcome shows that marginal
+standardization (g-computation) remains approximately unbiased
+for the true marginal risk difference even when its working
+model omits a true nonlinear covariate term, at a modest
+efficiency cost relative to the correctly specified working
+model.
 
-**Conclusions.** The objective criteria provide an applied
-investigator with a procedural route from trial design to
+**Conclusions.** We show that the objective criteria give an
+applied investigator a procedural route from trial design to
 analysis-model specification that aligns with the existing
-theoretical and regulatory consensus. The criteria are not
-new findings but are a consolidation of dispersed guidance
+theoretical and regulatory consensus. The criteria are not new
+findings; rather, they are a consolidation of dispersed guidance
 into practitioner-usable form, with explicit citation of the
-underlying primary sources; this paper is a tutorial/review,
-not a report of novel methodology.
+underlying primary sources. This paper is therefore a
+tutorial/review, not a report of novel methodology.
 
 # Introduction
 
