@@ -55,16 +55,18 @@ standardization estimators target the same marginal risk
 difference; the scenario illustrates that standardization from a
 misspecified conditional model remains consistent for the marginal
 treatment effect in a randomized trial, at some cost in efficiency
-(criteria 8 and 10 of the Discussion).
+(criterion 8 of the Discussion). Both standardization arms use the
+same HC2 sandwich variance, so the scenario does not compare
+robust with model-based standard errors.
 }
 \details{
 The data-generating model is
 \eqn{\text{logit}\{P(Y_i = 1)\} = \beta_0 + \tau Z_i + \gamma X_i +
 \gamma_2 X_i^2}, with \eqn{X_i \sim N(0, 1)} and 1:1 randomization
 of \code{Z}. The "misspecified" working model omits the \eqn{X_i^2}
-term; \code{gamma2} therefore controls the degree of misspecification
-(\code{gamma2 = 0} reduces the working models to the same, correctly
-specified, linear-logit form).
+term; \code{gamma2} therefore controls the degree of misspecification.
+At \code{gamma2 = 0} both working models are correctly specified; the
+"correct" model then fits an unneeded quadratic term.
 
 The true marginal risk difference,
 \eqn{E[Y(1)] - E[Y(0)] = E_X[\text{expit}(\beta_0 + \tau + \gamma X

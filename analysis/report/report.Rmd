@@ -1,6 +1,6 @@
 ---
 title: "Baseline Covariate Adjustment in Randomized Clinical Trials:
-  Objective Criteria for When and How to Adjust"
+  A Tutorial on When and How to Adjust"
 author: "Ronald G. Thomas, Ph.D.\\thanks{Wertheim School of Public Health, UCSD; ORCID: 0000-0003-1686-4965}"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
@@ -50,365 +50,418 @@ options(scipen = 1, digits = 3)
 # Abstract
 
 **Background.** Covariate adjustment in randomized clinical
-trials remains methodologically contested in applied practice,
-despite a mature theoretical literature, mature regulatory
-guidance from FDA, EMA, and ICH E9, and consistent simulation
-evidence. This disconnect between literature and practice is
-partly attributable to the absence of objective criteria that
-an investigator can apply without re-deriving the relevant
-theory. We develop such criteria in this paper.
+trials is still contested in applied practice. This is so
+despite a mature theoretical literature and clear guidance
+from the FDA, the EMA, and ICH E9. This paper is a tutorial
+review. It gathers that evidence into one set of practical
+criteria.
 
-**Methods.** We synthesize the statistical literature on
-covariate adjustment in RCTs, the relevant regulatory guidance,
-and illustrative simulation evidence on
-adjusted-versus-unadjusted analyses across varying
-covariate-outcome correlations and sample sizes. Our performance
-measures include bias, coverage, and efficiency gain (relative
-variance reduction), reported with Monte Carlo standard errors
-following the ADEMP framework of @morrisUsingSimulation2019. The
-synthesis distills into objective criteria along three axes:
-when to adjust, which covariates to adjust for, and how to
-specify the adjustment.
+**Methods.** We review the statistical literature, the
+regulatory guidance, and the published empirical evidence.
+Two small Monte Carlo studies illustrate known results. The
+first compares unadjusted analysis, ANCOVA, and a
+test-then-adjust rule for a continuous outcome. The second
+compares an unadjusted risk difference with standardization
+from a correct and a misspecified logistic working model.
+Bias, coverage, efficiency, and power are reported. Monte
+Carlo standard errors are given for bias, coverage, and
+power, following the ADEMP framework.
 
-**Results.** We find that the criteria converge. Adjustment
-should always be applied when prognostic covariates are
-pre-specified; stratification variables used in the
-randomization must appear as covariates in the analysis; the
-baseline measurement of the outcome variable should always be
-included when available. Selection of additional covariates
-should rest on prior evidence of prognostic value, with the
-number of covariates kept small relative to sample size.
-Decisions to adjust must not depend on observed baseline
-balance, a principle established by
-@sennTestingBaselineBalance1994a. Across the simulation grid,
-ANCOVA dominates the unadjusted analysis on efficiency without
-compromising coverage, while the test-then-adjust strategy shows
-systematic over-coverage relative to nominal 95%. A second
-scenario with a binary outcome shows that marginal
-standardization (g-computation) remains approximately unbiased
-for the true marginal risk difference even when its working
-model omits a true nonlinear covariate term, at a modest
-efficiency cost relative to the correctly specified working
-model.
+**Results.** Eleven criteria are grouped under when to
+adjust, which covariates to use, and how to adjust.
+Prognostic covariates should be chosen in advance and
+adjusted for. Stratification variables and the baseline
+value of the outcome should be included. The decision to
+adjust must not depend on observed baseline balance. A
+simple rule links the number of covariates to the sample
+size. The EMA and FDA differ on interaction terms and on
+data-adaptive selection, and the criteria mark both points.
+With a prognostic covariate, ANCOVA gained efficiency and
+kept coverage near 95%. Test-then-adjust had power close to
+the unadjusted analysis and coverage above 95%. A short
+derivation shows this over-coverage is a selection effect.
+Standardization from a working model that omitted a
+quadratic term stayed nearly unbiased, at a small cost in
+efficiency.
 
-**Conclusions.** We show that the objective criteria give an
-applied investigator a procedural route from trial design to
-analysis-model specification that aligns with the existing
-theoretical and regulatory consensus. The criteria are not new
-findings; rather, they are a consolidation of dispersed guidance
-into practitioner-usable form, with explicit citation of the
-underlying primary sources. This paper is therefore a
-tutorial/review, not a report of novel methodology.
+**Conclusions.** The criteria give the applied investigator
+a route from trial design to the analysis model. They
+consolidate existing guidance and are not new findings. Each
+rule cites its primary sources. The simulations illustrate
+the criteria but do not test them.
 
 # Introduction
 
-Randomized clinical trials (RCTs) constitute the most
-rigorous method for evaluating treatment effects in
-medicine. A fundamental analytical decision in every
-RCT is whether and how to adjust for baseline
-covariates in the primary analysis. Despite decades of
-statistical research and increasingly clear regulatory
-guidance, confusion persists. Investigators routinely
-test for baseline balance between treatment groups and
-adjust only if imbalances are detected. Some omit
-covariates from the primary analysis to preserve
-'simplicity.' Others select covariates post hoc, based
-on observed associations with the outcome. Each of
-these practices is suboptimal or outright harmful. We
-begin with a review of the theoretical, empirical, and
-regulatory evidence bearing on covariate adjustment,
-and we synthesize this evidence into a set of
-objective criteria for when and how to adjust.
+Randomized clinical trials (RCTs) are the most rigorous
+method for evaluating treatment effects in medicine. A
+fundamental analytical decision in every RCT is whether
+and how to adjust for baseline covariates in the
+primary analysis.
+Despite decades of statistical research and
+increasingly clear regulatory guidance, confusion
+persists. Investigators routinely test for baseline
+balance between treatment groups. They then adjust
+only if imbalances are detected. Some omit covariates
+from the primary analysis to preserve 'simplicity.'
+Others select covariates post hoc, based on observed
+associations with the outcome. Each of these practices
+is suboptimal or outright harmful. We begin with a
+review of the theoretical, empirical, and regulatory
+evidence on covariate adjustment. We then synthesize
+this evidence into a set of decision criteria for
+when and how to adjust.
 
-## The Problem of Baseline Imbalance
+## The problem of baseline imbalance
 
-Randomization guarantees that, on average across
-repetitions, baseline covariates will be balanced
-between treatment groups. It does not guarantee balance
-in any individual trial. We note that
-@altmanComparabilityRandomisedGroups1985 demonstrated
-that even non-significant imbalances in prognostic
-factors can strongly influence the observed treatment
-effect, rendering conclusions misleading. The practice
-of testing for baseline balance, and adjusting only when
-a difference is 'significant,' was criticized sharply by
-@sennTestingBaselineBalance1994a, who argued it is
+Randomization guarantees that baseline covariates will
+be balanced between treatment groups on average across
+repetitions. It does not guarantee balance in any
+individual trial. We note that
+@altmanComparabilityRandomisedGroups1985 showed that
+even non-significant imbalances in prognostic factors
+can strongly influence the observed treatment effect.
+Such imbalances can render conclusions misleading.
+Some investigators test for baseline balance and adjust
+only when a difference is 'significant.'
+@sennTestingBaselineBalance1994a criticized this
+practice sharply. He argued that it is
 'philosophically unsound, of no practical value and
-potentially misleading.' Senn's position is that
-significance tests for baseline balance merely test
-whether randomization was conducted properly. They do
-not test whether observed imbalances affect the trial
-result.
+potentially misleading.' In Senn's view, significance
+tests for baseline balance merely test whether
+randomization was conducted properly. They do not test
+whether observed imbalances affect the trial result.
 
 Surveys of published trials confirm that these
 problematic practices remain widespread.
 @assmannSubgroupAnalysis2000 examined 50 trial reports
 in four major journals. Most trials emphasized simple
-unadjusted results, covariate adjustment usually made
+unadjusted results. Covariate adjustment usually made
 negligible difference, and subgroup analyses were
 routinely overinterpreted. A companion paper by the
-same group [@pocockSubgroupAnalysisCovariate2002]
-highlighted the underuse of appropriate interaction
-tests, as well as the inconsistency with which
-covariates were selected and adjusted for across
-studies. @kahanImproper2012 showed that among trials
-using stratified randomization, only 14 of 41 eligible
-studies adjusted for the stratification variables. This
-practice leads to overly conservative inference, with
-inflated confidence intervals and reduced power.
+same group [@pocockSubgroupAnalysisCovariate2002] noted
+the underuse of appropriate interaction tests. It also
+noted the inconsistency with which covariates were
+selected and adjusted for across studies. Among trials
+using stratified randomization, @kahanImproper2012
+reviewed recent general medical literature. Only 14 of
+41 eligible studies reported adjusting the primary
+analysis for the stratification or minimization
+variables. This practice leads to
+overly conservative inference, with inflated confidence
+intervals and reduced power.
 
-## Theoretical Foundations
+## Theoretical foundations
 
-### Analysis of Covariance in the Linear Setting
+### Analysis of covariance in the linear setting
 
 The classical statistical argument for covariate
 adjustment rests on the analysis of covariance (ANCOVA).
-When the outcome $Y$ depends on a baseline covariate $X$
-and treatment $Z$, the ANCOVA model
+Suppose the outcome $Y$ depends on a baseline covariate
+$X$ and treatment $Z$. The ANCOVA model is then
 $$
 Y_i = \beta_0 + \beta_1 Z_i + \beta_2 X_i + \epsilon_i
 $$
-yields a more precise estimate of $\beta_1$ than the
-unadjusted comparison of means, provided $X$ is
-prognostic for $Y$. The variance reduction is
-proportional to $R^2_{Y|X}$, the proportion of outcome
-variance explained by the covariate. It is clear that
-this result holds regardless of whether randomization
-produced balanced or imbalanced groups
-[@raabHowSelectCovariates2000], because the argument
-does not depend on any particular realized allocation.
+This model yields a more precise estimate of $\beta_1$
+than the unadjusted comparison of means. This holds
+provided $X$ is prognostic for $Y$. The variance
+reduction is proportional to $R^2_{Y|X}$, the
+proportion of outcome variance explained by the
+covariate. This gain is an average over randomizations.
+It is not a guarantee for each trial. Conditional on the
+realized allocation, the variance of $\hat{\beta}_1$
+includes a term in $(\bar{X}_1 - \bar{X}_0)^2$, so a
+chance imbalance in $X$ costs some precision. Even so,
+the case for adjustment does not require the groups to
+be balanced [@raabHowSelectCovariates2000].
 @sennChangeBaseline2006 showed that ANCOVA is superior
 to the analysis of change scores (the 'simple analysis
-of change scores,' or SACS). ANCOVA does not require
-baseline balance, even in expectation, to provide
-unbiased treatment effect estimates. This resolves
-Lord's paradox in the clinical trial setting
-[@sennChangeBaseline2006].
+of change scores,' or SACS). When the linear model is
+correct, the ANCOVA estimate is unbiased conditional on
+the observed covariates. This holds whatever the
+realized baseline balance. It resolves Lord's paradox in
+the clinical trial setting [@sennChangeBaseline2006].
 
-@vickersBaseline2001 provided a concise tutorial
-confirming that ANCOVA is the preferred analysis
-whenever a baseline measurement of the outcome exists.
-It yields estimates with smaller standard errors and
+@vickersBaseline2001 gave a concise tutorial confirming
+that ANCOVA is the preferred analysis whenever a
+baseline measurement of the outcome exists. It
+yields estimates with smaller standard errors and
 greater statistical power than either the comparison of
 follow-up values alone or the analysis of change scores.
 
 @yangEfficiency2001 formally studied the relative
-efficiency of the change-score estimator, the
-follow-up-only estimator, and several ANCOVA variants
-in the context of a pretest-posttest trial. They showed
-that ANCOVA with a treatment-by-covariate interaction
-term (ANCOVA II) and the GEE approach are most
-efficient. Even the simpler ANCOVA without interaction
-dominates both the change-score and follow-up-only
-estimators for all values of the baseline-outcome
+efficiency of several estimators in a pretest-posttest
+trial. These were the change-score estimator, the
+follow-up-only estimator, and several ANCOVA variants.
+They showed that ANCOVA with a treatment-by-covariate
+interaction term (ANCOVA II) and the GEE approach are
+most efficient. Even
+the simpler ANCOVA without interaction dominates both
+the change-score and follow-up-only estimators. This
+holds for all values of the baseline-outcome
 correlation.
 
-### The Freedman-Lin Debate
+### The Freedman-Lin debate
 
 @freedmanRegression2008 challenged the use of OLS
 regression adjustment in randomized experiments under
-Neyman's randomization inference framework. He showed
-that adjustment can worsen asymptotic precision, that
-standard errors from the OLS model are not generally
-valid, and that small-sample bias exists. These results
-generated considerable concern.
+Neyman's randomization inference framework. He showed that adjustment can worsen
+asymptotic precision and that OLS standard errors are
+not generally valid. He also showed that small-sample
+bias exists. These results generated considerable
+concern.
 
-@linAgnostic2013 reexamined Freedman's critique and
+@linAgnostic2013 reexamined Freedman's critique. He
 showed that the essential problem was the omission of
-treatment-by-covariate interactions. When a full set of
-treatment-covariate interactions is included in the
-regression, OLS adjustment cannot hurt asymptotic
+treatment-by-covariate interactions. Suppose a full set
+of treatment-covariate interactions is included in the
+regression. Then OLS adjustment cannot hurt asymptotic
 precision, and the Huber-White sandwich variance
-estimator provides valid standard errors. We note that
-in balanced two-group designs, even the simpler model
-without interactions is asymptotically valid, because,
-as Lin put it, 'two wrongs make a right': the
-overadjustment for one group cancels the underadjustment
-for the other.
+estimator gives valid standard errors. We note that in
+balanced two-group designs even the simpler model
+without interactions is asymptotically valid. Lin put
+the reason as 'two wrongs make a right.' That is, the
+overadjustment for one group cancels the
+underadjustment for the other.
+Consider simple randomization with equal allocation.
+The ANCOVA point estimate was already known to be
+consistent there without assuming that the linear model
+is correct [@yangEfficiency2001]. @wangANCOVA2019
+showed that its usual standard error is consistent as
+well. Confidence
+intervals and tests computed as if the linear model
+were correct therefore remain asymptotically valid
+under arbitrary misspecification in that setting.
 
-### Semiparametric Efficiency Theory
+### Semiparametric efficiency theory
 
 The most rigorous theoretical framework for covariate
 adjustment in RCTs comes from semiparametric efficiency
 theory. @tsiatisCovariate2008 and @zhangEfficiency2008
 developed a class of semiparametric estimators for the
 average treatment effect. These estimators are
-guaranteed to be at least as efficient as the unadjusted
-estimator, and typically much more so. The key insight
-is that in a randomized trial, any function of the
-baseline covariates can be incorporated into the
-estimator to reduce variance without introducing bias.
-This requires the estimator to be constructed properly,
-using augmented inverse probability weighting or
-equivalent approaches.
+guaranteed to be at least as efficient as the
+unadjusted estimator asymptotically. The size of the
+gain depends on how prognostic the covariates are, and
+it can be negligible. In a
+randomized trial, any function of the baseline
+covariates can be incorporated into the estimator to
+reduce variance without introducing bias. This requires the estimator
+to be constructed properly, using augmented inverse
+probability weighting or equivalent approaches.
 
-@rosenblumRegression2009 proved that for a large class
-of commonly used regression models, including linear and
-logistic regression, standard hypothesis tests using
-robust (sandwich) variance estimators are guaranteed to
-have correct Type I error asymptotically. This holds
-even when the regression model is misspecified. It
-provides theoretical justification for the common
-practice of fitting a potentially misspecified working
-model and using robust standard errors.
+@rosenblumRegression2009 proved a result for a large
+class of commonly used regression models, including
+linear and logistic regression. For these models,
+standard hypothesis tests using robust (sandwich)
+variance estimators are guaranteed to have correct Type
+I error asymptotically. This holds even when the
+regression model is misspecified. It provides
+theoretical justification for the common practice of
+fitting a potentially misspecified working model and
+using robust standard errors for testing. The companion
+result for estimation is due to
+@rosenblumGLM2010. They gave simple estimators of
+marginal treatment effects from generalized linear
+working models that remain consistent under
+misspecification in a randomized trial.
 
 @mooreCovariate2009 extended these ideas to binary
 outcomes using targeted maximum likelihood estimation
 (TMLE). The marginal risk difference can be estimated
 efficiently by fitting a logistic regression model and
-then marginalizing, or standardizing, over the covariate
-distribution. This approach avoids the well-known
-problem identified by @robinsonCovariate1991, namely
-that covariate adjustment in logistic regression can
-reduce precision of the conditional odds ratio. As
+then marginalizing, or standardizing, over the
+covariate distribution. This approach avoids a
+well-known problem identified by @robinsonCovariate1991.
+That is, covariate adjustment in logistic regression
+increases the standard error of the conditional odds
+ratio. Robinson and Jewell also showed the other half
+of the story. Power still increases, because the
+conditional odds ratio lies further from the null than
+the marginal one. As
 @mooreCovariate2009 and @tsiatisCovariate2008 later
 clarified, this problem does not arise when the target
 is the marginal effect.
 
-### Survival Outcomes
+### Survival outcomes
 
 Covariate adjustment in the survival analysis setting
 has its own theoretical development. @luLogRank2008
 showed how auxiliary covariates can be incorporated
 into the log-rank test to improve efficiency.
-@yeLogRank2024 proposed a nonparametric covariate-
-adjusted log-rank test with a simple closed form.
-This test achieves guaranteed efficiency gains over the
-unadjusted test and applies universally across simple
-and covariate-adaptive randomization schemes.
+@yeLogRank2024 proposed a nonparametric
+covariate-adjusted log-rank test with a simple closed
+form. This test achieves guaranteed efficiency gains
+over the unadjusted test. It applies universally across
+simple and covariate-adaptive randomization schemes.
 @diazSurvival2019 developed improved estimators for the
-restricted mean survival time that make use of baseline
-covariates without assuming proportional hazards.
+restricted mean survival time. These estimators use
+baseline covariates without assuming proportional
+hazards.
 
-## Regulatory Guidance
+## Regulatory guidance
 
 ### ICH E9 (1999) and E9(R1) (2019)
 
-The ICH E9 guideline [@ichE9Statistical1999] advises
-investigators to 'identify covariates expected to
-have an important influence on the primary variable'
-and 'specify how to account for these in the
-analysis, in order to improve the precision of the
-treatment comparisons.' The E9(R1) addendum
-[@ichE9R1Estimands2019] introduced the estimand
-framework, which requires precise definition of the
-treatment effect of interest. This framework makes the
-distinction between conditional and marginal effects
-particularly relevant for covariate adjustment, a point
-we return to below.
+The ICH E9 guideline [@ichE9Statistical1999], in its
+section 5.7, asks that pre-trial deliberations 'identify
+those covariates and factors expected to have an
+important influence on the primary variable(s).' It
+asks them to 'consider how to account for these in the
+analysis in order to improve precision and to
+compensate for any lack of balance between treatment
+groups.' The second purpose sits in some tension with
+@sennTestingBaselineBalance1994a. Senn's view is that
+adjustment is justified by prognostic value, not by
+observed imbalance. We read the ICH clause as
+consistent with pre-specified adjustment, which handles
+any chance imbalance automatically. It should not be
+read as license to adjust in response to an observed
+imbalance. The same section also says that when the
+value of an adjustment is in doubt, the unadjusted
+analysis may be nominated as primary. The E9(R1)
+addendum [@ichE9R1Estimands2019] introduced the
+estimand framework. This framework requires precise
+definition of the treatment effect of interest. It
+makes the distinction between conditional and marginal
+effects particularly relevant for covariate adjustment.
+We return to this point below.
 
-### EMA Guideline (2015)
+### EMA guideline (2015)
 
 The European Medicines Agency guideline
-[@emaBaselineCovariates2015] provides concrete recommendations:
-(i) the primary analysis should include only
-pre-specified covariates, (ii) no treatment-by-covariate
-interaction terms should appear in the primary model,
-(iii) stratification variables used in the
-randomization should generally be included as
-covariates, and (iv) covariates should be measured
+[@emaBaselineCovariates2015] makes concrete
+recommendations. First, the primary analysis should
+include only pre-specified covariates. Second, no
+treatment-by-covariate interaction terms should appear
+in the primary model. Third, stratification variables
+used in the randomization should generally be included
+as covariates. Fourth, covariates should be measured
 before randomization.
 
-### FDA Guidance (2023)
+### FDA guidance (2023)
 
 The FDA's final guidance on covariate adjustment
-[@fdaCovariateAdjustment2023] represents the most
-comprehensive regulatory position to date. Its key
-recommendations include:
+[@fdaCovariateAdjustment2023] is the most comprehensive
+regulatory position to date. The guidance is
+nonbinding. We paraphrase its main points closely:
 
-- Pre-specification of covariates in the statistical
-  analysis plan
-- Use of ANCOVA for continuous outcomes
-- For nonlinear models (logistic, Cox), use of
-  standardization (g-computation) to estimate
-  marginal effects
-- Use of robust (sandwich) or bootstrap standard
-  errors
-- Inclusion of stratification factors as covariates
-- Avoidance of data-driven covariate selection
+- An unadjusted primary analysis is acceptable.
+  Covariate-adjusted analyses should be specified before
+  any unblinding of comparative data.
+- Covariate adjustment through a linear model, fitted
+  by ordinary least squares, is 'an acceptable method'
+  for estimating the average treatment effect, even
+  when the model is misspecified.
+- Nominal (model-based) standard errors are acceptable
+  in two-arm trials with 1:1 randomization. In other
+  settings, sponsors should consider a robust
+  (sandwich) standard error or a bootstrap.
+- The linear model may include treatment-by-covariate
+  interaction terms. The primary analysis can still be
+  based on the model's estimate of the average
+  treatment effect.
+- The adjustment model should generally include the
+  stratification variables. Standard errors should
+  account for stratified randomization, since ignoring
+  it tends to overstate them.
+- Sponsors should discuss proposals for data-adaptive
+  covariate selection with the review division. The
+  guidance does not prohibit such selection.
+- For nonlinear models, the sponsor should state whether
+  the target is a conditional or an unconditional
+  treatment effect. Standardization (g-computation)
+  from a logistic working model is given as 'one
+  reliable method' for an unconditional effect with a
+  binary outcome. Inverse probability weighting is
+  another.
 
-The FDA guidance was informed directly by the
-semiparametric theory of @tsiatisCovariate2008 and
-the practical work of @benkeserCovid2021,
-@colantuoniPrognostic2015, and others.
+The guidance's reference list includes
+@tsiatisCovariate2008, @colantuoniPrognostic2015,
+@rosenblumRegression2009, @rosenblumGLM2010,
+@freedmanLogistic2008, @steingrimssonBinary2017, and
+@bugniCAR2018, among others.
 
-## The Conditional versus Marginal Distinction
+## The conditional versus marginal distinction
 
 A critical conceptual issue for nonlinear models is
 the distinction between conditional and marginal
 treatment effects. In a logistic regression model, the
-conditional odds ratio, adjusted for covariates, is not
-equal to the marginal odds ratio, which averages over
-the covariate distribution, even if there is no
-confounding or effect modification. This
-'noncollapsibility' has generated confusion about
-whether covariate adjustment 'changes the estimand.'
+conditional odds ratio (adjusted for covariates) is not
+equal to the marginal odds ratio. The marginal odds
+ratio averages over the covariate distribution. The two
+differ even if there is no confounding or effect
+modification. This 'noncollapsibility' has generated
+confusion about whether covariate adjustment 'changes
+the estimand.'
 
-@permuttCovariates2020 addressed this directly,
-arguing that if the target parameter is carefully
-defined, adjustments can be used with minimal
-assumptions. On this view, the benefit of increased
-efficiency is achieved at essentially no cost.
+@permuttCovariates2020 addressed this question
+directly. He argued that adjustments can be used with
+minimal assumptions if the target parameter is
+carefully defined. On this view, the benefit of
+increased efficiency comes at essentially no cost.
 @vanLanckerCovariate2024 reviewed the available methods
-and advocated for the standardization approach, which
-makes use of the covariate-outcome relationship for
+and advocated the standardization approach. This
+approach uses the covariate-outcome relationship for
 efficiency while targeting a well-defined marginal
-effect. @harrellCommentary2024, in a commentary on this
-work, agreed that covariate adjustment 'accounts for
-outcome heterogeneity and prevents power loss.' On the
-other hand, he cautioned against the marginal/
-standardization framing, arguing that conditional
-models preserve the full information content of the
-covariates and that marginal effects can obscure
-treatment effect heterogeneity.
+effect. In a commentary on this work,
+@harrellCommentary2024 agreed that covariate adjustment
+'accounts for outcome heterogeneity and prevents power
+loss.' On the other hand, he cautioned against the
+marginal/standardization framing. He argued that
+conditional models preserve the full information
+content of the covariates. He also argued that marginal
+effects can obscure treatment effect heterogeneity.
 
-## Seven Myths and Persistent Misconceptions
+## Myths about randomization that bear on adjustment
 
-@sennSevenMyths2013 enumerated seven common
-misconceptions about randomization, several of which
-bear directly on covariate adjustment:
+@sennSevenMyths2013 listed seven common misconceptions
+about randomization. Three of them bear directly on
+covariate adjustment. We give them here unnumbered;
+they are not consecutive in Senn's list.
 
-1. *Balance is necessary for valid inference.* False:
-   randomization justifies inference regardless of
-   balance; adjustment is for efficiency, not validity.
-2. *Observed covariates may be ignored because one
-   has randomized.* False: ignoring prognostic
-   covariates wastes information and reduces power.
-3. *Randomization is inefficient.* False: combined
-   with appropriate analysis, randomization plus
-   covariate adjustment is highly efficient.
+- *Balance is necessary for valid inference.* False:
+  randomization justifies inference regardless of
+  balance; adjustment is for efficiency, not validity.
+- *Observed covariates may be ignored because one
+  has randomized.* False: ignoring prognostic
+  covariates wastes information and reduces power.
+- *Randomization is inefficient.* False: combined
+  with appropriate analysis, randomization plus
+  covariate adjustment is highly efficient.
 
 These myths persist in part because introductory
 statistics courses emphasize the role of randomization
 in eliminating confounding. Unfortunately, they say
 little about its role in enabling efficient estimation.
 
-## Empirical Evidence on Efficiency Gains
+## Empirical evidence on efficiency gains
 
 Multiple empirical studies have quantified the
 practical benefits of covariate adjustment.
-@hernandezPower2004 showed via simulation that
-pre-specified adjustment for prognostic covariates in
-trials with binary outcomes can reduce required sample
-sizes by 3% to 46%. The magnitude of this reduction
-depends on the strength of the covariate-outcome
-association. @hernandezImpact2006 demonstrated a 25%
-reduction in sample size requirements in traumatic
-brain injury (TBI) trials when adjusting for seven
-baseline predictors in the IMPACT dataset.
-@turnerCovariate2012 reanalyzed the CRASH trial
-(n = 9497) and found that covariate adjustment using
-validated prognostic models substantially increased
-power. @steyerbergHeterogeneity2004 showed that the
-difference between adjusted and unadjusted effects can
-be substantial in the presence of outcome
-heterogeneity; adjustment provides a more accurate
-estimate of the treatment benefit in that setting.
+@hernandezPower2004 used simulation to study trials
+with binary outcomes. They showed that pre-specified
+adjustment for prognostic covariates can reduce
+required sample sizes by 3% to 46%. The size of this
+reduction depends on the strength of the
+covariate-outcome association. @hernandezImpact2006
+showed a 25% reduction in sample size requirements in
+traumatic brain injury (TBI) trials. This reduction
+came from adjusting for seven baseline predictors in
+the IMPACT dataset. @turnerCovariate2012 reanalyzed
+14-day mortality in 9497 participants of the CRASH
+trial, which randomized 10,008 patients. They found
+that covariate adjustment using validated prognostic
+models substantially increased power.
+@steyerbergHeterogeneity2004 showed that the difference
+between adjusted and unadjusted effects can be
+substantial in the presence of outcome heterogeneity.
+In that setting, adjustment gives a more accurate
+estimate of the treatment benefit.
 
-@colantuoniPrognostic2015 demonstrated efficiency gains
+@colantuoniPrognostic2015 showed efficiency gains
 equivalent to a 22-30% reduction in sample size in
 simulations. @benkeserCovid2021 applied semiparametric
-methods to COVID-19 treatment trials, achieving
+methods to COVID-19 treatment trials. They obtained
 meaningful precision gains for binary, ordinal, and
 time-to-event outcomes. @schulerPrognostic2022 proposed
 a method for adjusting via a prognostic score trained on
@@ -416,18 +469,19 @@ external (historical) data. They showed that the
 approach attains the semiparametric efficiency bound
 under certain conditions.
 
-## Practical Guidance for Covariate Selection
+## Practical guidance for covariate selection
 
-@raabHowSelectCovariates2000 provided the first
-systematic framework for selecting covariates. Their
-key recommendations are as follows: (i) covariates
+@raabHowSelectCovariates2000 gave the first systematic
+framework for selecting covariates. Their main
+recommendations are as follows. First, covariates
 balanced by design (stratification factors) should
-always be included, (ii) strongly prognostic covariates
-should be included regardless of balance, (iii)
-data-dependent selection methods based on the current
-trial data should be avoided, since they produce
-misleading inference, and (iv) all decisions should be
-pre-specified in the protocol based on prior knowledge.
+always be included. Second, strongly prognostic
+covariates should be included regardless of balance.
+Third, data-dependent selection methods based on the
+current trial data should be avoided. Such methods
+produce misleading inference. Fourth, all decisions
+should be pre-specified in the protocol based on prior
+knowledge.
 
 @morrisPlanning2022 offered a comprehensive practical
 guide for planning covariate adjustment in individually
@@ -435,10 +489,11 @@ randomized trials. They compared three approaches:
 direct adjustment, standardization, and inverse
 probability of treatment weighting. All three are
 asymptotically efficient and similar in large samples.
-However, they concluded that standardization should be
-preferred when the target is a marginal estimand,
-because it avoids convergence problems with nonstandard
-models.
+For marginal estimands, they advised against direct
+adjustment because of convergence problems. They noted
+that convergence is most likely with inverse
+probability weighting. They also concluded that no
+single approach is always best.
 
 @beachCovariates1989 addressed the question of how many
 covariates to include. The benefits of adjustment
@@ -447,65 +502,85 @@ prognostic covariates are added relative to the sample
 size.
 
 @hauckCovariates1998 examined adjustment in nonlinear
-models and confirmed that the standard advice for
+models. They confirmed that the standard advice for
 linear models does not always transfer. Care is needed
 with the choice of estimand and variance estimation.
 
-@yePractice2023 provided a synthesis linking
+@yePractice2023 gave a synthesis linking
 covariate-adaptive randomization, stratification, and
-covariate-adjusted analysis, together with practical
+covariate-adjusted analysis. It also offered practical
 recommendations for modern trial design and analysis.
+@bugniCAR2018 and @yeMinimization2022 showed why
+stratification matters for inference. Under
+covariate-adaptive randomization, the usual standard
+errors that ignore the strata are generally
+conservative. Valid and less conservative inference
+follows when the analysis accounts for the
+randomization scheme.
 
-## Present Study
+## Present study
 
 The preceding literature provides a strong theoretical
 and empirical foundation. Several sources already give
 practitioner-facing recommendations that overlap
-substantially with what follows, including the FDA and
-EMA guidance documents themselves, @morrisPlanning2022's
-practical guide to planning adjustment,
-@kahanRisks2014's empirical assessment of the
-consequences of (not) adjusting, and
+substantially with what follows. These include the FDA
+and EMA guidance documents themselves and
+@morrisPlanning2022's practical guide to planning
+adjustment. They also include @kahanRisks2014's
+empirical assessment of the consequences of (not)
+adjusting. Finally, they include
 @vanLanckerCovariate2024's review of
-conditional-versus-marginal considerations. We note that
-this paper does not claim a new empirical finding or a
-novel estimator. Its contribution is a single,
-citation-backed decision procedure that maps each of
+conditional-versus-marginal considerations. We note
+that this paper does not claim a new empirical finding
+or a novel estimator. Its contribution is a single,
+citation-backed decision procedure. The procedure maps
 these dispersed sources onto three operational
 questions: when to adjust, which covariates to adjust
-for, and how to specify the adjustment. We pair this
-procedure with a worked illustration of why the common
-test-then-adjust heuristic fails. We synthesize the
-evidence into these decision rules and illustrate the
-efficiency and coverage consequences through a small
-Monte Carlo simulation.
+for, and how to specify the adjustment. Relative to the
+sources above, it adds three things. It gives one
+ordered list with the conditions under which each rule
+applies. It gives an explicit break-even rule for the
+number of covariates. It also marks where the EMA and
+FDA documents differ. We pair this procedure with a
+worked illustration of why the common test-then-adjust
+heuristic fails. That failure is not a new finding. It
+was analyzed by @permuttImbalance1990 and argued by
+@sennTestingBaselineBalance1994a; our simulation only
+illustrates it. We synthesize the
+evidence into these decision rules. We then illustrate
+the efficiency and coverage consequences through a
+small Monte Carlo simulation.
 
 # Methods
 
-## Simulation Design
+## Simulation design
 
-We conduct two Monte Carlo simulations, both reported
-following the ADEMP framework of
+We conduct two Monte Carlo simulations. Both are
+reported following the ADEMP framework of
 @morrisUsingSimulation2019 (Aims, Data-generating
 mechanisms, Estimands, Methods, Performance measures).
 The first illustrates the efficiency gains from ANCOVA
 relative to the unadjusted comparison of means for a
-continuous outcome, across a range of covariate-outcome
-correlations. It also shows that testing for baseline
-balance and adjusting only when a significant imbalance
-is detected, the 'test-then-adjust' strategy, does not
-improve inferential properties and can in fact distort
+continuous outcome. It does so across a range of
+covariate-outcome correlations. It also examines the
+'test-then-adjust' strategy. Under this strategy the
+analyst tests for baseline balance and adjusts only
+when a significant imbalance is detected. The
+simulation shows that this strategy does not improve
+inferential properties and can in fact distort
 coverage. It varies the covariate-outcome correlation
 ($\gamma$) and sample size ($n$) only. We note that it
-does not vary baseline imbalance as a design factor, and
-it is restricted to a single continuous outcome and a
+does not vary baseline imbalance as a design factor. It
+is also restricted to a single continuous outcome and a
 correctly specified adjustment model (see Limitations).
-The second scenario, Binary Outcome Under Model
-Misspecification, below, adds a binary outcome and a
-deliberately misspecified working model, to illustrate
-criteria 8 and 10.
+The second scenario (binary outcome under model
+misspecification, below) adds a binary outcome and a
+deliberately misspecified working model. Its purpose is
+to illustrate criterion 8. Both simulations illustrate
+known results; they are not designed to test the
+criteria.
 
-## Data Generating Model
+## Data generating model
 
 For each replication $b = 1, \ldots, B$:
 
@@ -519,12 +594,14 @@ For each replication $b = 1, \ldots, B$:
    \epsilon_i, \quad \epsilon_i \sim
    \text{Normal}(0, \sigma^2)
    $$
-   where $\tau = 0.3$ is the true treatment effect,
+   Here $\tau = 0.3$ is the true treatment effect, and
    $\gamma$ controls the strength of the prognostic
-   covariate, and $\sigma^2 = 1 - \gamma^2$ so that
-   $\text{Var}(Y) = 1$ marginally.
+   covariate. We set $\sigma^2 = 1 - \gamma^2$ so that
+   the within-arm variance of $Y$ is 1. The marginal
+   variance also includes the treatment term and equals
+   $1 + \tau^2/4 = 1.0225$.
 
-## Analysis Strategies
+## Analysis strategies
 
 For each simulated dataset, we apply three analysis
 strategies:
@@ -538,7 +615,7 @@ strategies:
    \bar{X}_0$ at $\alpha = 0.10$. If rejected, use
    ANCOVA; otherwise use the unadjusted analysis.
 
-## Parameter Values
+## Parameter values
 
 ```{r params, echo=FALSE}
 params <- tibble(
@@ -605,21 +682,24 @@ sim_output <- readRDS(sim_results_path)
 sim_results <- sim_output$sim_results
 ```
 
-## Binary Outcome Under Model Misspecification
+## Binary outcome under model misspecification
 
 The scenario above covers only a continuous outcome
-under a correctly specified linear model. This leaves
-criterion 8 (standardization for binary outcomes) and
-criterion 10 (robustness to misspecification) without
-simulation support. We add a second scenario to address
-this directly.
+under a correctly specified linear model. We add a
+second scenario to illustrate criterion 8
+(standardization for binary outcomes) under one mild
+form of working-model misspecification. Both
+standardization estimators use the same HC2 sandwich
+variance, and there is no model-based comparator. As a
+result, the scenario says nothing about the choice of
+standard error in criterion 10.
 
-### Data Generating Model
+### Data generating model
 
-For each replication, $n$ subjects are randomized 1:1 to
-$Z \in \{0, 1\}$ and a baseline covariate
-$X_i \sim \text{Normal}(0, 1)$ is generated. The binary
-outcome is
+For each replication, $n$ subjects are randomized 1:1
+to $Z \in \{0, 1\}$. A baseline covariate
+$X_i \sim \text{Normal}(0, 1)$ is also generated. The
+binary outcome is
 $$
 \text{logit}\{P(Y_i = 1)\} = \beta_0 + \tau Z_i + \gamma X_i
 + \gamma_2 X_i^2,
@@ -628,48 +708,54 @@ with $\beta_0 = -0.5$, $\tau = 0.6$ (log-odds treatment
 effect), and $\gamma = 0.8$ (linear log-odds covariate
 effect). The quadratic term $\gamma_2 X_i^2$ is the true
 data-generating nonlinearity. It also defines the
-misspecification, since one of the two working models
-below omits it entirely. The estimand is the marginal
-risk difference $E[Y(1)] - E[Y(0)]$, obtained once by
-numerical integration of the true model over the known
-$X$ density, not estimated from simulated data, because
-$\tau$ is a conditional log-odds parameter that does not
-by itself equal the marginal risk difference under a
-nonlinear model.
+misspecification. That is, one of the two working
+models below omits it entirely. The estimand is the
+marginal risk difference $E[Y(1)] - E[Y(0)]$. We obtain
+it once by numerical integration of the true model over
+the known $X$ density. It is not estimated from
+simulated data, because $\tau$ is a conditional
+log-odds parameter. Under a nonlinear model it does
+not by itself equal the marginal risk difference.
 
-### Analysis Strategies
+### Analysis strategies
 
 1. **Unadjusted**: difference in sample proportions
    between arms, with the usual normal-approximation
    standard error.
 2. **Standardized (correct)**: fit
    $\text{logit}\{P(Y_i=1)\} = b_0 + b_1 Z_i + b_2 X_i +
-   b_3 X_i^2$ by maximum likelihood, predict $P(Y_i=1)$
-   under the counterfactuals $Z_i = 1$ and $Z_i = 0$ for
-   every subject, average each set of predictions over the
-   observed covariate distribution, and difference the two
-   averages (marginal standardization / g-computation).
-   The standard error is obtained by the delta method,
-   combining a numerical gradient of the standardized
-   contrast with an HC2 sandwich covariance matrix for
+   b_3 X_i^2$ by maximum likelihood. Then predict
+   $P(Y_i=1)$ under the counterfactuals $Z_i = 1$ and
+   $Z_i = 0$ for every subject. Average each set of
+   predictions over the observed covariate distribution,
+   and difference the two averages (marginal
+   standardization / g-computation). The standard error
+   is obtained by the delta method. It combines a
+   numerical gradient of the standardized contrast with
+   an HC2 sandwich covariance matrix for
    $(b_0, b_1, b_2, b_3)$.
 3. **Standardized (misspecified)**: identical procedure,
    but the working model omits the quadratic term
-   ($\text{logit}\{P(Y_i=1)\} = b_0 + b_1 Z_i + b_2 X_i$),
-   so the fitted conditional model is wrong whenever
-   $\gamma_2 \neq 0$.
+   ($\text{logit}\{P(Y_i=1)\} = b_0 + b_1 Z_i + b_2 X_i$).
+   As a result, the fitted conditional model is wrong
+   whenever $\gamma_2 \neq 0$.
 
 Both standardization estimators target the same
-marginal risk difference. Per @rosenblumRegression2009
-and @mooreCovariate2009, this target should remain
-identifiable from a possibly misspecified working model
-in a randomized trial. This is because randomization
-ensures the covariate distribution is the same, in
-expectation, across counterfactual arms. Averaging
-model predictions over the observed, rather than a
-covariate-adjusted, distribution therefore removes the
-dependence on correct specification of the conditional
-mean.
+marginal risk difference. Identifiability is not in
+question here; the issue is whether the estimator is
+consistent when the working model is wrong. The
+standard argument runs as follows
+[@freedmanLogistic2008; @rosenblumGLM2010;
+@steingrimssonBinary2017]. Each working model is a
+canonical-link (logistic) model with an intercept and a
+treatment indicator, fitted by maximum likelihood. Its
+score equations therefore force the mean fitted value
+within each arm to equal the observed mean in that arm.
+Randomization makes the covariate distribution the same
+in both arms. Averaging the counterfactual predictions
+over the whole sample is then consistent for each arm's
+marginal mean, whether or not the conditional model is
+correct.
 
 ```{r params-binary, echo=FALSE}
 params_binary <- tibble(
@@ -727,19 +813,19 @@ sim_results_binary <- sim_output_binary$sim_results_binary
 
 # Results
 
-## Efficiency Gains from ANCOVA
+## Efficiency gains from ANCOVA
 
 ```{r results-table}
 sim_results |>
   mutate(
-    across(c(bias, emp_se, mean_se), ~round(., 4)),
+    across(c(bias, mcse_bias, emp_se, mean_se), ~round(., 4)),
     coverage = round(coverage, 3),
     power = round(power, 3),
     mcse_coverage = round(mcse_coverage, 3),
     mcse_power = round(mcse_power, 3)
   ) |>
   select(
-    n, gamma, strategy, bias, emp_se, mean_se,
+    n, gamma, strategy, bias, mcse_bias, emp_se, mean_se,
     coverage, mcse_coverage, power, mcse_power
   ) |>
   kable(
@@ -748,12 +834,12 @@ sim_results |>
       "Simulation results across analysis strategies and",
       "covariate strengths ($B = 5000$ replications per",
       "scenario). MCSE columns are Monte Carlo standard",
-      "errors for coverage and power, following the ADEMP",
-      "framework of Morris, White, and Crowther (2019)."
+      "errors for bias, coverage, and power, following the",
+      "ADEMP framework of Morris, White, and Crowther (2019)."
     ),
     col.names = c(
       "$n$", "$\\gamma$", "Strategy",
-      "Bias", "Emp. SE", "Mean SE",
+      "Bias", "MCSE(Bias)", "Emp. SE", "Mean SE",
       "Coverage", "MCSE(Cov.)", "Power", "MCSE(Pow.)"
     ),
     escape = FALSE,
@@ -787,53 +873,108 @@ empse_unadj_100_g7 <- pull_val(100, 0.7, "Unadjusted", emp_se)
 meanse_unadj_100_g7 <- pull_val(100, 0.7, "Unadjusted", mean_se)
 empse_tta_100_g7 <- pull_val(100, 0.7, "Test-then-adjust", emp_se)
 meanse_tta_100_g7 <- pull_val(100, 0.7, "Test-then-adjust", mean_se)
+empse_ancova_100_g7 <- pull_val(100, 0.7, "ANCOVA", emp_se)
+empse_ancova_100_g0 <- pull_val(100, 0, "ANCOVA", emp_se)
+empse_unadj_100_g0 <- pull_val(100, 0, "Unadjusted", emp_se)
+
+## Large-sample approximation for test-then-adjust (see text).
+## The balance test is treated as a z-test at alpha = 0.10.
+tta_gamma <- 0.7
+tta_c <- qnorm(0.95)
+tta_p_accept <- 2 * pnorm(tta_c) - 1
+tta_kappa <- 1 - 2 * tta_c * dnorm(tta_c) / tta_p_accept
+tta_var_ratio <- tta_gamma^2 * tta_kappa + (1 - tta_gamma^2)
+tta_cond_sd_100 <- sqrt(4 / 100 * tta_var_ratio)
+tta_cov_accept <- 2 * pnorm(qnorm(0.975) / sqrt(tta_var_ratio)) - 1
+tta_cov_overall <- tta_p_accept * tta_cov_accept +
+  (1 - tta_p_accept) * 0.95
 ```
 
 Table \@ref(tab:results-table) presents the simulation
-results. All figures are computed directly from the
-saved simulation output; none are hard-coded. We observe
-that when the covariate is nonprognostic ($\gamma = 0$),
-all three strategies perform similarly, as expected. As
+results. All simulation figures are read directly from
+the saved simulation output; none are hard-coded. Consider
+first a nonprognostic covariate ($\gamma = 0$). We
+observe that all three strategies perform similarly in
+this case, as expected. ANCOVA's empirical SE is
+slightly larger than the unadjusted one here
+(`r sprintf("%.4f", empse_ancova_100_g0)` versus
+`r sprintf("%.4f", empse_unadj_100_g0)` at $n = 100$).
+This small loss reflects the degree of freedom spent on
+a useless covariate. As
 $\gamma$ increases, ANCOVA achieves progressively
 smaller empirical standard errors, with correspondingly
-higher power. For $\gamma = 0.7$, that is, when the
-covariate explains 49% of outcome variance, ANCOVA
+higher power. Consider $\gamma = 0.7$. In this case the
+covariate explains 49% of outcome variance. ANCOVA
 increases power from `r sprintf("%.2f", pw_unadj_100_g7)`
-to `r sprintf("%.2f", pw_ancova_100_g7)` at $n = 100$,
-and from `r sprintf("%.2f", pw_unadj_200_g7)` to
-`r sprintf("%.2f", pw_ancova_200_g7)` at $n = 200$.
+to `r sprintf("%.2f", pw_ancova_100_g7)` at $n = 100$.
+At $n = 200$ it increases power from
+`r sprintf("%.2f", pw_unadj_200_g7)` to
+`r sprintf("%.2f", pw_ancova_200_g7)`.
 
 The test-then-adjust strategy's power
 (`r sprintf("%.2f", pw_tta_100_g7)` at $n = 100$,
 $\gamma = 0.7$) is close to the unadjusted power and far
-below ANCOVA's. It is therefore more accurate to say
-that test-then-adjust behaves like the unadjusted
-analysis on power, rather than as an intermediate
-strategy. Its coverage, however, is systematically above
-nominal: at $n = 100$, $\gamma = 0.7$, coverage is
+below ANCOVA's. On power, therefore, test-then-adjust
+behaves like the unadjusted analysis and not like an
+intermediate strategy. Its coverage, however, is
+systematically above nominal. At $n = 100$,
+$\gamma = 0.7$, coverage is
 `r sprintf("%.3f", cov_tta_100_g7)`
-(Monte Carlo SE `r sprintf("%.3f", mcse_cov_tta_100_g7)`),
-and at $n = 200$ it is
-`r sprintf("%.3f", cov_tta_200_g7)`, both several Monte
-Carlo standard errors above 0.95. We note that this is
-not model selection bias in the usual sense. Rather, it
-reflects that most replications are approximately
-balanced, so test-then-adjust falls back to the
-unadjusted standard error (mean model SE
-`r sprintf("%.3f", meanse_unadj_100_g7)` at $n = 100$,
-$\gamma = 0.7$). This standard error is conservative
-relative to the empirical variability that would obtain
-if ANCOVA were always used
-(`r sprintf("%.3f", empse_tta_100_g7)` empirical SE for
-test-then-adjust versus
-`r sprintf("%.3f", meanse_tta_100_g7)` mean model SE in
-the same scenario). The strategy is therefore strictly
-dominated by always-adjust: it sacrifices power relative
-to ANCOVA without offering a validity advantage, since
-ANCOVA's coverage is close to nominal in every scenario
-studied.
+(Monte Carlo SE `r sprintf("%.3f", mcse_cov_tta_100_g7)`).
+At $n = 200$ it is `r sprintf("%.3f", cov_tta_200_g7)`.
+Both values are several Monte Carlo standard errors
+above 0.95.
 
-## Relative Efficiency
+The over-coverage is a selection effect. The analysis
+is chosen by conditioning on an ancillary statistic,
+the observed imbalance in $X$ [@permuttImbalance1990].
+The point estimate stays unbiased, but the inference
+is conditional on the selection event. A short
+large-sample argument shows the mechanism. Write
+$D_X = \bar{X}_1 - \bar{X}_0$, which has variance
+$4/n$. The unadjusted estimate is
+$\hat{\tau}_U = \tau + \gamma D_X + D_\epsilon$, with
+$D_\epsilon$ independent of $D_X$ and of variance
+$4(1 - \gamma^2)/n$. Treat the balance test as a
+$z$-test at $\alpha = 0.10$ with critical value
+$c = `r sprintf("%.3f", tta_c)`$. It accepts balance
+with probability about
+`r sprintf("%.2f", tta_p_accept)`. Given acceptance,
+$D_X$ is a normal variable truncated to
+$|D_X| < c\sqrt{4/n}$. Its variance shrinks by the
+factor
+$\kappa = 1 - 2c\,\phi(c)/\{2\Phi(c) - 1\} =
+`r sprintf("%.3f", tta_kappa)`$. The conditional
+variance of $\hat{\tau}_U$ is therefore
+$(4/n)\{\gamma^2\kappa + 1 - \gamma^2\}$. At
+$\gamma = 0.7$ and $n = 100$ this gives a conditional
+SD of about `r sprintf("%.3f", tta_cond_sd_100)`.
+However, the unadjusted model SE still estimates the
+unconditional value of about $\sqrt{4/n} = 0.200$ (mean
+model SE in the table
+`r sprintf("%.3f", meanse_unadj_100_g7)`). In the
+accepted stratum the nominal 95% interval therefore
+covers with probability about
+`r sprintf("%.3f", tta_cov_accept)`. The ratio does not
+depend on $n$, so the same value applies at $n = 200$.
+The remaining replications use ANCOVA. If ANCOVA covers
+at about the nominal rate there, overall coverage is
+about `r sprintf("%.3f", tta_cov_overall)`. This agrees
+with the simulated values above.
+
+This argument also explains the gap in the table
+between the empirical SE of test-then-adjust
+(`r sprintf("%.3f", empse_tta_100_g7)`) and its mean
+model SE (`r sprintf("%.3f", meanse_tta_100_g7)`). Both
+are test-then-adjust quantities. Neither is ANCOVA's,
+whose empirical SE in this cell is
+`r sprintf("%.3f", empse_ancova_100_g7)`. The strategy
+is therefore dominated by always-adjust. It sacrifices
+power relative to ANCOVA and offers no validity
+advantage. We note that ANCOVA's coverage is close to
+nominal in every scenario studied.
+
+## Relative efficiency
 
 ```{r efficiency-plot, fig.cap="Relative efficiency of ANCOVA versus the unadjusted estimator as a function of covariate prognostic strength. Relative efficiency is defined as the ratio of empirical variances (unadjusted / ANCOVA)."}
 eff_data <- sim_results |>
@@ -876,12 +1017,12 @@ relative efficiency of ANCOVA increases approximately
 as $1 / (1 - \gamma^2)$, consistent with theory. This
 ratio is asymptotically independent of sample size. The
 close agreement between the $n = 100$ and $n = 200$
-curves here is consistent with that asymptotic result,
-but it is based on only two sample sizes and should not
-be read as a general empirical finding across arbitrary
-$n$.
+curves here is consistent with that asymptotic result.
+However, it is based on only two sample sizes. It
+should not be read as a general empirical finding
+across arbitrary $n$.
 
-## Coverage Properties
+## Coverage properties
 
 ```{r coverage-plot, fig.cap="Empirical coverage of 95\\% confidence intervals across analysis strategies. The horizontal dashed line marks nominal 95\\% coverage."}
 sim_results |>
@@ -913,27 +1054,30 @@ sim_results |>
 Figure \@ref(fig:coverage-plot) shows that the unadjusted
 and ANCOVA strategies maintain approximately nominal
 coverage throughout. The test-then-adjust strategy shows
-systematic over-coverage that grows with $\gamma$, as
-quantified in Table \@ref(tab:results-table) and
-discussed above. We note that this is a consequence of
-the standard-error mixture described above, not a form
-of model-selection bias in the estimate itself. The
-point estimates remain approximately unbiased in every
-scenario, per Table \@ref(tab:results-table).
+systematic over-coverage that grows with $\gamma$. This
+over-coverage is quantified in
+Table \@ref(tab:results-table) and discussed above. We
+note that it comes from the conditional-variance
+mechanism described above. It is not a bias in the
+estimate itself. The point estimates remain
+approximately unbiased in every scenario, per
+Table \@ref(tab:results-table).
 
-## Binary Outcome and Model Misspecification
+## Binary outcome and model misspecification
 
 ```{r results-table-binary}
 sim_results_binary |>
   mutate(
-    across(c(true_rd, bias, emp_se, mean_se), ~round(., 4)),
+    across(
+      c(true_rd, bias, mcse_bias, emp_se, mean_se), ~round(., 4)
+    ),
     coverage = round(coverage, 3),
     power = round(power, 3),
     mcse_coverage = round(mcse_coverage, 3),
     mcse_power = round(mcse_power, 3)
   ) |>
   select(
-    n, gamma2, strategy, bias, emp_se, mean_se,
+    n, gamma2, strategy, bias, mcse_bias, emp_se, mean_se,
     coverage, mcse_coverage, power, mcse_power
   ) |>
   kable(
@@ -950,7 +1094,7 @@ sim_results_binary |>
     ),
     col.names = c(
       "$n$", "$\\gamma_2$", "Strategy",
-      "Bias", "Emp. SE", "Mean SE",
+      "Bias", "MCSE(Bias)", "Emp. SE", "Mean SE",
       "Coverage", "MCSE(Cov.)", "Power", "MCSE(Pow.)"
     ),
     escape = FALSE,
@@ -988,6 +1132,27 @@ empse_correct_200_g8 <- pull_val_binary(
 empse_mis_200_g8 <- pull_val_binary(
   200, 0.8, "Standardized (misspecified)", emp_se
 )
+cov_correct_200_g8 <- pull_val_binary(
+  200, 0.8, "Standardized (correct)", coverage
+)
+cov_unadj_200_g8 <- pull_val_binary(200, 0.8, "Unadjusted", coverage)
+mcse_cov_correct_200_g8 <- pull_val_binary(
+  200, 0.8, "Standardized (correct)", mcse_coverage
+)
+meanse_mis_200_g8 <- pull_val_binary(
+  200, 0.8, "Standardized (misspecified)", mean_se
+)
+meanse_unadj_200_g8 <- pull_val_binary(
+  200, 0.8, "Unadjusted", mean_se
+)
+true_rd_g0 <- sim_results_binary |>
+  filter(gamma2 == 0) |>
+  pull(true_rd) |>
+  unique()
+true_rd_g8 <- sim_results_binary |>
+  filter(gamma2 == 0.8) |>
+  pull(true_rd) |>
+  unique()
 ```
 
 Table \@ref(tab:results-table-binary) presents the
@@ -999,48 +1164,80 @@ the correctly specified estimator's
 `r sprintf("%.4f", bias_correct_200_g8)` and small
 relative to the true marginal risk difference. Its
 coverage is `r sprintf("%.3f", cov_mis_200_g8)` (Monte
-Carlo SE `r sprintf("%.3f", mcse_cov_mis_200_g8)`),
-consistent with nominal 95%. This supports the
-theoretical claim, discussed under Theoretical
-Foundations and reiterated in criterion 10, that
-standardization from a possibly misspecified working
-model remains valid for the marginal treatment effect in
-a randomized trial. Omitting the true quadratic
-covariate term does not reintroduce meaningful bias
-here. We note that the cost is in efficiency rather than
-validity: the empirical SE of the misspecified
-standardization estimator
-(`r sprintf("%.4f", empse_mis_200_g8)`) falls between the
-correctly specified estimator's
-(`r sprintf("%.4f", empse_correct_200_g8)`) and the
-unadjusted estimator's
+Carlo SE `r sprintf("%.3f", mcse_cov_mis_200_g8)`). The
+correctly specified estimator covers at
+`r sprintf("%.3f", cov_correct_200_g8)`, about
+`r sprintf("%.1f", (0.95 - cov_correct_200_g8) /
+mcse_cov_correct_200_g8)` Monte Carlo SEs below 0.95. In this cell all three
+estimators have a mean model SE below their empirical
+SE. For example, the misspecified estimator has
+`r sprintf("%.4f", meanse_mis_200_g8)` versus
+`r sprintf("%.4f", empse_mis_200_g8)`. The unadjusted
+estimator shows a similar gap
+(`r sprintf("%.4f", meanse_unadj_200_g8)` versus
+`r sprintf("%.4f", empse_unadj_200_g8)`; coverage
+`r sprintf("%.3f", cov_unadj_200_g8)`). We therefore
+read the shortfall as shared Monte Carlo noise, not as
+a defect of standardization. A larger $B$ would be
+needed to settle it. These results illustrate the
+argument given in the Methods. That is, standardization
+from a misspecified logistic working model remains
+consistent for the marginal risk difference in a
+randomized trial. Omitting the true quadratic term does
+not introduce meaningful bias here. The
+misspecification studied is mild, however. The true
+risk difference moves only from
+`r sprintf("%.3f", true_rd_g0)` to
+`r sprintf("%.3f", true_rd_g8)` across $\gamma_2$. The
+scenario does not show that standardization is robust
+to misspecification that matters more. Examples are a
+treatment-by-covariate interaction, a skewed covariate,
+or a small sample. @tackneyMisspecification2023 study
+such cases in more depth. The cost of misspecification
+here is in efficiency rather than validity. The empirical SE
+of the misspecified standardization estimator is
+`r sprintf("%.4f", empse_mis_200_g8)`. This falls
+between that of the correctly specified estimator
+(`r sprintf("%.4f", empse_correct_200_g8)`) and that of
+the unadjusted estimator
 (`r sprintf("%.4f", empse_unadj_200_g8)`). Misspecification
 therefore narrows, but does not eliminate, the efficiency
 advantage of standardization over the unadjusted
-difference in proportions. When $\gamma_2 = 0$ the two
-standardization working models coincide, and their
-estimates are numerically close, as expected.
+difference in proportions. When $\gamma_2 = 0$ both
+working models are correctly specified. The 'correct'
+model still fits an unneeded $X^2$ term, so it is
+slightly over-fitted. The two estimates are numerically
+close, as expected.
 
 # Discussion
 
-## Summary of Objective Criteria
+## Summary of the criteria
 
-Based on the theoretical literature, empirical evidence,
-and regulatory guidance, we propose the following
-objective criteria for covariate adjustment in the
-primary analysis of an RCT.
+We propose the following criteria for covariate
+adjustment in the primary analysis of an RCT. They are
+based on the theoretical literature, empirical
+evidence, and regulatory guidance reviewed above. Each
+states a rule and the conditions under which it
+applies. Where a numerical threshold exists, we give
+it.
 
 **When to adjust:**
 
-1. *Always*, if prognostic covariates are available
-   and pre-specified. The decision to adjust should
-   never be based on observed baseline balance
+1. Adjust if, at the design stage, at least one
+   covariate is known from prior data or clinical
+   knowledge to be prognostic for the primary outcome.
+   Write the adjustment into the protocol or analysis
+   plan before unblinding. The decision should never
+   depend on observed baseline balance
    [@sennTestingBaselineBalance1994a;
-   @sennSevenMyths2013].
+   @sennSevenMyths2013; @fdaCovariateAdjustment2023].
 2. *Always* include stratification variables used in
    the randomization design as covariates in the
    analysis [@kahanImproper2012; @emaBaselineCovariates2015;
-   @fdaCovariateAdjustment2023].
+   @fdaCovariateAdjustment2023]. The standard error
+   should also account for the stratified randomization.
+   Otherwise it is generally conservative
+   [@bugniCAR2018; @yeMinimization2022].
 3. *Always* include the baseline measurement of the
    outcome variable, if available
    [@vickersBaseline2001; @sennChangeBaseline2006;
@@ -1049,35 +1246,59 @@ primary analysis of an RCT.
 **Which covariates to adjust for:**
 
 4. Select covariates based on prior knowledge of their
-   prognostic value -- from previous trials, meta-analyses,
-   or established clinical understanding
+   prognostic value. This knowledge may come from previous
+   trials, meta-analyses, or established clinical
+   understanding
    [@raabHowSelectCovariates2000;
    @beachCovariates1989].
-5. The number of covariates should be small relative
-   to the sample size. @raabHowSelectCovariates2000
-   provide a formula relating the benefit of
-   adjustment to the number of subjects per covariate.
+5. Keep the number of covariates $k$ small relative to
+   the sample size $n$ [@beachCovariates1989;
+   @fdaCovariateAdjustment2023]. A break-even rule
+   follows from standard normal theory for a linear
+   model with 1:1 allocation and normally distributed
+   covariates. Relative to the unadjusted estimator,
+   the expected variance of the ANCOVA estimate is
+   multiplied by $(1 - R^2)(n - 3)/(n - k - 3)$. Here
+   $R^2$ is the proportion of within-arm outcome
+   variance the $k$ covariates explain. The factor
+   $(n - 3)/(n - k - 3)$ is the mean of
+   $1/(1 - R^2_{Z|X})$, where $R^2_{Z|X}$ is the chance
+   correlation of treatment with the covariates.
+   Adjustment therefore helps in expectation when
+   $R^2 > k/(n - 3)$. Take $n = 100$ and $k = 5$ as an
+   illustration (values chosen by us, not from a
+   trial). The covariates then need to explain only
+   about 5% of the outcome variance. The rule is approximate outside
+   this setting.
 6. Do not select covariates based on the trial data
    itself (neither on baseline imbalance nor on
    observed covariate-outcome associations).
-   Data-driven selection produces biased inference
-   [@raabHowSelectCovariates2000;
-   @assmannSubgroupAnalysis2000].
+   Selection on observed imbalance makes the inference
+   conditional on the selection event, as our first
+   simulation shows [@permuttImbalance1990;
+   @raabHowSelectCovariates2000; @beachCovariates1989].
+   The FDA asks sponsors to discuss any data-adaptive
+   selection procedure with the review division in
+   advance [@fdaCovariateAdjustment2023].
 
 **How to adjust:**
 
 7. For continuous outcomes: use ANCOVA (linear
-   regression of $Y$ on $Z$ and $X$). Standard
-   (OLS) or robust standard errors are both
-   acceptable for balanced designs
-   [@linAgnostic2013; @fdaCovariateAdjustment2023].
+   regression of $Y$ on $Z$ and $X$). In two-arm trials
+   with 1:1 allocation, model-based (OLS) or robust
+   standard errors are both acceptable. With unequal
+   allocation or more than two arms, use a robust
+   standard error or the bootstrap
+   [@linAgnostic2013; @wangANCOVA2019;
+   @fdaCovariateAdjustment2023].
 8. For binary outcomes: fit a logistic regression
    model and compute the marginal effect
-   (standardization / g-computation) to obtain a
+   (standardization / g-computation). This yields a
    risk difference or relative risk
-   [@mooreCovariate2009; @vanLanckerCovariate2024]. This
-   procedure is illustrated directly in the Binary
-   Outcome and Model Misspecification results above.
+   [@mooreCovariate2009; @freedmanLogistic2008;
+   @steingrimssonBinary2017; @vanLanckerCovariate2024].
+   The binary-outcome results above illustrate this
+   procedure under one mild misspecification.
    Alternatively, use a linear probability model or
    modified Poisson regression with robust standard
    errors.
@@ -1085,31 +1306,56 @@ primary analysis of an RCT.
    log-rank test [@yeLogRank2024; @luLogRank2008] or
    estimate the restricted mean survival time with
    covariate adjustment [@diazSurvival2019].
-10. Use robust (sandwich) standard errors to guard
-    against model misspecification
-    [@rosenblumRegression2009;
-    @tsiatisCovariate2008; @fdaCovariateAdjustment2023].
-    The Binary Outcome and Model Misspecification results
-    above illustrate this directly. A standardized
-    estimator built from a working model that omits a
-    true nonlinear covariate term remains approximately
-    unbiased for the marginal risk difference, at some
-    efficiency cost.
+10. Base inference on a variance estimator that stays
+    valid when the working model is wrong. For the
+    standardized estimator, this means a sandwich-based
+    delta-method SE or the bootstrap. For ANCOVA it
+    means a robust SE whenever criterion 7 does not
+    allow the model-based one [@rosenblumRegression2009;
+    @rosenblumGLM2010; @tsiatisCovariate2008;
+    @fdaCovariateAdjustment2023]. Our simulations do not
+    compare robust with model-based SEs, so they do not
+    bear on this criterion.
 11. Pre-specify all covariates and the analysis method
-    in the statistical analysis plan. The primary
-    analysis should contain no interaction terms
-    [@emaBaselineCovariates2015].
+    in the statistical analysis plan. On interaction
+    terms the two agencies differ. The EMA guideline
+    excludes them from the primary model
+    [@emaBaselineCovariates2015]. The FDA guidance
+    allows them, provided the primary analysis estimates
+    the average treatment effect from the model
+    [@fdaCovariateAdjustment2023]. Under 1:1 allocation
+    the model without interactions is adequate
+    [@linAgnostic2013]. With unequal allocation, the
+    model without interactions can be less precise than
+    the unadjusted analysis. Lin's fully interacted
+    estimator with a robust SE cannot be, asymptotically,
+    and it is acceptable to the FDA. A trial filed with
+    both agencies may need to justify it to the EMA.
 
-## Consistency with Regulatory Guidance
+## Consistency with regulatory guidance
 
-These criteria are fully consistent with the EMA
-guideline [@emaBaselineCovariates2015] and the FDA final
-guidance [@fdaCovariateAdjustment2023]. Both agencies
-endorse pre-specified covariate adjustment as a tool for
-improving precision, and both recommend against
-data-driven covariate selection. The FDA guidance
-specifically recommends standardization for nonlinear
-models and robust variance estimation.
+The criteria agree with both the EMA guideline
+[@emaBaselineCovariates2015] and the FDA final guidance
+[@fdaCovariateAdjustment2023] on the main points. Both
+agencies endorse pre-specified adjustment for
+prognostic covariates as a tool for improving
+precision. Both expect stratification variables to be
+included. The agencies differ in two places. First, the
+FDA allows treatment-by-covariate interactions in the
+primary model, and the EMA does not (criterion 11).
+Second, the EMA says that methods selecting covariates
+by their association with the outcome in the current
+data should be avoided in confirmatory trials. The FDA
+does not forbid data-adaptive covariate selection. It
+asks sponsors to discuss such proposals in advance.
+Criterion 6 follows the EMA and is stricter than the
+FDA text on this point. For nonlinear models, the FDA names
+standardization as one reliable method for an
+unconditional effect. It also allows conditional
+effects from nonlinear regression, after discussion
+with the review division. The FDA guidance also asks
+that standard errors account for stratified
+randomization (criterion 2).
 
 ## Limitations
 
@@ -1122,51 +1368,59 @@ continuous-outcome scenario uses a correctly specified
 linear data-generating model throughout. The
 binary-outcome scenario adds one misspecified working
 model (a quadratic term omitted from the covariate) and
-one comparator estimator (standardization). This supports
-criteria 8 and 10 but does not exhaust them. It does not
-examine alternative link functions, multiple covariates,
-more severe or qualitatively different (e.g.,
-non-monotone, interaction-driven) forms of
-misspecification, or the propensity-score and augmented
-estimators discussed in the Theoretical Foundations
-section. Neither scenario includes a time-to-event
-outcome, so criterion 9 (survival outcomes) still rests
-on the cited theoretical and applied literature rather
-than on evidence generated here. Real trials involve
-multiple covariates, various outcome types, missing data,
-and complications such as noncompliance and intercurrent
+one comparator estimator (standardization). This
+illustrates criterion 8 but does not test it, and it
+says nothing about criterion 10. It does not
+examine alternative link functions or multiple
+covariates. Nor does it examine more severe or
+qualitatively different (e.g., non-monotone,
+interaction-driven) forms of misspecification. Finally,
+it omits the propensity-score and augmented estimators
+discussed in the theoretical foundations section.
+@tackneyMisspecification2023 give a much richer
+comparison of these estimators under misspecification.
+Neither scenario includes a stratified randomization,
+so criterion 2 is not illustrated either. Neither
+scenario includes a time-to-event outcome. As a
+result, criterion 9 (survival outcomes) still rests on
+the cited theoretical and applied literature, not on
+evidence generated here. Real trials involve multiple
+covariates, various outcome types, missing data, and
+complications such as noncompliance and intercurrent
 events. The estimand framework of ICH E9(R1)
 [@ichE9R1Estimands2019] introduces additional
 considerations about what exactly is being estimated.
 
-We note that the core qualitative message, that
+We note that the broader literature cited throughout
+this paper supports the core qualitative message across
+outcome types and regulatory frameworks. First,
 pre-specified covariate adjustment improves efficiency
-without sacrificing validity, and that standardization
+without sacrificing validity. Second, standardization
 remains valid under working-model misspecification in a
-randomized trial, is supported by the broader literature
-cited throughout this paper across outcome types and
-regulatory frameworks. The two scenarios simulated here
-demonstrate it directly for a correctly specified
+randomized trial. The two scenarios simulated here
+illustrate these points for a correctly specified
 continuous-outcome model and for a binary outcome under
-one form of working-model misspecification. The
+one mild form of working-model misspecification. The
 time-to-event case (criterion 9) remains supported only
 by the cited literature, not by simulation evidence
 generated here.
 
 The simulation uses heteroskedasticity-consistent (HC2)
 standard errors for the ANCOVA and test-then-adjust
-strategies, computed via `sandwich::vcovHC()`, matching
-the Methods description and the FDA's recommendation for
-robust variance estimation. For the balanced,
-correctly-specified designs considered here, HC2 and
-classical OLS standard errors are asymptotically
-equivalent [@linAgnostic2013]. The sandwich estimator was
-retained because it remains valid under the
-misspecification and heteroscedasticity that can arise in
-practice, even though neither is present by construction
-in this simulation.
+strategies, computed via `sandwich::vcovHC()`. This
+matches the Methods description. The FDA guidance
+accepts model-based standard errors for two-arm trials
+with 1:1 allocation and asks sponsors to consider
+robust ones elsewhere. For the
+balanced, correctly specified designs considered here,
+HC2 and classical OLS standard errors are asymptotically
+equivalent [@linAgnostic2013]. We retained the sandwich
+estimator because it remains valid under
+misspecification and heteroscedasticity. Both can arise
+in practice. Neither is present by construction in this
+simulation.
 
-# Future Research
+# Future research
 
 Several directions for future investigation emerge from
 this review.
@@ -1184,9 +1438,10 @@ this review.
    information-adaptive designs.
 
 2. **Missing covariate data.** When baseline covariates
-   are missing, the analyst faces a tradeoff between the
-   efficiency gains from adjustment and the potential
-   bias from ad hoc handling of missingness. Multiple
+   are missing, the analyst faces a tradeoff. On the one
+   hand, adjustment brings efficiency gains. On the
+   other, ad hoc handling of missingness brings potential
+   bias. Multiple
    imputation and augmented estimators remain active
    research areas.
 
@@ -1196,18 +1451,24 @@ this review.
    Extensions to cluster randomization and crossover
    designs present additional methodological challenges.
 
-4. **Software tools.** The R package `estimatr`
-   implements Lin's regression estimator via the
-   `lm_lin()` function. Broader software implementing
-   the standardization approach for various outcome
-   types would make best practices more accessible.
+4. **Software tools.** Software already exists for
+   much of what is recommended here. In R, `estimatr`
+   implements Lin's regression estimator via
+   `lm_lin()`. `RobinCar` implements model-robust
+   covariate adjustment under covariate-adaptive
+   randomization. `beeca` implements the standardized
+   estimator for binary outcomes, and `stdReg` and
+   `marginaleffects` provide g-computation more
+   generally. All are on CRAN. What remains is to
+   compare their variance estimators in small samples
+   and to extend them to more outcome types.
 
 5. **Harmonization of conditional and marginal
-   frameworks.** The tension between conditional effects,
-   natural for clinicians reasoning about individual
-   patients, and marginal effects, natural for regulators
-   reasoning about populations, remains unresolved
-   [@permuttCovariates2020; @vanLanckerCovariate2024;
+   frameworks.** Conditional effects are natural for
+   clinicians reasoning about individual patients.
+   Marginal effects are natural for regulators reasoning
+   about populations. The tension between the two remains
+   unresolved [@permuttCovariates2020; @vanLanckerCovariate2024;
    @harrellCommentary2024].
 
 # Conflict of interest
@@ -1229,66 +1490,69 @@ listed in the Reproducibility section below.
 
 This manuscript was rendered with R 4.4.x. The simulation
 function `run_sim()` lives in `R/run_sim.R` as a
-documented, exported package function, and it is
+documented, exported package function. It is
 unit-tested in `inst/tinytest/test_run_sim.R`. It uses
-base R `lm()` for model fitting, `sandwich::vcovHC()`
+base R `lm()` for model fitting and `sandwich::vcovHC()`
 (HC2) for the ANCOVA and test-then-adjust standard
-errors, `tibble` for the returned summary, `dplyr` and
-`ggplot2` for reporting, and `rmarkdown` plus `bookdown`
-for the manuscript build. We note that `MASS` is not
-used; the single covariate is generated with
-`stats::rnorm()`. The binary-outcome scenario's
+errors. It uses `tibble` for the returned summary.
+Reporting uses `dplyr` and `ggplot2`, and the manuscript
+build uses `rmarkdown` plus `bookdown`. We note that
+`MASS` is not used; the single covariate is generated
+with `stats::rnorm()`. The binary-outcome scenario's
 simulation function `run_sim_binary()` lives alongside
-it in `R/run_sim_binary.R` and is unit-tested in
+it in `R/run_sim_binary.R`. It is unit-tested in
 `inst/tinytest/test_run_sim_binary.R`. It uses base R
-`glm(family = binomial())` for model fitting,
-`sandwich::vcovHC()` (HC2) combined with a numerical
-(central finite-difference) gradient for the delta-method
-standard error of the standardized contrast, and
-`stats::integrate()` to compute the true marginal risk
-difference from the known data-generating model.
+`glm(family = binomial())` for model fitting. The
+delta-method standard error of the standardized
+contrast combines `sandwich::vcovHC()` (HC2) with a
+numerical (central finite-difference) gradient.
+Finally, `stats::integrate()` computes the true
+marginal risk difference from the known data-generating
+model.
 
 **Random-number generator.**
 `analysis/scripts/run_simulation.R` calls `run_sim(...,
 seed = master_seed + scenario_id)` once per scenario, with
-`master_seed <- 20260305`, so each of the eight
-$(n, \gamma)$ scenarios has its own reproducible seed set
-at the top of `run_sim()`. There is no per-replicate
-reseeding within a scenario. Replicates within a scenario
-share one continuous RNG stream, started from that
-scenario's seed.
+`master_seed <- 20260305`. As a result, each of the
+eight $(n, \gamma)$ scenarios has its own reproducible
+seed, set at the top of `run_sim()`. There is no
+per-replicate reseeding within a scenario. Replicates
+within a scenario share one continuous RNG stream,
+started from that scenario's seed.
 `analysis/scripts/run_simulation_binary.R` follows the
-same pattern with its own `master_seed <- 20260819`, so
-the six $(n, \gamma_2)$ binary-outcome scenarios each have
-their own reproducible seed, independent of the
-continuous-outcome scenario's RNG stream.
+same pattern with its own `master_seed <- 20260819`. The
+six $(n, \gamma_2)$ binary-outcome scenarios therefore
+each have their own reproducible seed. These seeds are
+independent of the continuous-outcome scenario's RNG
+stream.
 
 **Data and code availability.** Neither simulation is
 embedded in this Rmd.
 `analysis/scripts/run_simulation.R` runs the
 continuous-outcome factorial design
 ($n \in \{100, 200\}$, $\gamma \in \{0, 0.3, 0.5, 0.7\}$,
-$B = 5000$) and saves the combined results, together with
-the master seed and a timestamp, to
+$B = 5000$). It saves the combined results, together
+with the master seed and a timestamp, to
 `analysis/data/derived_data/sim_results.rds`.
 `analysis/scripts/run_simulation_binary.R` runs the
 binary-outcome factorial design ($n \in \{100, 200\}$,
-$\gamma_2 \in \{0, 0.4, 0.8\}$, $B = 2000$) and saves its
-results to
-`analysis/data/derived_data/sim_results_binary.rds`. This
-document's `simulation` and `simulation-binary` chunks
-read those `.rds` files directly and stop with an
-informative error if either is missing, so the manuscript
-can never silently render with stale or absent results.
-To regenerate the results, run
-`Rscript analysis/scripts/run_simulation.R` (roughly one
-to two minutes on a laptop) and
+$\gamma_2 \in \{0, 0.4, 0.8\}$, $B = 2000$). It saves
+its results to
+`analysis/data/derived_data/sim_results_binary.rds`.
+This document's `simulation` and `simulation-binary`
+chunks read those `.rds` files directly. They stop with
+an informative error if either is missing. As a result,
+the manuscript can never silently render with stale or
+absent results. To regenerate the results, first run
+`Rscript analysis/scripts/run_simulation.R` from the
+repository root (roughly one to two minutes on a
+laptop). Next run
 `Rscript analysis/scripts/run_simulation_binary.R`
-(roughly four to six minutes, since `glm()` fitting and
+from the repository root (roughly four to six minutes).
+The binary run takes longer because `glm()` fitting and
 the delta-method standard error are substantially more
 expensive per replicate than the continuous scenario's
-`lm()` fits) from the repository root. Then re-render
-this document with
+`lm()` fits. Then re-render this document with
 `bash tools/render.sh analysis/report/report.Rmd`. The
 manuscript source, bibliography (`references.bib`), and
 CSL file are at `analysis/report/`.

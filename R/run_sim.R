@@ -14,7 +14,8 @@
 #'
 #' @param n integer. Total sample size (randomized 1:1; must be even).
 #' @param gamma numeric. Covariate-outcome association; the residual
-#'   variance is set to `1 - gamma^2` so that `Var(Y) = 1` marginally.
+#'   variance is set to `1 - gamma^2` so that the within-arm variance
+#'   of `Y` is 1 (the marginal variance is `1 + tau^2 / 4`).
 #' @param tau numeric. True treatment effect. Default 0.3.
 #' @param b_reps integer. Number of Monte Carlo replications.
 #' @param seed integer or NULL. If not NULL, `set.seed(seed)` is

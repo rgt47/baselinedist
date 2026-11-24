@@ -10,7 +10,8 @@ run_sim(n, gamma, tau = 0.3, b_reps = 5000, seed = NULL)
 \item{n}{integer. Total sample size (randomized 1:1; must be even).}
 
 \item{gamma}{numeric. Covariate-outcome association; the residual
-variance is set to \code{1 - gamma^2} so that \code{Var(Y) = 1} marginally.}
+variance is set to \code{1 - gamma^2} so that the within-arm variance
+of \code{Y} is 1 (the marginal variance is \code{1 + tau^2 / 4}).}
 
 \item{tau}{numeric. True treatment effect. Default 0.3.}
 
